@@ -1,4 +1,5 @@
 using Unity.AI.Navigation;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -105,32 +106,26 @@ public class PlayerScript : MonoBehaviour
 
             if (hit.collider != null)
             {
+                BotDirection direction = new BotDirection(DirectType.Move, hit.point, hit.collider.gameObject);
 
-                if (hit.collider.gameObject.GetComponent<ResourceScript>() != null)
+                if (hit.collider.GetComponentInParent<ResourceScript>() != null)
                 {
-                    ResourceScript resource = hit.collider.gameObject.GetComponent<ResourceScript>();
 
-                    foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
-                    {
-                        if (bot != null)
-                        {
-                            bot.GetComponent<BotScript>().MoveTo(resource.gameObject.transform.position);
-                        }
-                    }
+                    ResourceScript resource = hit.collider.gameObject.GetComponent<ResourceScript>();
+                    direction.Type = DirectType.Harvest;
                 }
                 else
                 {
-                    foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
-                    {
-                        if (bot != null)
-                        {
-                            bot.GetComponent<BotScript>().MoveTo(hit.point);
-                        }
-                    }
-
+                    
                 }
-                
-                
+                //Debug.Log(hit.collider.gameObject.ToString());
+                foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
+                {
+                    if (bot != null)
+                    {
+                        bot.GetComponent<BotScript>().GiveDirection(direction);
+                    }
+                }
             }
 
         }

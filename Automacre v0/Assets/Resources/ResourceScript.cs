@@ -17,7 +17,7 @@ public class ResourceScript : MonoBehaviour
         
     }
 
-    public virtual void Harvest() 
+    public virtual void Harvest(BotScript bot) 
     { 
            
     

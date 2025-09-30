@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Resource_Coal : ResourceScript
 {
+
+    public GameObject ParticleEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,8 +16,9 @@ public class Resource_Coal : ResourceScript
         
     }
 
-    public override void Harvest()
+    public override void Harvest(BotScript bot)
     {
-        base.Harvest();
+        Instantiate(ParticleEffect,transform.position,Quaternion.identity);
+        base.Harvest(bot);
     }
 }
