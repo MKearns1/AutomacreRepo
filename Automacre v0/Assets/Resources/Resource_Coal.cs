@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Resource_Coal : ResourceScript
@@ -13,7 +14,7 @@ public class Resource_Coal : ResourceScript
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Find("DebugInfo").Find("Quantity").GetComponent<TextMeshPro>().text = Quantity.ToString();
     }
 
     public override void Harvest(BotScript bot)

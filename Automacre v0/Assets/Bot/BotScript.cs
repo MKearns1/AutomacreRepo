@@ -25,7 +25,7 @@ public class BotScript : MonoBehaviour
 
     public State CurrentBotState;
     List<BotDirection> botDirections = new List<BotDirection>();
-    List<int> f;
+    bool CurrentlyPerformingAction;
     //Vector<BotDirection> bb;
     Coroutine pathcomplete;
 
@@ -50,7 +50,7 @@ public class BotScript : MonoBehaviour
            // Debug.Log("Target Reached");
         }
 
-        if (botDirections.Count > 0)
+        if (botDirections.Count > 0 && !CurrentlyPerformingAction)
         {
             PerformAction(botDirections[0]);
             Debug.Log(botDirections.Count);
@@ -72,6 +72,7 @@ public class BotScript : MonoBehaviour
     }
     public void PerformAction(BotDirection Direction)
     {
+        CurrentlyPerformingAction = true;
         switch (Direction.Type)
         {
             case DirectType.Move:
@@ -84,7 +85,7 @@ public class BotScript : MonoBehaviour
             case DirectType.Harvest:
                 Debug.Log("Harvesting");
 
-                HarvestResource();
+                StartCoroutine(BeginHarvesting(Direction.TargetObject.GetComponentInParent<ResourceScript>()));
                 break;
 
         }
@@ -113,6 +114,7 @@ public class BotScript : MonoBehaviour
     public void DirectionComplete()
     {
         botDirections.RemoveAt(0);
+        CurrentlyPerformingAction = false;
     }
 
     public IEnumerator PathComplete(Action onComplete)
@@ -135,11 +137,20 @@ public class BotScript : MonoBehaviour
 
     }
 
+    public IEnumerator BeginHarvesting(ResourceScript resource)
+    {
+        while (resource.Quantity > 0) {
+            yield return new WaitForSeconds(1f);
+            HarvestResource(resource);
+        }
+        HarvestComplete();
 
-    void HarvestResource()
+        yield return null;
+    }
+
+    void HarvestResource(ResourceScript resource)
     {
         botDirections[0].TargetObject.GetComponentInParent<ResourceScript>().Harvest(this);
-        HarvestComplete();
     }
     void HarvestComplete()
     {
