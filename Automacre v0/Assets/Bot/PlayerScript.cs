@@ -1,5 +1,8 @@
+using NUnit.Framework;
 using Unity.AI.Navigation;
 using UnityEditor.Experimental.GraphView;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -13,11 +16,21 @@ public class PlayerScript : MonoBehaviour
     Camera cam;
 
     Vector3 RotationOrigin;
+    Vector3 ClickLocation;
+    float AgentStopDistance=10;
+
+    public List<BotScript> CurrentSelectedBots;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cam = Camera.main;
+
+        foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
+        {
+            CurrentSelectedBots.Add(bot.GetComponent<BotScript>());
+        }
+
     }
 
     // Update is called once per frame
@@ -43,7 +56,6 @@ public class PlayerScript : MonoBehaviour
 
         //transform.forward = camForward;
         transform.position += MoveDirection;
-
 
 
 
@@ -99,46 +111,93 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Ray Mouseray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            Physics.Raycast(Mouseray, out hit);
-
-            if (hit.collider != null)
-            {
-                BotDirection direction = new BotDirection(DirectType.Move, hit.point, hit.collider.gameObject);
-
-                if (hit.collider.GetComponentInParent<ResourceScript>() != null)
-                {
-
-                    ResourceScript resource = hit.collider.gameObject.GetComponent<ResourceScript>();
-                    direction.Type = DirectType.Harvest;
-                }
-                else
-                {
-                    
-                }
-                //Debug.Log(hit.collider.gameObject.ToString());
-                foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
-                {
-                    if (bot != null)
-                    {
-                        bot.GetComponent<BotScript>().GiveDirection(direction);
-                    }
-                }
-            }
+           
 
         }
 
 
+        if((Input.GetAxis("Mouse ScrollWheel") > 0))
+        {
+            transform.position = transform.position + cam.transform.forward;
 
+        }
+        else if ((Input.GetAxis("Mouse ScrollWheel") < 0))
+        {
+            transform.position = transform.position + cam.transform.forward*-1;
 
+        }
+
+        
         GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>().BuildNavMesh();
 
     }
 
+    public void MouseClick()
+    {
+        Ray Mouseray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        Physics.Raycast(Mouseray, out hit);
+
+        if (hit.collider != null)
+        {
+
+            IClickable clickable = hit.collider.gameObject.GetComponentInParent<IClickable>();
+            if (clickable != null)
+            {
+
+                clickable.OnClick(hit.point, CurrentSelectedBots);
+                Debug.Log("2222222222222222222222222222");
+            }
+
+
+        //    BotDirection direction = new BotDirection(DirectType.Move, hit.point, hit.collider.gameObject);
+
+        //    if (hit.collider.GetComponentInParent<ResourceScript>() != null)
+        //    {
+
+        //        ResourceScript resource = hit.collider.gameObject.GetComponent<ResourceScript>();
+        //        direction.Type = DirectType.Harvest;
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //    //Debug.Log(hit.collider.gameObject.ToString());
+        //    foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
+        //    {
+        //        if (bot != null)
+        //        {
+        //            bot.GetComponent<BotScript>().GiveDirection(direction);
+        //        }
+        //    }
+        }
+        ClickLocation = hit.point;
+        DrawDebugCircle(ClickLocation, AgentStopDistance, 16, Color.red, 10);
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(RotationOrigin, 1);
+        //Gizmos.DrawSphere(RotationOrigin, 1);
+        //Gizmos.DrawSphere(ClickLocation, AgentStopDistance);
     }
+
+
+    void DrawDebugCircle(Vector3 center, float radius, int segments, Color color, float duration = 0)
+    {
+        float angleStep = 360f / segments;
+
+        Vector3 prevPoint = center + new Vector3(Mathf.Cos(0), 0, Mathf.Sin(0)) * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i * angleStep * Mathf.Deg2Rad;
+            Vector3 nextPoint = center + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+
+            Debug.DrawLine(prevPoint, nextPoint, color, duration);
+
+            prevPoint = nextPoint;
+        }
+    }
+
 }

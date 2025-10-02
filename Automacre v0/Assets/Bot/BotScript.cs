@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using TMPro;
 using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEngine;
@@ -24,10 +25,15 @@ public class BotScript : MonoBehaviour
     }
 
     public State CurrentBotState;
-    List<BotDirection> botDirections = new List<BotDirection>();
+    public List<BotDirection> botDirections = new List<BotDirection>();
     bool CurrentlyPerformingAction;
+
+    public List<ResourceType> Inventory = new List<ResourceType>();
+
+    TextMeshPro debugtext;
     //Vector<BotDirection> bb;
     Coroutine pathcomplete;
+    float GiveUpTimer=0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,6 +41,8 @@ public class BotScript : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         agent.speed = MovementSpeed;
+
+        debugtext = transform.Find("State").GetComponent<TextMeshPro>();
 
         onPathCompleteAction += GetNextAction;
         onPathCompleteAction += DirectionComplete;
@@ -53,14 +61,50 @@ public class BotScript : MonoBehaviour
         if (botDirections.Count > 0 && !CurrentlyPerformingAction)
         {
             PerformAction(botDirections[0]);
-            Debug.Log(botDirections.Count);
+            //Debug.Log(botDirections.Count);
 
         }
+
+        debugtext.text = CurrentBotState.ToString();
+        debugtext.gameObject.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.x+90,0,transform.rotation.z);
+        switch (CurrentBotState)
+        {
+            case State.Idle:
+                debugtext.color = Color.white;
+                break;
+            case State.MovingToTarget:
+                debugtext.color = Color.green;
+                break;
+            case State.HarvestingResource:
+                debugtext.color = Color.yellow;
+                break;
+
+
+        }
+
+        //Debug.Log(agent.velocity.magnitude);
+
+        if(GiveUpTimer >=2) 
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+            //DirectionComplete();
+            GiveUpTimer = 0;
+            Debug.Log("GiveUp");
+
+        }
+        else
+        {
+            agent.isStopped = false;
+
+            GiveUp();
+        }
+
+        debugtext.text = GiveUpTimer.ToString();
     }
 
     public void MoveTo(UnityEngine.Vector3 Position)
     {
-        CurrentBotState = State.MovingToTarget; 
         agent.SetDestination(Position);
 
 
@@ -78,6 +122,7 @@ public class BotScript : MonoBehaviour
             case DirectType.Move:
                 // Debug.Log("MovingToLocation");
 
+                CurrentBotState = State.MovingToTarget;
 
                 MoveTo(Direction.Location);
                 break;
@@ -85,8 +130,17 @@ public class BotScript : MonoBehaviour
             case DirectType.Harvest:
                 Debug.Log("Harvesting");
 
-                StartCoroutine(BeginHarvesting(Direction.TargetObject.GetComponentInParent<ResourceScript>()));
-                break;
+                CurrentBotState = State.HarvestingResource;
+
+                if (Direction.TargetObject != null)
+                {
+                    StartCoroutine(BeginHarvesting(Direction.TargetObject.GetComponentInParent<ResourceScript>()));
+                }
+                else
+                {
+                    DirectionComplete();
+                }
+                    break;
 
         }
     }
@@ -101,7 +155,9 @@ public class BotScript : MonoBehaviour
                 break;
 
             case DirectType.Harvest:
-                BotDirection moveto = new BotDirection(DirectType.Move, Direction.Location,null);
+
+                UnityEngine.Vector3 RandomPointAroundResource = Direction.TargetObject.transform.position + UnityEngine.Random.insideUnitSphere;
+                BotDirection moveto = new BotDirection(DirectType.Move, RandomPointAroundResource,null);
                 botDirections.Add(moveto);
 
                 break;
@@ -113,8 +169,18 @@ public class BotScript : MonoBehaviour
     }
     public void DirectionComplete()
     {
-        botDirections.RemoveAt(0);
-        CurrentlyPerformingAction = false;
+        if (botDirections.Count > 0)
+        {
+            botDirections.RemoveAt(0);
+            CurrentlyPerformingAction = false;
+            CurrentBotState = State.Idle;
+            GiveUpTimer = 0;
+
+        }
+        else
+        {
+            Debug.Log("No Directions left to remove");
+        }
     }
 
     public IEnumerator PathComplete(Action onComplete)
@@ -141,7 +207,11 @@ public class BotScript : MonoBehaviour
     {
         while (resource.Quantity > 0) {
             yield return new WaitForSeconds(1f);
-            HarvestResource(resource);
+
+            if (resource.Quantity > 0)
+            {
+                HarvestResource(resource);
+            }
         }
         HarvestComplete();
 
@@ -163,4 +233,23 @@ public class BotScript : MonoBehaviour
         if(agent != null) 
        Gizmos.DrawSphere(agent.destination, 0.5f);
     }
+
+
+    public void GiveUp()
+    {
+        if(agent.remainingDistance > agent.stoppingDistance)
+        {
+            if (agent.velocity.magnitude < 3)
+            {
+                GiveUpTimer += Time.deltaTime;
+                //Debug.Log(GiveUpTimer);
+            }
+            else
+            {
+                GiveUpTimer = 0;
+            }
+        }
+    }
+
+
 }

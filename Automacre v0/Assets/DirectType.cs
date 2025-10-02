@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum DirectType
@@ -5,7 +6,7 @@ public enum DirectType
     Move,
     Harvest
 }
-
+[Serializable]
 public class BotDirection
 {
     public DirectType Type;
