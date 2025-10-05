@@ -7,6 +7,8 @@ using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+using static UnityEditor.Progress;
 
 public class BotScript : MonoBehaviour
 {
@@ -21,19 +23,21 @@ public class BotScript : MonoBehaviour
     {
         Idle,
         MovingToTarget,
-        HarvestingResource
+        HarvestingResource,
+        DepositingItems
     }
 
     public State CurrentBotState;
     public List<BotDirection> botDirections = new List<BotDirection>();
     bool CurrentlyPerformingAction;
 
-    public List<ResourceType> Inventory = new List<ResourceType>();
+    public List<InventoryItem> Inventory = new List<InventoryItem>() { };
 
     TextMeshPro debugtext;
     //Vector<BotDirection> bb;
     Coroutine pathcomplete;
     float GiveUpTimer=0;
+    float DepositTime = 2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +50,13 @@ public class BotScript : MonoBehaviour
 
         onPathCompleteAction += GetNextAction;
         onPathCompleteAction += DirectionComplete;
-       
+
+
+        Inventory.Clear(); // just in case
+        foreach (ResourceType type in System.Enum.GetValues(typeof(ResourceType)))
+        {
+            Inventory.Add(new InventoryItem(type, 0));
+        }
     }
 
     // Update is called once per frame
@@ -78,13 +88,16 @@ public class BotScript : MonoBehaviour
             case State.HarvestingResource:
                 debugtext.color = Color.yellow;
                 break;
+            case State.DepositingItems:
+                debugtext.color = Color.grey;
+                break;
 
 
         }
 
         //Debug.Log(agent.velocity.magnitude);
 
-        if(GiveUpTimer >=2) 
+        if (GiveUpTimer >=2) 
         {
             agent.isStopped = true;
             agent.ResetPath();
@@ -125,6 +138,7 @@ public class BotScript : MonoBehaviour
                 CurrentBotState = State.MovingToTarget;
 
                 MoveTo(Direction.Location);
+                Interfaces.DrawDebugCircle(Direction.Location,agent.stoppingDistance,16,Color.yellow,20);
                 break;
 
             case DirectType.Harvest:
@@ -142,11 +156,24 @@ public class BotScript : MonoBehaviour
                 }
                     break;
 
+                case DirectType.Deposit:
+
+                if(Direction.TargetObject.GetComponentInParent<StorageScript>()!=null)
+                {
+                    StartCoroutine(BeginDepositing(Direction.TargetObject.GetComponentInParent<StorageScript>()));
+
+                }
+
+                break;
+
         }
     }
 
     public void GiveDirection(BotDirection Direction)
     {
+        BotDirection moveto = new BotDirection(DirectType.Move,Direction.Location,null);
+        UnityEngine.Vector3 RandomPointAroundResource;
+
         switch (Direction.Type)
         {
             case DirectType.Move:
@@ -156,10 +183,16 @@ public class BotScript : MonoBehaviour
 
             case DirectType.Harvest:
 
-                UnityEngine.Vector3 RandomPointAroundResource = Direction.TargetObject.transform.position + UnityEngine.Random.insideUnitSphere;
-                BotDirection moveto = new BotDirection(DirectType.Move, RandomPointAroundResource,null);
+                RandomPointAroundResource = Direction.TargetObject.transform.position + UnityEngine.Random.insideUnitSphere;
+                moveto.Location = RandomPointAroundResource;
                 botDirections.Add(moveto);
 
+                break;
+
+            case DirectType.Deposit:
+                RandomPointAroundResource = Direction.TargetObject.transform.position + UnityEngine.Random.insideUnitSphere;
+                moveto.Location = RandomPointAroundResource;
+                botDirections.Add(moveto);
                 break;
 
         }
@@ -206,7 +239,7 @@ public class BotScript : MonoBehaviour
     public IEnumerator BeginHarvesting(ResourceScript resource)
     {
         while (resource.Quantity > 0) {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(resource.HarvestTime);
 
             if (resource.Quantity > 0)
             {
@@ -221,8 +254,38 @@ public class BotScript : MonoBehaviour
     void HarvestResource(ResourceScript resource)
     {
         botDirections[0].TargetObject.GetComponentInParent<ResourceScript>().Harvest(this);
+
     }
     void HarvestComplete()
+    {
+        DirectionComplete();
+    }
+
+
+    public IEnumerator BeginDepositing(StorageScript Storage)
+    {
+        foreach (InventoryItem item in Inventory)
+        {
+            while(item.Quantity > 0)
+            {
+                yield return new WaitForSeconds(1f);
+
+                Deposit(item, Storage);
+            }
+
+        }
+        DepositComplete();
+
+        yield return null;
+    }
+
+    public void Deposit(InventoryItem depositItem, StorageScript Storage)
+    {
+        //botDirections[0].TargetObject.GetComponentInParent<StorageScript>().DepositItem(depositItem, 1, this);
+        Storage.DepositItem(depositItem, 1, this);
+    }
+
+    public void DepositComplete()
     {
         DirectionComplete();
     }

@@ -193,7 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcced156eb5b9c4ea55348e567eae42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Quantity: 100
-  MaxQuantity: 100
+  Quantity: 10
+  MaxQuantity: 10
+  HarvestTime: 6
   resourceType: 3
+  HarvestSound: {fileID: 8300000, guid: 3c391d2f45a446f46b146b1710bfa322, type: 3}
   ParticleEffect: {fileID: 354008824368719772, guid: 4f4853d24332fa74092c256a0fe7e2c3, type: 3}

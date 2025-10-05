@@ -446,15 +446,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7448809308173965078, guid: da04bbf9dcffcca4f86c98a1dfc430bb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.249501
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 7448809308173965078, guid: da04bbf9dcffcca4f86c98a1dfc430bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.50000095
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7448809308173965078, guid: da04bbf9dcffcca4f86c98a1dfc430bb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5611172
+      value: -5.77
       objectReference: {fileID: 0}
     - target: {fileID: 7448809308173965078, guid: da04bbf9dcffcca4f86c98a1dfc430bb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -526,7 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2c8049df9e48349aaba6c40a6f16c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Quantity: 40
-  MaxQuantity: 40
+  Quantity: 25
+  MaxQuantity: 25
+  HarvestTime: 1
   resourceType: 1
   ParticleEffect: {fileID: 354008824368719772, guid: 4f4853d24332fa74092c256a0fe7e2c3, type: 3}

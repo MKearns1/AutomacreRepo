@@ -15,17 +15,24 @@ public class PlayerScript : MonoBehaviour
 
     Camera cam;
 
+    Vector3 CamDesiredPos;
+    Quaternion CamDesiredRot;
     Vector3 RotationOrigin;
     Vector3 ClickLocation;
     float AgentStopDistance=10;
 
     public List<BotScript> CurrentSelectedBots;
+    HUDBase HudBase;
+    RaycastHit CurrentHoveredObj;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cam = Camera.main;
-
+        HudBase = GameObject.Find("Canvas").GetComponent<HUDBase>();
+        CamDesiredPos = transform.position;
+        CamDesiredRot = transform.rotation;
         foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
         {
             CurrentSelectedBots.Add(bot.GetComponent<BotScript>());
@@ -55,7 +62,7 @@ public class PlayerScript : MonoBehaviour
         Vector3 MoveDirection = (forwardRelative+rightRelative) * Time.deltaTime * CamMoveSpeed;
 
         //transform.forward = camForward;
-        transform.position += MoveDirection;
+        CamDesiredPos += MoveDirection;
 
 
 
@@ -85,7 +92,7 @@ public class PlayerScript : MonoBehaviour
         else
         { rotY = 0;        }
 
-            Vector3 Rotation = new Vector3(0, transform.rotation.eulerAngles.y + rotY, 0);
+            Vector3 Rotation = new Vector3(0, transform.rotation.eulerAngles.y + rotY*10, 0);
 
         //transform.rotation = Quaternion.Euler(Rotation);
         
@@ -97,17 +104,26 @@ public class PlayerScript : MonoBehaviour
 
         Physics.Raycast(ScreenCentreRay, out hit3);
 
-        if (hit3.point != null)
+        if (hit3.collider != null)
         {
             RotationOrigin = hit3.point;
         }
 
+        if (rotY != 0)
+        {
 
+            CamDesiredPos = Quaternion.AngleAxis(rotY * CamMoveSpeed * Time.deltaTime, Vector3.up) * (CamDesiredPos - RotationOrigin) + RotationOrigin;
 
+            Vector3 dir = (RotationOrigin - CamDesiredPos).normalized;
 
-        transform.RotateAround(RotationOrigin,transform.up, rotY * Time.deltaTime * RotationSpeed);
+            Quaternion LookRot = Quaternion.LookRotation(dir, transform.up);
 
+            CamDesiredRot = Quaternion.Euler(new Vector3(0, LookRot.eulerAngles.y, 0));
 
+            Debug.Log(LookRot.eulerAngles.y);
+            Debug.DrawLine(CamDesiredPos, RotationOrigin, Color.red);
+            Debug.DrawRay(CamDesiredPos, (RotationOrigin - CamDesiredPos).normalized, Color.green);
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -118,26 +134,39 @@ public class PlayerScript : MonoBehaviour
 
         if((Input.GetAxis("Mouse ScrollWheel") > 0))
         {
-            transform.position = transform.position + cam.transform.forward;
+            CamDesiredPos += cam.transform.forward;
 
         }
         else if ((Input.GetAxis("Mouse ScrollWheel") < 0))
         {
-            transform.position = transform.position + cam.transform.forward*-1;
+            CamDesiredPos += cam.transform.forward*-1;
 
         }
 
+        transform.position = Vector3.Lerp(transform.position, CamDesiredPos, Time.deltaTime * 10);
+        transform.rotation = Quaternion.Lerp(transform.rotation, CamDesiredRot, Time.deltaTime * 10);
+
+        transform.Find("Cube").transform.position = CamDesiredPos;
+        transform.Find("Cube").transform.rotation = CamDesiredRot;
+
+        CurrentHoveredObj = Interfaces.CastMouseOverObject(cam);
+
+        if (CurrentHoveredObj.collider != null)
+        {
+            IClickable i = CurrentHoveredObj.collider.gameObject.GetComponentInParent<IClickable>();
+            HudBase.Hover(i);
+        }
+
         
+
         GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>().BuildNavMesh();
 
     }
 
     public void MouseClick()
     {
-        Ray Mouseray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        Physics.Raycast(Mouseray, out hit);
+        hit = Interfaces.CastMouseOverObject(cam);
 
         if (hit.collider != null)
         {
@@ -147,10 +176,17 @@ public class PlayerScript : MonoBehaviour
             {
 
                 clickable.OnClick(hit.point, CurrentSelectedBots);
-                Debug.Log("2222222222222222222222222222");
+                //Debug.Log("2222222222222222222222222222");
             }
-
-
+            else
+            {
+                BotDirection MoveTodirection = new BotDirection(DirectType.Move, hit.point, null);
+                foreach (BotScript bot in CurrentSelectedBots)
+                {
+                    bot.GiveDirection(MoveTodirection);
+                }
+                //Debug.Log("GGGGGGGGGGGGGG");
+            }
         //    BotDirection direction = new BotDirection(DirectType.Move, hit.point, hit.collider.gameObject);
 
         //    if (hit.collider.GetComponentInParent<ResourceScript>() != null)

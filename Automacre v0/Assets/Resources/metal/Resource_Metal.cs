@@ -6,8 +6,10 @@ public class Resource_Metal : ResourceScript
 
     public GameObject ParticleEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
+        base.Start();
+        
         for (int i = 0; i < MaxQuantity; i++)
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);

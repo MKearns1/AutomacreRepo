@@ -4,7 +4,8 @@ using UnityEngine;
 public enum DirectType
 {
     Move,
-    Harvest
+    Harvest,
+    Deposit
 }
 [Serializable]
 public class BotDirection
