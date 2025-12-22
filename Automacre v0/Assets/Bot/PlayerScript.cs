@@ -151,15 +151,15 @@ public class PlayerScript : MonoBehaviour
 
         CurrentHoveredObj = Interfaces.CastMouseOverObject(cam);
 
-        if (CurrentHoveredObj.collider != null)
+        /*if (CurrentHoveredObj.collider != null)
         {
             IClickable i = CurrentHoveredObj.collider.gameObject.GetComponentInParent<IClickable>();
             HudBase.Hover(i);
-        }
+        }*/
 
         
 
-        GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>().BuildNavMesh();
+        //GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>().BuildNavMesh();
 
     }
 
