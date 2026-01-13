@@ -141,7 +141,7 @@ public class BotBodyBase : MonoBehaviour
 
         // if(!stepping)
 
-        transform.position = transform.position + transform.forward * Time.deltaTime * moveSpeed;
+       // transform.position = transform.position + transform.forward * Time.deltaTime * moveSpeed;
 
         float smoothedHeight;
         smoothedHeight = transform.position.y;

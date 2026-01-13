@@ -21,7 +21,8 @@ public class PlayerScript : MonoBehaviour
     Vector3 ClickLocation;
     float AgentStopDistance=10;
 
-    public List<BotScript> CurrentSelectedBots;
+    public List<BotScript> CurrentSelectedBots1;
+    public List<BotController> CurrentSelectedBots;
     HUDBase HudBase;
     RaycastHit CurrentHoveredObj;
 
@@ -35,7 +36,7 @@ public class PlayerScript : MonoBehaviour
         CamDesiredRot = transform.rotation;
         foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
         {
-            CurrentSelectedBots.Add(bot.GetComponent<BotScript>());
+            CurrentSelectedBots1.Add(bot.GetComponent<BotScript>());
         }
 
     }
@@ -127,7 +128,7 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-           
+            MouseClick();
 
         }
 
@@ -171,17 +172,27 @@ public class PlayerScript : MonoBehaviour
         if (hit.collider != null)
         {
 
+            if (hit.collider.GetComponentInParent<BotController>() != null)
+            CurrentSelectedBots.Add(hit.collider.GetComponentInParent<BotController>());
+
+            foreach (BotController bot in CurrentSelectedBots)
+            {
+                bot.Ai.MoveTo(hit.point);
+            }
+
+
+
             IClickable clickable = hit.collider.gameObject.GetComponentInParent<IClickable>();
             if (clickable != null)
             {
 
-                clickable.OnClick(hit.point, CurrentSelectedBots);
+                clickable.OnClick(hit.point, CurrentSelectedBots1);
                 //Debug.Log("2222222222222222222222222222");
             }
             else
             {
                 BotDirection MoveTodirection = new BotDirection(DirectType.Move, hit.point, null);
-                foreach (BotScript bot in CurrentSelectedBots)
+                foreach (BotScript bot in CurrentSelectedBots1)
                 {
                     bot.GiveDirection(MoveTodirection);
                 }

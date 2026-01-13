@@ -12,7 +12,8 @@ public class WorkshopGeneral : MonoBehaviour
     public List<BotComponent> ComponentsList = new List<BotComponent>();
     //public List<GameObject> ComponentsList = new List<GameObject>();
 
-    public BotComponent CurrentSelectedComponent;
+    public BotComponent CurrentSelectedComponentToPlace;
+    public BotComponent SelectedComponentOnBot;
     RectTransform cursor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +27,7 @@ public class WorkshopGeneral : MonoBehaviour
         {
             Destroy(this);
         }
-        Cursor.visible = false;
+        //Cursor.visible = false;
         cursor = GameObject.Find("Cursor").GetComponent<RectTransform>();
 
     }
@@ -41,19 +42,36 @@ public class WorkshopGeneral : MonoBehaviour
         cursor.anchoredPosition = pos;
     }
 
-    public void SelectComponent(string name)
+    public void SelectMenuComponent(string name)
     {
         BotComponent comp = GetComponentByName(name);
 
-        if(comp == CurrentSelectedComponent)
+        if(comp == CurrentSelectedComponentToPlace)
         {
-            CurrentSelectedComponent = null;
+            CurrentSelectedComponentToPlace = null;
             cursor.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
             return;
         }
 
-        CurrentSelectedComponent = GetComponentByName(name);
+        CurrentSelectedComponentToPlace = GetComponentByName(name);
         cursor.Find("Text").GetComponent<TextMeshProUGUI>().text = name;
+
+    }
+
+    public void SelectBotsComponent(BotComponent SelectedComponent)
+    {
+        ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+
+        switch (SelectedComponent.ComponentDefaultData.Type)
+        {
+            case ComponentType.Walker:
+
+                GameObject NewOptionsPopup = Instantiate(OptionsCanvas.Options_Walker, OptionsCanvas.GetComponent<RectTransform>());
+                OptionsCanvas.CurrentOption = NewOptionsPopup;
+                OptionsCanvas.SetOptionDetails(SelectedComponent);
+
+                break;
+        }
 
     }
 

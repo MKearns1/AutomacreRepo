@@ -53,7 +53,7 @@ public class WorkshopMovement : MonoBehaviour
 
             if(rayhit.collider.gameObject.tag == "AttatchPoint")
             {
-                if(WorkshopGeneral.instance.CurrentSelectedComponent == null) return ;
+                if(WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return ;
                 ClickAttachPoint(rayhit);
 
 /*                GameObject newLeg = Instantiate(WorkshopGeneral.instance.LegPrefab, attatchpoint.position, attatchpoint.rotation);
@@ -71,6 +71,10 @@ public class WorkshopMovement : MonoBehaviour
                 newLeg.transform.GetComponentInChildren<ProceduralWalker>().enabled=false;*/
             }
 
+            if(rayhit.collider.transform.GetComponentInParent<BotComponent>() != null)
+            {
+                WorkshopGeneral.instance.SelectBotsComponent(rayhit.collider.transform.GetComponentInParent<BotComponent>());
+            }
         }
     }
 
@@ -79,7 +83,7 @@ public class WorkshopMovement : MonoBehaviour
         Transform attatchpoint = rayhit.collider.gameObject.transform;
         AttatchPoint ap = attatchpoint.GetComponent<AttatchPoint>();
 
-        GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponent.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
+        GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
 
         ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
     }

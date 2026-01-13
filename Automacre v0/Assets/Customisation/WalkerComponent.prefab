@@ -140,6 +140,7 @@ Transform:
   m_Children:
   - {fileID: 7695810819077795449}
   - {fileID: 6579033764283400565}
+  - {fileID: 2803333583803315007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &-6689400603016825658
@@ -157,6 +158,7 @@ MonoBehaviour:
   CompName: Walker
   body: {fileID: 0}
   ComponentDefaultData: {fileID: 11400000, guid: ca8ef0e1f175fdc4287385fe36959a3e, type: 2}
+  Foot: {fileID: 0}
 --- !u!1 &3591573992850114956
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +211,7 @@ MonoBehaviour:
   DefaultJoints: []
   iterations: 10
   TargetTransform: {fileID: 0}
-  Pole: {fileID: 0}
+  Pole: {fileID: 2803333583803315007}
 --- !u!114 &5803011406556131629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +236,7 @@ MonoBehaviour:
   - {fileID: 2735069627060001085}
   - {fileID: 7658446560696618100}
   HasPole: 1
-  Pole: {fileID: 0}
+  Pole: {fileID: 2803333583803315007}
   LimbSegmentPrefab: {fileID: 8507451322485657769, guid: 4d39d3f72ecea894cb4a5a786af8356a, type: 3}
 --- !u!114 &8922024448943938637
 MonoBehaviour:
@@ -249,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    MaxStrideLength: 0.5
+    MaxStrideLength: 0.1
     MaxReachLength: 2
   BotBody: {fileID: 0}
   EndPoint: {fileID: 0}
@@ -298,6 +300,37 @@ Transform:
   m_Children:
   - {fileID: 4516725199679537594}
   m_Father: {fileID: 4648881564416377583}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6056800570681995511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2803333583803315007}
+  m_Layer: 0
+  m_Name: Pole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2803333583803315007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6056800570681995511}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 1.4499999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3126576563263263070}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6544820049553808165
 GameObject:

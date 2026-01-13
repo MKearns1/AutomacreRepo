@@ -8,6 +8,7 @@ public class BotController : MonoBehaviour
     public BotBodyBase body;
     public List<Transform> components = new List<Transform>();
     Dictionary<string, AttatchPoint> AttachmentPoints = new Dictionary<string, AttatchPoint>();
+    public BotAI Ai;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
