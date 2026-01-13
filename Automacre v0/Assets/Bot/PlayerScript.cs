@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cam = Camera.main;
+        cam = transform.GetChild(0).GetComponent<Camera>();
         HudBase = GameObject.Find("Canvas").GetComponent<HUDBase>();
         CamDesiredPos = transform.position;
         CamDesiredRot = transform.rotation;
@@ -109,10 +109,10 @@ public class PlayerScript : MonoBehaviour
             RotationOrigin = hit3.point;
         }
 
-        if (rotY != 0)
+        if (rotY != 0 && InputAxisX == 0 & InputAxisY ==0)
         {
 
-            CamDesiredPos = Quaternion.AngleAxis(rotY * CamMoveSpeed * Time.deltaTime, Vector3.up) * (CamDesiredPos - RotationOrigin) + RotationOrigin;
+            CamDesiredPos = Quaternion.AngleAxis(rotY * CamMoveSpeed *RotationSpeed * Time.deltaTime, Vector3.up) * (CamDesiredPos - RotationOrigin) + RotationOrigin;
 
             Vector3 dir = (RotationOrigin - CamDesiredPos).normalized;
 
@@ -214,7 +214,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawSphere(RotationOrigin, 1);
+        Gizmos.DrawSphere(RotationOrigin, 1);
         //Gizmos.DrawSphere(ClickLocation, AgentStopDistance);
     }
 

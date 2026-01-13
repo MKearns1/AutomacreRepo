@@ -7,9 +7,12 @@ public class LimbCreator : MonoBehaviour
     public int NumberOfJoints = 2;
     public float Length;
     public float JointSize = .5f;
+    public float SegmentSize = .5f;
     public List<Transform> Joints = new List<Transform>();
+    public List<Transform> Segments = new List<Transform>();
     public bool HasPole;
     public Transform Pole;
+    public GameObject LimbSegmentPrefab;
 
     [ExecuteAlways]
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,7 +37,7 @@ public class LimbCreator : MonoBehaviour
         //Joints.Add(end.transform);
         CreateBone(transform.position + transform.forward * Length, Joints[Joints.Count - 1], "End");
 
-        if(Pole != null)
+/*        if(Pole != null)
         DestroyImmediate(Pole.gameObject);
 
         if (HasPole)
@@ -45,6 +48,12 @@ public class LimbCreator : MonoBehaviour
             pole.transform.SetParent(transform, true);
             Pole = pole.transform;
             Pole.name = "Pole";
+        }*/
+
+        CreateSegments();
+        if (Application.isPlaying)
+        {
+            GetComponent<FABRIK>().GetAllBones();
         }
     }
 
@@ -53,10 +62,41 @@ public class LimbCreator : MonoBehaviour
         GameObject newJoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         newJoint.transform.position = Position;
         newJoint.transform.localScale = Vector3.one * JointSize;
+        //newJoint.transform.localScale = Vector3.one;
         newJoint.transform.SetParent(Parent, true);
         newJoint.name = name;
         Joints.Add(newJoint.transform);
 
+    }
+
+    [ContextMenu("Create Segments")]
+    public void CreateSegments()
+    {
+        for (int i = 0; i < Joints.Count-1; i++)
+        {
+            CreateSegment(Joints[i].transform.position, Joints[i], Joints[i+1], "Segment" + i);
+        }
+    }
+
+    public void CreateSegment(Vector3 Position, Transform Parent, Transform EndTarget, string name = "Segment")
+    {
+        float DistanceBetweenJoints = (float)(Length / (float)(NumberOfJoints + 1f));
+
+        GameObject newSegment = GameObject.Instantiate(LimbSegmentPrefab, Parent);
+        newSegment.transform.position = Position;
+
+        LimbSegmentPrefab.transform.GetChild(0).transform.localScale = new Vector3(SegmentSize, SegmentSize, DistanceBetweenJoints / JointSize);
+        LimbSegmentPrefab.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, DistanceBetweenJoints / 2f / JointSize);
+
+        Vector3 relativePos = EndTarget.position - Position;
+
+        // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, Joints[j].Joint.transform.GetChild(1).forward);
+        newSegment.transform.rotation = Quaternion.LookRotation(relativePos, transform.up);
+
+        //newSegment.transform.localScale = Vector3.one * JointSize;
+        newSegment.transform.SetParent(Parent, true);
+        newSegment.name = name;
+        Segments.Add(newSegment.transform);
     }
 
     public void DestroyOldJoints()
@@ -67,6 +107,22 @@ public class LimbCreator : MonoBehaviour
             DestroyImmediate(t.gameObject);
         }
         Joints.Clear();
+
+        foreach(Transform t in Segments)
+        {
+            if (t != null)
+                DestroyImmediate(t.gameObject);
+        }
+        Segments.Clear();
+
+        if(transform.Find("Base") != null)
+        {
+            DestroyImmediate(transform.Find("Base").gameObject);
+        }
+        if (transform.Find("Pole") != null)
+        {
+            DestroyImmediate(transform.Find("Pole").gameObject);
+        }
     }
 
     // Update is called once per frame

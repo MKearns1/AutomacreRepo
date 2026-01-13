@@ -24,6 +24,7 @@ public class IKSolver : MonoBehaviour
     [ContextMenu("GetBones")]
     public void GetAllBones()
     {
+        Joints.Clear();
         bool remainingchildren = true;
         Transform current = transform;
 

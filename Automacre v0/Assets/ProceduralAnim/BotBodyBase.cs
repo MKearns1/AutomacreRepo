@@ -10,12 +10,15 @@ public class BotBodyBase : MonoBehaviour
     public LayerMask GroundLayer;
     Vector3 GroundHitLocation;
     public float DesiredHeight = 1;
-    public List<ProceduralAnimBase> ProceduralComponents;
+    public List<ProceduralWalker> ProceduralComponents;
+    float heightVelocity = 0;
+    //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
+        //GetAllProceduralComponents();
+       // ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
         
     }
 
@@ -35,7 +38,7 @@ public class BotBodyBase : MonoBehaviour
 
         Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredHeight;
 
-        transform.position = Vector3.Lerp(transform.position, DesiredPos, Time.deltaTime * 5);
+        //transform.position = Vector3.Lerp(transform.position, DesiredPos, Time.deltaTime * 5);
 
         Vector3 AvgHeight = Vector3.zero;
         float CompAvgHeight = 0;
@@ -75,6 +78,57 @@ public class BotBodyBase : MonoBehaviour
         CompAvgHeight /= ProceduralComponents.Count;
         CompAvgHeight += DesiredHeight;
 
+/*
+        Vector3 avgNormal = Vector3.zero;
+        Vector3 center = Vector3.zero;
+
+        foreach (var comp in ProceduralComponents)
+        {
+            center += comp.EndPoint.position;
+        }
+        center /= ProceduralComponents.Count;
+
+        for (int i = 0; i < ProceduralComponents.Count; i++)
+        {
+            Vector3 a = ProceduralComponents[i].EndPoint.position - center;
+            Vector3 b = ProceduralComponents[(i + 1) % ProceduralComponents.Count].EndPoint.position - center;
+
+            avgNormal += Vector3.Cross(a, b);
+        }
+
+        avgNormal.Normalize();
+
+        Vector3 desiredUp = Vector3.Slerp(
+    transform.up,
+    avgNormal,
+    0.02f   // tilt strength
+);
+        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, desiredUp).normalized;
+
+        Quaternion desiredRotation = Quaternion.LookRotation(forward, desiredUp);
+        transform.rotation = Quaternion.Slerp(
+    transform.rotation,
+    desiredRotation,
+    Time.deltaTime * 5f
+);
+*/
+
+        /*        //float maxAllowedHeight = Mathf.Infinity;
+
+                //foreach (var comp in ProceduralComponents)
+                //{
+                //    maxAllowedHeight = Mathf.Min(
+                //        maxAllowedHeight,
+                //        comp.Settings.MaxReachLength
+                //    );
+                //}
+
+                //float clampedHeight =
+                //    Mathf.Min(DesiredHeight, maxAllowedHeight * 0.9f);
+
+                //CompAvgHeight += clampedHeight;*/
+
+
         Ray FaceRay = new Ray(transform.position, transform.forward);
 
         if (Physics.Raycast(FaceRay, out hit, 3, GroundLayer))
@@ -86,16 +140,23 @@ public class BotBodyBase : MonoBehaviour
         Debug.DrawRay(FaceRay.origin, FaceRay.direction);
 
         // if(!stepping)
+
         transform.position = transform.position + transform.forward * Time.deltaTime * moveSpeed;
-        transform.position = new Vector3(transform.position.x, CompAvgHeight, transform.position.z);
+
+        float smoothedHeight;
+        smoothedHeight = transform.position.y;
+
+        smoothedHeight = Mathf.SmoothDamp(smoothedHeight, CompAvgHeight, ref heightVelocity, .25f);
+
+        transform.position = new Vector3(transform.position.x, smoothedHeight, transform.position.z);
     }
 
 
 
 
-    public ProceduralAnimBase GetMostBehindComponent()
+    public ProceduralWalker GetMostBehindComponent()
     {
-        ProceduralAnimBase furthestComponent = null;
+        ProceduralWalker furthestComponent = null;
         float furthestdist = -Mathf.Infinity;
 
         foreach (var comp in ProceduralComponents)
@@ -113,4 +174,18 @@ public class BotBodyBase : MonoBehaviour
         return furthestComponent;
     }
 
+    public void GetAllProceduralComponents()
+    {
+        ProceduralComponents.Clear();
+        foreach (Transform Attachpoint in transform)
+        {
+            if(Attachpoint.gameObject.GetComponent<AttatchPoint>() == null)continue;
+
+            if(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent == null) continue;
+
+            ProceduralComponents.Add(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralWalker>(false));
+        }
+        ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;
+
+    }
 }
