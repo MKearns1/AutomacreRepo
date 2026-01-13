@@ -41,7 +41,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
 
     public void ChangeJoints(int amount)
     {
-        BotComponent_Walker walker = WorkshopGeneral.instance.CurrentSelectedComponentToPlace as BotComponent_Walker;
+        BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
         Joints += amount;
         walker.GetComponent<LimbCreator>().NumberOfJoints = Joints;
