@@ -40,6 +40,22 @@ public class BotComponent : MonoBehaviour
     {
         return null;
     }
+
+    public virtual void OnSelected()
+    {
+        Debug.LogWarning("THIS IS THE BASE BotComponent Script");
+    }
+
+    public virtual Vector3 GetSelectedArrowPos()
+    {
+        Debug.LogWarning("THIS IS THE BASE BotComponent Script");
+        return Vector3.zero;
+    }
+
+    public virtual void RemoveFromBot()
+    {
+        Debug.LogWarning("THIS IS THE BASE BotComponent Script");
+    }
 }
 [Serializable]
 public abstract class ComponentDesignInfo

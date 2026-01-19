@@ -8,6 +8,7 @@ TagManager:
   - AttatchPoint
   - PlayerDeploy
   - PlayerWorkshop
+  - SelectionArrow
   layers:
   - Default
   - TransparentFX

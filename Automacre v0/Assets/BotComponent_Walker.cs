@@ -35,6 +35,7 @@ public class BotComponent_Walker : BotComponent
         Debug.Log(WalkerConfiguration == null);
         GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
         GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
+        Foot.localScale = WalkerConfiguration.FootSize;
         GetComponentInChildren<LimbCreator>().CreateJoints();
         GetComponentInChildren<LimbCreator>().CreateJoints();
 
@@ -50,9 +51,16 @@ public class BotComponent_Walker : BotComponent
 
         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
         Foot = newFoot.transform;
+        Transform botParent = WorkshopGeneral.GetTopParent(transform);
+        if (botParent != transform)
+        {
+            Foot.SetParent(botParent,true);
+        }
 
         transform.GetComponentInChildren<FABRIK>().TargetTransform = newFoot.transform;
         transform.GetComponentInChildren<ProceduralWalker>().enabled = false;
+        transform.GetComponentInChildren<LimbCreator>().CreateJoints();
+        transform.GetComponentInChildren<LimbCreator>().CreateJoints();
 
     }
 
@@ -80,8 +88,25 @@ public class BotComponent_Walker : BotComponent
 
         info.NumberofJoints = GetComponentInChildren<LimbCreator>().NumberOfJoints;
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
+        info.FootSize = Foot.localScale;
 
         return info;
+    }
+
+    public override void OnSelected()
+    {
+        //GameObject.Instantiate()
+    }
+
+    public override Vector3 GetSelectedArrowPos()
+    {
+        return Vector3.Lerp(transform.position,Foot.position,0.5f) + Vector3.up;
+    }
+
+    public override void RemoveFromBot()
+    {
+        Destroy(Foot.gameObject);
+        Destroy(gameObject);
     }
 }
 [Serializable]
@@ -90,6 +115,8 @@ public class WalkerDesignInfo : ComponentDesignInfo
 {
     public int NumberofJoints;
     public float LimbLength;
+    public Vector3 FootSize;
+    public float JointSize;
 
     public WalkerDesignInfo()
     {

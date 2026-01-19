@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623422812243491165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -133,7 +133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2250535285414371746}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -142,7 +142,7 @@ Transform:
   - {fileID: 6579033764283400565}
   - {fileID: 2803333583803315007}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-6689400603016825658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +237,8 @@ MonoBehaviour:
   - {fileID: 7658446560696618100}
   HasPole: 1
   Pole: {fileID: 2803333583803315007}
-  LimbSegmentPrefab: {fileID: 8507451322485657769, guid: 4d39d3f72ecea894cb4a5a786af8356a, type: 3}
+  LimbSegmentPrefab: {fileID: 8507451322485657769, guid: 84b5d2546cc121c4bb210a4cd60ac5c6, type: 3}
+  LimbJointPrefab: {fileID: 8507451322485657769, guid: c41635289ce6e834fae07e3950be060f, type: 3}
 --- !u!114 &8922024448943938637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    MaxStrideLength: 0.1
+    MaxStrideLength: 1
     MaxReachLength: 2
   BotBody: {fileID: 0}
   EndPoint: {fileID: 0}
@@ -265,7 +266,25 @@ MonoBehaviour:
   ShowDebug: 0
   MovementCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

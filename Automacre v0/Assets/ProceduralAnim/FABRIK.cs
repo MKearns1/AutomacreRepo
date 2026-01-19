@@ -125,7 +125,7 @@ public class FABRIK : IKSolver
             }
 
             ConfigureSegmentRotations();
-
+            ConfigureJointRotations();
         }
     }
 
@@ -160,9 +160,25 @@ public class FABRIK : IKSolver
 
             Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
 
-            Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
+           // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
+            Transform segment = GetChildSegment(Joints[j].Joint.transform);
+            if(segment == null) continue;
+            segment.rotation = Quaternion.LookRotation(relativePos, transform.up);
+        }
+    }
 
+    void ConfigureJointRotations()
+    {
+        for (int j = 0; j < Joints.Count; j++)
+        {
+            if (j == Joints.Count - 1) continue;
 
+            Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
+
+            // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
+            Transform JointVisual = Joints[j].Joint.GetChild(0);
+            if (JointVisual == null) continue;
+            JointVisual.rotation = Quaternion.LookRotation(relativePos, transform.up);
         }
     }
     private void OnDrawGizmos()

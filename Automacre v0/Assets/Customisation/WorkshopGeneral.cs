@@ -14,6 +14,8 @@ public class WorkshopGeneral : MonoBehaviour
 
     public BotComponent CurrentSelectedComponentToPlace;
     public BotComponent SelectedComponentOnBot;
+    public ComponentOptionDetails CurrentCopiedOptions;
+    public GameObject SelectionArrowPrefab;
     RectTransform cursor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +42,10 @@ public class WorkshopGeneral : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(GameObject.Find("Canvas").transform as RectTransform, Input.mousePosition, null, out pos);
 
         cursor.anchoredPosition = pos;
+
+        /* if (SelectedComponentOnBot == null) { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(false); }
+         else { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(true); }*/
+        GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(SelectedComponentOnBot != null);
     }
 
     public void SelectMenuComponent(string name)
@@ -62,6 +68,13 @@ public class WorkshopGeneral : MonoBehaviour
     {
         ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
 
+        SelectedComponentOnBot = SelectedComponent;
+
+        if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
+        GameObject SelectionArrow = GameObject.Instantiate(SelectionArrowPrefab, SelectedComponent.GetSelectedArrowPos(), SelectedComponent.transform.rotation);
+
+        if (OptionsCanvas.CurrentOption != null) Destroy(OptionsCanvas.CurrentOption);
+
         switch (SelectedComponent.ComponentDefaultData.Type)
         {
             case ComponentType.Walker:
@@ -73,6 +86,14 @@ public class WorkshopGeneral : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void RemoveComponentFromBot(BotComponent RemovedComponent)
+    {
+        RemovedComponent.RemoveFromBot();
+        ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+        if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
+        OptionsCanvas.LeaveOptions();
     }
 
     public BotComponent GetComponentByName(string name)
@@ -88,5 +109,18 @@ public class WorkshopGeneral : MonoBehaviour
         }
         if (component1 == null) Debug.LogWarning("Component Name couldnt be found");
         return component1;
+    }
+
+    public static Transform GetTopParent(Transform t)
+    {
+        Transform curParent = t;
+
+        while (curParent.parent != null)
+        {
+            curParent = curParent.parent;
+
+        }
+
+        return curParent;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ComponentOptionDetails : MonoBehaviour
+public abstract class ComponentOptionDetails : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,4 +13,13 @@ public class ComponentOptionDetails : MonoBehaviour
     {
         
     }
+
+    //public virtual ComponentOptionDetails Clone() { return null; }
+    public abstract ComponentOptionDetails Clone();
+
+}
+
+public class OptionsData
+{
+
 }

@@ -32,7 +32,10 @@ public class ComponentOptionsPopUp : MonoBehaviour
 
             case ComponentType.Walker:
 
-                int numJoints = Component.GetComponentInChildren<LimbCreator>().NumberOfJoints;
+                ComponentOptionDetails_Walker walkerOptionDetails = CurrentOption.GetComponent<ComponentOptionDetails>() as ComponentOptionDetails_Walker;
+                walkerOptionDetails.SetOptionDetails(Component as BotComponent_Walker);
+
+                /*int numJoints = Component.GetComponentInChildren<LimbCreator>().NumberOfJoints;
                 float Length = Component.GetComponentInChildren<LimbCreator>().Length;
 
                 ComponentOptionDetails_Walker walkerOptionDetails = CurrentOption.GetComponent<ComponentOptionDetails>() as ComponentOptionDetails_Walker;
@@ -42,7 +45,7 @@ public class ComponentOptionsPopUp : MonoBehaviour
 
                 CurrentOption.GetComponent<RectTransform>().Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = numJoints.ToString();
                 CurrentOption.GetComponent<RectTransform>().Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Length.ToString();
-
+*/
                 break;
 
 
@@ -61,6 +64,15 @@ public class ComponentOptionsPopUp : MonoBehaviour
         }
     }
 
+    public void RemoveButtonPressed()
+    {
+        WorkshopGeneral.instance.RemoveComponentFromBot(WorkshopGeneral.instance.SelectedComponentOnBot);
+    }
+
+    public void LeaveOptions()
+    {
+        Destroy(CurrentOption);
+    }
 }
 
 [Serializable]

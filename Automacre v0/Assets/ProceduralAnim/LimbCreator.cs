@@ -13,6 +13,7 @@ public class LimbCreator : MonoBehaviour
     public bool HasPole;
     public Transform Pole;
     public GameObject LimbSegmentPrefab;
+    public GameObject LimbJointPrefab;
 
     [ExecuteAlways]
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +37,7 @@ public class LimbCreator : MonoBehaviour
         }
         //Joints.Add(end.transform);
         CreateBone(transform.position + transform.forward * Length, Joints[Joints.Count - 1], "End");
-
+        //Joints[Joints.Count - 1].transform.GetChild(0).gameObject.SetActive(false); //removes visual of last joint
 /*        if(Pole != null)
         DestroyImmediate(Pole.gameObject);
 
@@ -59,7 +60,8 @@ public class LimbCreator : MonoBehaviour
 
     public void CreateBone(Vector3 Position, Transform Parent, string name = "Bone")
     {
-        GameObject newJoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //GameObject newJoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        GameObject newJoint = GameObject.Instantiate(LimbJointPrefab);
         newJoint.transform.position = Position;
         newJoint.transform.localScale = Vector3.one * JointSize;
         //newJoint.transform.localScale = Vector3.one;
