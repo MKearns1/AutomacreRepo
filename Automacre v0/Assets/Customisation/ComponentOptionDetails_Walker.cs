@@ -101,7 +101,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
     {
         BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
-        float nextAmount = MathF.Round((walker.Foot.localScale.y + (float)amount * .1f) * 10) / 10;
+        float nextAmount = MathF.Round((walker.GetComponentInChildren<LimbCreator>().JointSize + (float)amount * .1f) * 10) / 10;
 
         if (nextAmount < 0 || nextAmount > 1.2f) return;
 
@@ -133,13 +133,14 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
             Joints = Options.Joints;
             Length = Options.Length;
             FootSize = Options.FootSize;
-
+            JointSize = Options.JointSize;
         }
         else
         {
             Joints = comp.GetComponentInChildren<LimbCreator>().NumberOfJoints;
             Length = comp.GetComponentInChildren<LimbCreator>().Length;
             FootSize = comp.Foot.localScale.y;
+            JointSize = comp.GetComponentInChildren<LimbCreator>().JointSize;
         }
 
         UpdateUI();
@@ -246,7 +247,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
         transform.Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Joints.ToString();
         transform.Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Length.ToString();
         transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = FootSize.ToString();
-        transform.Find("JointSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = FootSize.ToString();
+        transform.Find("JointSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = JointSize.ToString();
 
     }
 }

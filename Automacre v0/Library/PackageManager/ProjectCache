@@ -1,27 +1,25 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: C:/Users/milor/Documents/Automacre/unity/AutomacreRepo/Automacre
-      v0/Packages/manifest.json
+    m_FilePath: C:/Users/w1972476/Documents/GitHub/AutomacreRepo/Automacre v0/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639015910153478266
-    m_Hash: 212812822
+      ticks: 639044176682276042
+    m_Hash: 3674627785
   m_LockFileStatus:
-    m_FilePath: C:/Users/milor/Documents/Automacre/unity/AutomacreRepo/Automacre
-      v0/Packages/packages-lock.json
+    m_FilePath: C:/Users/w1972476/Documents/GitHub/AutomacreRepo/Automacre v0/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639015910475211984
-    m_Hash: 2630738130
+      ticks: 639044176682276042
+    m_Hash: 2100543814
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
-m_ProjectPath: C:/Users/milor/Documents/Automacre/unity/AutomacreRepo/Automacre v0/Packages
+m_ProjectPath: C:/Users/w1972476/Documents/GitHub/AutomacreRepo/Automacre v0/Packages
 m_EditorVersion: 6000.0.58f2 (92dee566b325)
 m_ResolvedPackages:
 - packageId: com.unity.ai.navigation@2.0.9
@@ -29,8 +27,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.9
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.ai.navigation@5218e4bf7edc
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.ai.navigation@5218e4bf7edc
   assetPath: Packages/com.unity.ai.navigation
   name: com.unity.ai.navigation
   displayName: AI Navigation
@@ -111,7 +108,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638919725134710000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ai.navigation@2.0/manual/index.html
@@ -162,8 +159,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.9.3
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.collab-proxy@ab839cc7d2ad
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.collab-proxy@ab839cc7d2ad
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Unity Version Control
@@ -304,7 +300,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638924048898490000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.collab-proxy@2.9/manual/index.html
@@ -346,8 +342,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.0.37
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.ide.rider@0baf0f91edc0
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.ide.rider@0baf0f91edc0
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -437,7 +432,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638929118109900000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.rider@3.0/manual/index.html
@@ -453,9 +448,8 @@ m_ResolvedPackages:
     recommendedVersion: 
     isDeprecated: 0
     deprecationMessage: 
-  isDeprecated: 1
-  deprecationMessage: '3.3.0.37 has a regression: newly created C# files are not
-    added in the project'
+  isDeprecated: 0
+  deprecationMessage: 
   git:
     hash: 
     revision: 
@@ -480,8 +474,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.23
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.ide.visualstudio@198cdf337d13
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.ide.visualstudio@198cdf337d13
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -556,7 +549,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638786696173840000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.visualstudio@2.0/manual/index.html
@@ -600,8 +593,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.14.2
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5
   assetPath: Packages/com.unity.inputsystem
   name: com.unity.inputsystem
   displayName: Input System
@@ -721,7 +713,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638900632848680000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.14/manual/index.html
@@ -764,8 +756,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.multiplayer.center@f3fb577b3546
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.multiplayer.center@f3fb577b3546
   assetPath: Packages/com.unity.multiplayer.center
   name: com.unity.multiplayer.center
   displayName: Multiplayer Center
@@ -858,8 +849,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 6.0.7
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.probuilder@9b6693f09f97
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.probuilder@9b6693f09f97
   assetPath: Packages/com.unity.probuilder
   name: com.unity.probuilder
   displayName: ProBuilder
@@ -943,12 +933,12 @@ m_ResolvedPackages:
   dependencies:
   - name: com.unity.shadergraph
     version: 17.0.3
-  - name: com.unity.modules.imgui
-    version: 1.0.0
-  - name: com.unity.modules.physics
-    version: 1.0.0
   - name: com.unity.settings-manager
     version: 1.0.3
+  - name: com.unity.modules.physics
+    version: 1.0.0
+  - name: com.unity.modules.imgui
+    version: 1.0.0
   resolvedDependencies:
   - name: com.unity.shadergraph
     version: 17.0.4
@@ -968,12 +958,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.physics
@@ -1020,7 +1010,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638918244482440000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.probuilder@6.0/manual/index.html
@@ -1070,8 +1060,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.render-pipelines.universal@e1fa89d1f997
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.render-pipelines.universal@e1fa89d1f997
   assetPath: Packages/com.unity.render-pipelines.universal
   name: com.unity.render-pipelines.universal
   displayName: Universal Render Pipeline
@@ -1117,12 +1106,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.physics
@@ -1197,8 +1186,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.5.1
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.test-framework@1f954279c37e
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.test-framework@1f954279c37e
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -1287,8 +1275,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.8.9
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.timeline@6b9e48457ddb
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.timeline@6b9e48457ddb
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1399,18 +1386,18 @@ m_ResolvedPackages:
     recommended: 1.8.10
     deprecated: []
   dependencies:
-  - name: com.unity.modules.audio
-    version: 1.0.0
   - name: com.unity.modules.director
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
+  - name: com.unity.modules.audio
+    version: 1.0.0
   - name: com.unity.modules.particlesystem
     version: 1.0.0
   resolvedDependencies:
-  - name: com.unity.modules.audio
-    version: 1.0.0
   - name: com.unity.modules.director
+    version: 1.0.0
+  - name: com.unity.modules.audio
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
@@ -1435,7 +1422,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638900049118440000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.timeline@1.8/manual/index.html
@@ -1487,8 +1474,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.0
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.ugui@aa507f3228f0
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.ugui@aa507f3228f0
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1583,8 +1569,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.9.7
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.visualscripting@6279e2b7c485
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.visualscripting@6279e2b7c485
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -1670,7 +1655,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638835226812630000
   documentationUrl: 
@@ -4445,8 +4430,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.0.5
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.ext.nunit@031a54704bff
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.ext.nunit@031a54704bff
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -4525,8 +4509,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.render-pipelines.core@05f02f04fe74
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.render-pipelines.core@05f02f04fe74
   assetPath: Packages/com.unity.render-pipelines.core
   name: com.unity.render-pipelines.core
   displayName: Scriptable Render Pipeline Core
@@ -4583,12 +4566,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.physics
@@ -4651,8 +4634,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.4
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.shadergraph@7ccd16edcc88
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.shadergraph@7ccd16edcc88
   assetPath: Packages/com.unity.shadergraph
   name: com.unity.shadergraph
   displayName: Shader Graph
@@ -4697,12 +4679,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.physics
@@ -4767,8 +4749,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.render-pipelines.universal-config@dd206bf35d04
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.render-pipelines.universal-config@dd206bf35d04
   assetPath: Packages/com.unity.render-pipelines.universal-config
   name: com.unity.render-pipelines.universal-config
   displayName: Universal Render Pipeline Config
@@ -4807,12 +4788,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.physics
@@ -4875,8 +4856,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.1.0
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.settings-manager@41738c275190
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.settings-manager@41738c275190
   assetPath: Packages/com.unity.settings-manager
   name: com.unity.settings-manager
   displayName: Settings Manager
@@ -4922,7 +4902,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638792046006940000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.settings-manager@2.1/manual/index.html
@@ -4964,8 +4944,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.9.3
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.searcher@1e17ce91558d
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.searcher@1e17ce91558d
   assetPath: Packages/com.unity.searcher
   name: com.unity.searcher
   displayName: Searcher
@@ -5063,8 +5042,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.8.24
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.burst@f7a407abf4d5
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.burst@f7a407abf4d5
   assetPath: Packages/com.unity.burst
   name: com.unity.burst
   displayName: Burst
@@ -5252,7 +5230,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638899061085800000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html
@@ -5302,8 +5280,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.3.2
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.mathematics@8017b507cc74
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.mathematics@8017b507cc74
   assetPath: Packages/com.unity.mathematics
   name: com.unity.mathematics
   displayName: Mathematics
@@ -5312,7 +5289,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: assets
+  type: 
   description: Unity's C# SIMD math library providing vector types and math functions
     with a shader like syntax.
   errors: []
@@ -5360,7 +5337,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638409134840000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.mathematics@1.3/manual/index.html
@@ -5403,8 +5380,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.5.1
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.collections@56bff8827a7e
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.collections@56bff8827a7e
   assetPath: Packages/com.unity.collections
   name: com.unity.collections
   displayName: Collections
@@ -5515,10 +5491,10 @@ m_ResolvedPackages:
   dependencies:
   - name: com.unity.burst
     version: 1.8.17
-  - name: com.unity.test-framework
-    version: 1.4.5
   - name: com.unity.nuget.mono-cecil
     version: 1.11.4
+  - name: com.unity.test-framework
+    version: 1.4.5
   - name: com.unity.test-framework.performance
     version: 3.0.3
   resolvedDependencies:
@@ -5528,14 +5504,14 @@ m_ResolvedPackages:
     version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   keywords:
@@ -5555,7 +5531,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638621282722800000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.collections@2.5/manual/index.html
@@ -5598,8 +5574,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.1
   source: 2
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.rendering.light-transport@9bd588f963c0
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.rendering.light-transport@9bd588f963c0
   assetPath: Packages/com.unity.rendering.light-transport
   name: com.unity.rendering.light-transport
   displayName: Unity Light Transport Library
@@ -5635,14 +5610,14 @@ m_ResolvedPackages:
     version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.5.1
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.1.0
   - name: com.unity.modules.terrain
@@ -5704,8 +5679,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.11.4
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f
   assetPath: Packages/com.unity.nuget.mono-cecil
   name: com.unity.nuget.mono-cecil
   displayName: Mono Cecil
@@ -5758,7 +5732,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 637852971930000000
   documentationUrl: 
@@ -5798,8 +5772,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 3.1.0
   source: 1
-  resolvedPath: C:\Users\milor\Documents\Automacre\unity\AutomacreRepo\Automacre
-    v0\Library\PackageCache\com.unity.test-framework.performance@92d1d09a72ed
+  resolvedPath: C:\Users\w1972476\Documents\GitHub\AutomacreRepo\Automacre v0\Library\PackageCache\com.unity.test-framework.performance@92d1d09a72ed
   assetPath: Packages/com.unity.test-framework.performance
   name: com.unity.test-framework.performance
   displayName: Performance testing API
@@ -5902,7 +5875,7 @@ m_ResolvedPackages:
       violations: []
   hideInEditor: 1
   entitlements:
-    licensingModel: 1
+    licensingModel: 0
   isAssetStorePackage: 0
   datePublishedTicks: 638792643567670000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework.performance@3.1/manual/index.html

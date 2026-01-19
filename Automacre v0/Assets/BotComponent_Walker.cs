@@ -36,6 +36,8 @@ public class BotComponent_Walker : BotComponent
         GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
         GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
         Foot.localScale = WalkerConfiguration.FootSize;
+        GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
+
         GetComponentInChildren<LimbCreator>().CreateJoints();
         GetComponentInChildren<LimbCreator>().CreateJoints();
 
@@ -89,6 +91,7 @@ public class BotComponent_Walker : BotComponent
         info.NumberofJoints = GetComponentInChildren<LimbCreator>().NumberOfJoints;
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
         info.FootSize = Foot.localScale;
+        info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
 
         return info;
     }
