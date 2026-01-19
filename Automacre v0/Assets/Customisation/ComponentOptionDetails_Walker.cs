@@ -103,7 +103,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
 
         float nextAmount = MathF.Round((walker.GetComponentInChildren<LimbCreator>().JointSize + (float)amount * .1f) * 10) / 10;
 
-        if (nextAmount < 0 || nextAmount > 1.2f) return;
+        if (nextAmount < 0.1 || nextAmount > 0.5f) return;
 
         walker.GetComponentInChildren<LimbCreator>().JointSize = nextAmount;
         walker.GetComponentInChildren<LimbCreator>().CreateJoints();

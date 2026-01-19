@@ -183,6 +183,8 @@ public class BotBodyBase : MonoBehaviour
 
             if(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent == null) continue;
 
+            if(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralWalker>(false) == null)continue;
+
             ProceduralComponents.Add(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralWalker>(false));
         }
         ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;

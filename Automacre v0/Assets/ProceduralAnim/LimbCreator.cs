@@ -19,7 +19,8 @@ public class LimbCreator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
-       
+        CreateJoints();
+        CreateJoints();
     }
     [ContextMenu("Create")]
 
@@ -37,7 +38,7 @@ public class LimbCreator : MonoBehaviour
         }
         //Joints.Add(end.transform);
         CreateBone(transform.position + transform.forward * Length, Joints[Joints.Count - 1], "End");
-        //Joints[Joints.Count - 1].transform.GetChild(0).gameObject.SetActive(false); //removes visual of last joint
+        Joints[Joints.Count - 1].transform.GetChild(0).gameObject.SetActive(false); //removes visual of last joint
 /*        if(Pole != null)
         DestroyImmediate(Pole.gameObject);
 

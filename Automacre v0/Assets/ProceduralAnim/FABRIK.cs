@@ -173,7 +173,8 @@ public class FABRIK : IKSolver
         {
             if (j == Joints.Count - 1) continue;
 
-            Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
+            //Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
+            Vector3 relativePos = Joints[0].Joint.position - Joints[j].Joint.position;
 
             // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
             Transform JointVisual = Joints[j].Joint.GetChild(0);
