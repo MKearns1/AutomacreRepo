@@ -75,11 +75,20 @@ public class WorkshopGeneral : MonoBehaviour
 
         if (OptionsCanvas.CurrentOption != null) Destroy(OptionsCanvas.CurrentOption);
 
+        GameObject NewOptionsPopup;
+
         switch (SelectedComponent.ComponentDefaultData.Type)
         {
             case ComponentType.Walker:
 
-                GameObject NewOptionsPopup = Instantiate(OptionsCanvas.Options_Walker, OptionsCanvas.GetComponent<RectTransform>());
+                NewOptionsPopup = Instantiate(OptionsCanvas.Options_Walker, OptionsCanvas.GetComponent<RectTransform>());
+                OptionsCanvas.CurrentOption = NewOptionsPopup;
+                OptionsCanvas.SetOptionDetails(SelectedComponent);
+
+                break;
+            case ComponentType.Grabber:
+
+                NewOptionsPopup = Instantiate(OptionsCanvas.Options_Grabber, OptionsCanvas.GetComponent<RectTransform>());
                 OptionsCanvas.CurrentOption = NewOptionsPopup;
                 OptionsCanvas.SetOptionDetails(SelectedComponent);
 

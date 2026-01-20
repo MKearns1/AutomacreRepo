@@ -13,13 +13,14 @@ public class BotComponent : MonoBehaviour
 
     public virtual void Awake()
     {
-        DesignInfo = GetDesignInfo();
+        AssignVariablesStartup();
+       // DesignInfo = GetDesignInfo();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DesignInfo = GetDesignInfo();
+       // DesignInfo = GetDesignInfo();
     }
 
     // Update is called once per frame
@@ -56,6 +57,12 @@ public class BotComponent : MonoBehaviour
     {
         Debug.LogWarning("THIS IS THE BASE BotComponent Script");
     }
+
+    public virtual void AssignVariablesStartup() 
+    {
+
+    }
+
 }
 [Serializable]
 public abstract class ComponentDesignInfo

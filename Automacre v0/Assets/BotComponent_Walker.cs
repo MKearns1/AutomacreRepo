@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class BotComponent_Walker : BotComponent
+public class BotComponent_Walker : BotComponent_LimbType
 {
     public Transform Foot;
+    public ProceduralWalker proceduralWalker;
 
     public override void Awake()
     {
-        //base.Awake();
+        base.Awake();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,7 +26,18 @@ public class BotComponent_Walker : BotComponent
 
     public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
     {
-        WalkerDesignInfo WalkerConfiguration = DesignInformation as WalkerDesignInfo;
+        base.Initialise(DesignInformation, BC);
+        WalkerDesignInfo GrabberInfo = DesignInformation as WalkerDesignInfo;
+
+        proceduralWalker.EndPoint = Foot.transform;
+        fabrik.TargetTransform = Foot.transform;
+        Foot.localScale = GrabberInfo.FootSize;
+        proceduralWalker.enabled = true;
+        proceduralWalker.BotBody = body;
+        body.GetAllProceduralComponents();
+
+
+/*        WalkerDesignInfo WalkerConfiguration = DesignInformation as WalkerDesignInfo;
 
         body = BC.body;
       //  GameObject Foot = Instantiate(WorkshopGeneral.instance.FootPrefab, transform.position + Vector3.down + transform.forward, Quaternion.identity);
@@ -44,14 +57,22 @@ public class BotComponent_Walker : BotComponent
         transform.GetComponentInChildren<ProceduralWalker>().enabled = true;
 
         Debug.Log("Initialise Component : " + gameObject.name);
-        body.GetAllProceduralComponents();
+        body.GetAllProceduralComponents();*/
     }
 
     public override void OnAttached()
     {
-        Vector3 footpos = FootPlacementPosition().point;
+        proceduralWalker = GetComponentInChildren<ProceduralWalker>();
+        LimbCreator = GetComponentInChildren<LimbCreator>();
+        fabrik = GetComponentInChildren<FABRIK>();
+        proceduralWalker.enabled = false;
+        base.OnAttached();
+        
 
+        Vector3 footpos = FootPlacementPosition().point;
         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
+        Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
+
         Foot = newFoot.transform;
         Transform botParent = WorkshopGeneral.GetTopParent(transform);
         if (botParent != transform)
@@ -59,11 +80,13 @@ public class BotComponent_Walker : BotComponent
             Foot.SetParent(botParent,true);
         }
 
-        transform.GetComponentInChildren<FABRIK>().TargetTransform = newFoot.transform;
-        transform.GetComponentInChildren<ProceduralWalker>().enabled = false;
-        transform.GetComponentInChildren<LimbCreator>().CreateJoints();
-        transform.GetComponentInChildren<LimbCreator>().CreateJoints();
+        fabrik.TargetTransform = newFoot.transform;
+        proceduralWalker.enabled = false;
+        LimbCreator.CreateJoints();
+        LimbCreator.CreateJoints();
+        DesignInfo = GetDesignInfo();
 
+        Debug.LogWarning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
 
     public RaycastHit FootPlacementPosition()
@@ -92,6 +115,13 @@ public class BotComponent_Walker : BotComponent
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
         info.FootSize = Foot.localScale;
         info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
+        return info;
+
+
+        info.NumberofJoints = LimbCreator.NumberOfJoints;
+        info.LimbLength = LimbCreator.Length;
+        info.FootSize = Foot.localScale;
+        info.JointSize = LimbCreator.JointSize;
 
         return info;
     }
@@ -111,15 +141,17 @@ public class BotComponent_Walker : BotComponent
         Destroy(Foot.gameObject);
         Destroy(gameObject);
     }
+    public override void AssignVariablesStartup()
+    {
+        base.AssignVariablesStartup();
+        proceduralWalker = GetComponentInChildren<ProceduralWalker>();
+    }
 }
 [Serializable]
 
-public class WalkerDesignInfo : ComponentDesignInfo
+public class WalkerDesignInfo : LimbTypeDesignInfo
 {
-    public int NumberofJoints;
-    public float LimbLength;
     public Vector3 FootSize;
-    public float JointSize;
 
     public WalkerDesignInfo()
     {

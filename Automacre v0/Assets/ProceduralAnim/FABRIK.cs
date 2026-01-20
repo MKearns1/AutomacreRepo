@@ -169,17 +169,17 @@ public class FABRIK : IKSolver
 
     void ConfigureJointRotations()
     {
-        for (int j = 0; j < Joints.Count; j++)
+        for (int j = 1; j < Joints.Count; j++) // start at 1
         {
-            if (j == Joints.Count - 1) continue;
-
-            //Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
             Vector3 relativePos = Joints[0].Joint.position - Joints[j].Joint.position;
 
-            // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
-            Transform JointVisual = Joints[j].Joint.GetChild(0);
-            if (JointVisual == null) continue;
-            JointVisual.rotation = Quaternion.LookRotation(relativePos, transform.up);
+            if (relativePos.sqrMagnitude < 0.000001f)
+                continue;
+
+            Transform jointVisual = Joints[j].Joint.GetChild(0);
+            if (!jointVisual) continue;
+
+            jointVisual.rotation = Quaternion.LookRotation(relativePos, transform.up);
         }
     }
     private void OnDrawGizmos()

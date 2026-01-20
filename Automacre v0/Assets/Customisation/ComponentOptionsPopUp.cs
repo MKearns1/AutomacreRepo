@@ -11,6 +11,7 @@ public class ComponentOptionsPopUp : MonoBehaviour
     public List<Entry> OptionEntries;
 
     public GameObject Options_Walker;
+    public GameObject Options_Grabber;
     public GameObject CurrentOption;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +28,8 @@ public class ComponentOptionsPopUp : MonoBehaviour
 
     public void SetOptionDetails(BotComponent Component)
     {
+        CurrentOption.GetComponent<ComponentOptionDetails>().SetOptionVariables(Component);
+/*
         switch (Component.ComponentDefaultData.Type)
         {
 
@@ -35,21 +38,14 @@ public class ComponentOptionsPopUp : MonoBehaviour
                 ComponentOptionDetails_Walker walkerOptionDetails = CurrentOption.GetComponent<ComponentOptionDetails>() as ComponentOptionDetails_Walker;
                 walkerOptionDetails.SetOptionDetails(Component as BotComponent_Walker);
 
-                /*int numJoints = Component.GetComponentInChildren<LimbCreator>().NumberOfJoints;
-                float Length = Component.GetComponentInChildren<LimbCreator>().Length;
 
-                ComponentOptionDetails_Walker walkerOptionDetails = CurrentOption.GetComponent<ComponentOptionDetails>() as ComponentOptionDetails_Walker;
 
-                walkerOptionDetails.Joints = numJoints;
-                walkerOptionDetails.Length = Length;
 
-                CurrentOption.GetComponent<RectTransform>().Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = numJoints.ToString();
-                CurrentOption.GetComponent<RectTransform>().Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Length.ToString();
-*/
+
                 break;
 
 
-        }
+        }*/
     }
 
     public void OnChangedComponentOptions()

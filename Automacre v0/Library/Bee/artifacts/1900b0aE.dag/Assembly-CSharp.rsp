@@ -116,7 +116,6 @@
 -define:ENABLE_UNITY_COLLECTIONS_CHECKS
 -define:ENABLE_BURST_AOT
 -define:UNITY_TEAM_LICENSE
--define:UNITY_PRO_LICENSE
 -define:ENABLE_CUSTOM_RENDER_TEXTURE
 -define:ENABLE_DIRECTOR
 -define:ENABLE_LOCALIZATION
@@ -370,14 +369,6 @@
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/NetStandard/compat/2.1.0/shims/netstandard/System.Xml.XPath.XDocument.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Gradle.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.Apple.Extensions.Common.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.iOS.Extensions.Xcode.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/VisionOSPlayer/UnityEditor.Apple.Extensions.Common.dll"
--r:"C:/Program Files/Unity/Hub/Editor/6000.0.58f2/Editor/Data/PlaybackEngines/VisionOSPlayer/UnityEditor.iOS.Extensions.Xcode.dll"
 -r:"Library/PackageCache/com.unity.collections@56bff8827a7e/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll"
 -r:"Library/PackageCache/com.unity.ext.nunit@031a54704bff/net40/unity-custom/nunit.framework.dll"
 -r:"Library/PackageCache/com.unity.nuget.mono-cecil@d6f9955a5d5f/Mono.Cecil.dll"
@@ -456,14 +447,19 @@
 "Assets/Customisation/ComponentOptionDetails_Walker.cs"
 "Assets/Customisation/ComponentOptionsPopUp.cs"
 "Assets/Customisation/Components/BotComponent_Grabber.cs"
+"Assets/Customisation/Components/BotComponent_LimbType.cs"
 "Assets/Customisation/Components/ProceduralGrabber.cs"
 "Assets/Customisation/DeploymentScript.cs"
 "Assets/Customisation/OptionEntry.cs"
+"Assets/Customisation/UI/OptionsPopup/ComponentOptionDetails_Grabber.cs"
+"Assets/Customisation/UI/OptionsPopup/ComponentOptionDetails_LimbType.cs"
 "Assets/Customisation/WorkshopGeneral.cs"
 "Assets/Customisation/WorkshopMovement.cs"
 "Assets/DirectType.cs"
 "Assets/Interfaces.cs"
 "Assets/InventoryManager.cs"
+"Assets/misc/childtest.cs"
+"Assets/misc/parenttest.cs"
 "Assets/ProceduralAnim/BotBodyBase.cs"
 "Assets/ProceduralAnim/BotController.cs"
 "Assets/ProceduralAnim/FABRIK.cs"

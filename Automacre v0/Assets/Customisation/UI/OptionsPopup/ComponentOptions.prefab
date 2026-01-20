@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 999154546042111046}
   - component: {fileID: 2283937035015538364}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RemoveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 999154546042111046}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3773427930872544407}
+        m_TargetAssemblyTypeName: ComponentOptionsPopUp, Assembly-CSharp
+        m_MethodName: RemoveButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8534556419250691088
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OptionEntries: []
   Options_Walker: {fileID: 979310456760226958, guid: 0b64ed63281a729488dcc17f4d516015, type: 3}
+  Options_Grabber: {fileID: 979310456760226958, guid: 862b94ee64c5c0441a30e73659eca1a3, type: 3}
   CurrentOption: {fileID: 0}
 --- !u!1001 &1426083490893589524
 PrefabInstance:

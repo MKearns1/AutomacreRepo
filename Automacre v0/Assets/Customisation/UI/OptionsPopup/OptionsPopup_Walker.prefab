@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1914d15ae1678b48828e9b9936f288e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  componentType: 1
   Joints: 0
   Length: 0
   FootSize: 0

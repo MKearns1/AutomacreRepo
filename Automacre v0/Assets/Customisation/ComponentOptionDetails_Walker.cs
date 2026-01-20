@@ -4,13 +4,9 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ComponentOptionDetails_Walker : ComponentOptionDetails
+public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
 {
-    public int Joints;
-    public float Length;
     public float FootSize;
-    public float JointSize;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,7 +39,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
     }*/
 
 
-    public void ChangeJoints(int amount)
+/*    public void ChangeJoints(int amount)
     {
         BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
@@ -58,9 +54,9 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
         // transform.Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
         Joints = nextAmount;
         UpdateUI();
-    }
+    }*/
 
-    public void ChangeLength(float amount)
+/*    public void ChangeLength(float amount)
     {
         BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
@@ -76,7 +72,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
         Length = nextAmount;
         UpdateUI();
 
-    }
+    }*/
 
     public void ChangeFootSize(int amount)
     {
@@ -97,28 +93,51 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
 
     }
 
-    public void ChangeJointSize(int amount)
+    /*    public void ChangeJointSize(int amount)
+        {
+            BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
+
+            float nextAmount = MathF.Round((walker.GetComponentInChildren<LimbCreator>().JointSize + (float)amount * .1f) * 10) / 10;
+
+            if (nextAmount < 0.1 || nextAmount > 0.5f) return;
+
+            walker.GetComponentInChildren<LimbCreator>().JointSize = nextAmount;
+            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
+            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
+
+            //transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
+
+            JointSize = nextAmount;
+            UpdateUI();
+
+        }*/
+
+    public override void SetOptionVariables(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
-        BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
+        base.SetOptionVariables(CopyComponent, CopyOptions);
 
-        float nextAmount = MathF.Round((walker.GetComponentInChildren<LimbCreator>().JointSize + (float)amount * .1f) * 10) / 10;
+        if (!isValidSet(CopyComponent, CopyOptions))
+        {
+            Debug.LogWarning("Can't set optionvariables - type mismatch. TYPE: " + this.GetType().ToString());
+            return;
+        }
 
-        if (nextAmount < 0.1 || nextAmount > 0.5f) return;
+        var WalkerOptions = CopyOptions as ComponentOptionDetails_Walker;
+        var WalkerComp = CopyComponent as BotComponent_Walker;
 
-        walker.GetComponentInChildren<LimbCreator>().JointSize = nextAmount;
-        walker.GetComponentInChildren<LimbCreator>().CreateJoints();
-        walker.GetComponentInChildren<LimbCreator>().CreateJoints();
+        if (WalkerOptions != null)
+        {
+            FootSize = WalkerOptions.FootSize;
+        }
+        else
+        {
+            FootSize = WalkerComp.Foot.localScale.x;
+        }
 
-        //transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
-
-        JointSize = nextAmount;
         UpdateUI();
+        return;
 
-    }
-
-    public void SetOptionDetails(BotComponent_Walker comp = null, ComponentOptionDetails_Walker Options = null)
-    {
-        int newJoints;
+/*        int newJoints;
         float newLength;
         float newFootSize;
 
@@ -143,13 +162,44 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
             JointSize = comp.GetComponentInChildren<LimbCreator>().JointSize;
         }
 
-        UpdateUI();
+        UpdateUI();*/
        
     }
 
-    public void SetComponentValues(BotComponent_Walker CopyComponent = null, ComponentOptionDetails_Walker CopyOptions = null)
+    public override void SetComponentValues(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
-        BotComponent_Walker SelectedWalker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
+        base.SetComponentValues();
+        var WalkerCopyOptions = CopyOptions as ComponentOptionDetails_Walker;
+        var WalkerCopyComponent = CopyComponent as BotComponent_Walker;
+
+        var SelectedGrabber = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
+
+        float newFootSize = FootSize;
+
+        if (WalkerCopyComponent == null && WalkerCopyOptions == null)
+        {
+            Debug.LogWarning("Set ComponentValues Failed - No Data");
+            return;
+        }
+
+        if (WalkerCopyOptions != null)
+        {
+            newFootSize = WalkerCopyOptions.FootSize;
+        }
+        else
+        {
+            newFootSize = WalkerCopyComponent.Foot.localScale.y;
+        }
+
+        FootSize = newFootSize;
+
+        SelectedGrabber.Foot.localScale = new Vector3(newFootSize, newFootSize, newFootSize);
+
+        UpdateUI();
+        return;
+
+
+        /*BotComponent_Walker SelectedWalker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
         int newJoints = Joints;
         float newLength = Length;
@@ -190,64 +240,35 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails
         SelectedWalker.GetComponentInChildren<LimbCreator>().CreateJoints();
 
         UpdateUI();
-        return;
+        return;*/
     }
 
-    public void CopyDetailsButton()
+    public override void CopyDetailsButton()
     {
         WorkshopGeneral.instance.CurrentCopiedOptions = Clone();
     }
 
-    public void PasteDetails()
+    public override void PasteDetails()
     {
-        if (WorkshopGeneral.instance.CurrentCopiedOptions == null)
-        {
-            Debug.LogWarning("Cannot Paste component details - Nothing copied");
-            return;
-        }
-        if (WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_Walker == null)
-        {
-            Debug.LogWarning("Cannot Paste component details - incompatible type");
-            return;
-        }
+        base.PasteDetails();
 
-        ComponentOptionDetails_Walker walkerOptionsComp = WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_Walker;
+        var GrabberOptions = WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_Walker;
 
-        // Joints = walkerComp.Joints;
-        // Length = walkerComp.Length;
-        // FootSize = walkerComp.FootSize;
+        SetComponentValues(null, GrabberOptions);
 
-        SetComponentValues(null,walkerOptionsComp);
     }
 
-
-    public override ComponentOptionDetails Clone() 
+    public override ComponentOptionDetails Clone()
     {
-        /*return new ComponentOptionDetails_Walker
-        {
-            Joints = this.Joints,
-            Length = this.Length,
-            FootSize = this.FootSize,
-        };*/
-
-        if(WorkshopGeneral.instance.CurrentCopiedOptions != null)
-        Destroy(WorkshopGeneral.instance.CurrentCopiedOptions.gameObject);
-
-        ComponentOptionDetails_Walker options = Instantiate(this) as ComponentOptionDetails_Walker;
-        options.Joints = this.Joints;
-        options.Length = this.Length;
+        var options = base.Clone() as ComponentOptionDetails_Walker;
         options.FootSize = this.FootSize;
-        options.JointSize = this.JointSize;
-
         return options;
     }
 
-    public void UpdateUI()
+    public override void UpdateUI()
     {
-        transform.Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Joints.ToString();
-        transform.Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = Length.ToString();
+        base.UpdateUI();
         transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = FootSize.ToString();
-        transform.Find("JointSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = JointSize.ToString();
 
     }
 }
