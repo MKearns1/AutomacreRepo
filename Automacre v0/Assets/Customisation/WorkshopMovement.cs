@@ -55,20 +55,6 @@ public class WorkshopMovement : MonoBehaviour
             {
                 if(WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return ;
                 ClickAttachPoint(rayhit);
-
-/*                GameObject newLeg = Instantiate(WorkshopGeneral.instance.LegPrefab, attatchpoint.position, attatchpoint.rotation);
-
-                newLeg.transform.SetParent(attatchpoint, true);
-
-                ap.AttachNewComponent(newLeg.GetComponent<BotComponent>());
-
-                Vector3 footpos = ap.FootPlacementPosition().point;
-
-                GameObject newFoot = Instantiate(WorkshopGeneral.instance.FootPrefab, footpos, attatchpoint.rotation);
-
-
-                newLeg.transform.GetComponentInChildren<FABRIK>().TargetTransform = newFoot.transform;
-                newLeg.transform.GetComponentInChildren<ProceduralWalker>().enabled=false;*/
             }
 
             if(rayhit.collider.transform.GetComponentInParent<BotComponent>() != null)
@@ -83,11 +69,11 @@ public class WorkshopMovement : MonoBehaviour
         Transform attatchpoint = rayhit.collider.gameObject.transform;
         AttatchPoint ap = attatchpoint.GetComponent<AttatchPoint>();
 
-        Debug.LogWarning(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab == null);
+        //Debug.LogWarning(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab == null);
 
         GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
 
         ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
-       // WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
+        WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
     }
 }

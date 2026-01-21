@@ -1,12 +1,12 @@
 using System;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ComponentOptionDetails_Grabber : ComponentOptionDetails_LimbType
 {
+    [Header("Grabber Settings")]
     public float HandSize;
+    public Vector2 minMaxHandSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -84,7 +84,7 @@ public class ComponentOptionDetails_Grabber : ComponentOptionDetails_LimbType
 
         float nextAmount = MathF.Round((grabber.Hand.localScale.y + (float)amount*.1f)*10)/10;
 
-        if (nextAmount < 0 || nextAmount > 1.2f) return;
+        if (nextAmount < minMaxHandSize.x || nextAmount > minMaxHandSize.y) return;
 
         grabber.Hand.localScale = new Vector3(nextAmount, nextAmount, nextAmount);
         //walker.GetComponentInChildren<LimbCreator>().CreateJoints();
@@ -120,6 +120,29 @@ public class ComponentOptionDetails_Grabber : ComponentOptionDetails_LimbType
 
     public override void SetOptionVariables(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
+        base.SetOptionVariables(CopyComponent, CopyOptions);
+
+        if (!isValidSet(CopyComponent, CopyOptions))
+        {
+            Debug.LogWarning("Can't set optionvariables - type mismatch. TYPE: " + this.GetType().ToString());
+            return;
+        }
+
+        var GrabberOptions = CopyOptions as ComponentOptionDetails_Grabber;
+        var GrabberComp = CopyComponent as BotComponent_Grabber;
+
+        if (GrabberOptions != null)
+        {
+            HandSize = GrabberOptions.HandSize;
+        }
+        else
+        {
+            HandSize = GrabberComp.Hand.localScale.x;
+        }
+
+        UpdateUI();
+        return;
+
         /*int newJoints;
         float newLength;
         float newFootSize;
@@ -151,7 +174,7 @@ public class ComponentOptionDetails_Grabber : ComponentOptionDetails_LimbType
 
     public override void SetComponentValues(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
-        base.SetComponentValues();
+        base.SetComponentValues(CopyComponent, CopyOptions);
         ComponentOptionDetails_Grabber GrabberCopyOptions = CopyOptions as ComponentOptionDetails_Grabber;
         BotComponent_Grabber GrabberCopyComponent = CopyComponent as BotComponent_Grabber;
 

@@ -31,6 +31,7 @@ public class BotComponent_LimbType : BotComponent
         body = BC.body;
         LimbCreator.NumberOfJoints = LimbDesigninfo.NumberofJoints;
         LimbCreator.JointSize = LimbDesigninfo.JointSize;
+        LimbCreator.Length = LimbDesigninfo.LimbLength;
         LimbCreator.CreateJoints();
         LimbCreator.CreateJoints();
 /*

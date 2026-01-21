@@ -6,7 +6,9 @@ using UnityEngine.UIElements;
 
 public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
 {
+    [Header("Walker Settings")]
     public float FootSize;
+    public Vector2 minMaxFootSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -168,7 +170,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
 
     public override void SetComponentValues(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
-        base.SetComponentValues();
+        base.SetComponentValues(CopyComponent, CopyOptions);
         var WalkerCopyOptions = CopyOptions as ComponentOptionDetails_Walker;
         var WalkerCopyComponent = CopyComponent as BotComponent_Walker;
 
@@ -252,9 +254,9 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
     {
         base.PasteDetails();
 
-        var GrabberOptions = WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_Walker;
+        var WalkerOptions = WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_Walker;
 
-        SetComponentValues(null, GrabberOptions);
+        SetComponentValues(null, WalkerOptions);
 
     }
 

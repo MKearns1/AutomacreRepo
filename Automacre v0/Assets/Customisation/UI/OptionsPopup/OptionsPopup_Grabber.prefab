@@ -58,7 +58,11 @@ MonoBehaviour:
   Joints: 0
   Length: 0
   JointSize: 0
+  minMaxNumJoints: {x: 1, y: 15}
+  minMaxLength: {x: 2.5, y: 5}
+  minMaxJointSize: {x: 0.1, y: 0.4}
   HandSize: 0
+  minMaxHandSize: {x: 0.6, y: 2}
 --- !u!1 &1412861061108978525
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,8 +320,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ComponentOptionDetails_Walker, Assembly-CSharp
+      - m_Target: {fileID: -4110053276561180532}
+        m_TargetAssemblyTypeName: ComponentOptionDetails_Grabber, Assembly-CSharp
         m_MethodName: PasteDetails
         m_Mode: 1
         m_Arguments:
@@ -449,8 +453,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ComponentOptionDetails_Walker, Assembly-CSharp
+      - m_Target: {fileID: -4110053276561180532}
+        m_TargetAssemblyTypeName: ComponentOptionDetails_Grabber, Assembly-CSharp
         m_MethodName: CopyDetailsButton
         m_Mode: 1
         m_Arguments:
@@ -967,6 +971,10 @@ PrefabInstance:
     - target: {fileID: 1188471777594882913, guid: f5ffdbb22ea162e4aae92cc17a0d982a, type: 3}
       propertyPath: m_Name
       value: HandSize
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829194219768893325, guid: f5ffdbb22ea162e4aae92cc17a0d982a, type: 3}
+      propertyPath: m_text
+      value: Hand Size
       objectReference: {fileID: 0}
     - target: {fileID: 3372352657030108083, guid: f5ffdbb22ea162e4aae92cc17a0d982a, type: 3}
       propertyPath: m_Pivot.x

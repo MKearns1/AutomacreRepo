@@ -57,8 +57,12 @@ MonoBehaviour:
   componentType: 1
   Joints: 0
   Length: 0
-  FootSize: 0
   JointSize: 0
+  minMaxNumJoints: {x: 1, y: 20}
+  minMaxLength: {x: 1, y: 8}
+  minMaxJointSize: {x: 0.1, y: 0.4}
+  FootSize: 0
+  minMaxFootSize: {x: 0.1, y: 1.2}
 --- !u!1 &1412861061108978525
 GameObject:
   m_ObjectHideFlags: 0

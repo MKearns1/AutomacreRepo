@@ -50,7 +50,7 @@ public abstract class ComponentOptionDetails : MonoBehaviour
             Debug.LogWarning("Cannot Paste component details - Nothing copied");
             return;
         }
-        if (WorkshopGeneral.instance.CurrentCopiedOptions as ComponentOptionDetails_LimbType == null)
+        if (WorkshopGeneral.instance.CurrentCopiedOptions.GetType() != this.GetType())
         {
             Debug.LogWarning("Cannot Paste component details - incompatible type");
             return;
@@ -60,8 +60,18 @@ public abstract class ComponentOptionDetails : MonoBehaviour
 
     public virtual bool isValidSet(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)
     {
-        bool validComp = CopyComponent.ComponentDefaultData.Type == this.componentType;
-        bool validOptions = CopyOptions.GetType() == this.GetType() && CopyOptions != null;
+        bool validComp = false;
+        bool validOptions = false;
+
+        if (CopyComponent != null)
+        {
+            validComp = CopyComponent.ComponentDefaultData.Type == this.componentType;
+        }
+        if (CopyOptions != null)
+        {
+            validOptions = CopyOptions.GetType() == this.GetType();
+            Debug.Log(CopyOptions.GetType().ToString() +" "+ this.GetType().ToString());
+        }
 
         return validComp || validOptions;
     }

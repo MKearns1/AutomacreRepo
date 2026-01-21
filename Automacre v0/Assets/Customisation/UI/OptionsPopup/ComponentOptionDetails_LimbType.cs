@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -6,10 +7,13 @@ using UnityEngine.UIElements;
 
 public class ComponentOptionDetails_LimbType : ComponentOptionDetails
 {
+    [Header("Limb Settings")]
     public int Joints;
     public float Length;
     public float JointSize;
 
+    [SerializeField]
+    public Vector2 minMaxNumJoints, minMaxLength, minMaxJointSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,7 +52,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
 
         int nextAmount = Limb.LimbCreator.NumberOfJoints + amount;
 
-        if(nextAmount == 0 ||  nextAmount == 20) return;
+        if(nextAmount < minMaxNumJoints.x ||  nextAmount > minMaxNumJoints.y) return;
 
         Limb.LimbCreator.NumberOfJoints = nextAmount;
         Limb.LimbCreator.CreateJoints();
@@ -65,7 +69,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
 
         float nextAmount = Limb.LimbCreator.Length + amount;
 
-        if (nextAmount < 2 || nextAmount > 8) return;
+        if (nextAmount < minMaxLength.x || nextAmount > minMaxLength.y) return;
 
         Limb.LimbCreator.Length = nextAmount;
         Limb.LimbCreator.CreateJoints();
@@ -83,7 +87,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
 
         float nextAmount = MathF.Round((Limb.LimbCreator.JointSize + (float)amount * .1f) * 10) / 10;
 
-        if (nextAmount < 0.1 || nextAmount > 0.5f) return;
+        if (nextAmount < minMaxJointSize.x || nextAmount > minMaxJointSize.y) return;
 
         Limb.LimbCreator.JointSize = nextAmount;
         Limb.LimbCreator.CreateJoints();

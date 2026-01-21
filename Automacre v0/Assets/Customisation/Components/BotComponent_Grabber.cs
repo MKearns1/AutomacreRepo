@@ -93,6 +93,11 @@ public class BotComponent_Grabber : BotComponent_LimbType
     {
         return Vector3.Lerp(transform.position, Hand.position, 0.5f) + Vector3.up;
     }
+    public override void RemoveFromBot()
+    {
+        Destroy(Hand.gameObject);
+        Destroy(gameObject);
+    }
 
     public override void AssignVariablesStartup()
     {
