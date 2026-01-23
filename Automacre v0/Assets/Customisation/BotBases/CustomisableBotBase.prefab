@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2791327333793513695}
   - component: {fileID: 8632801143439701346}
   m_Layer: 0
-  m_Name: BotBase 2
+  m_Name: CustomisableBotBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -158,7 +158,10 @@ MonoBehaviour:
   CompName: Walker
   body: {fileID: 0}
   ComponentDefaultData: {fileID: 11400000, guid: ca8ef0e1f175fdc4287385fe36959a3e, type: 2}
+  LimbCreator: {fileID: 0}
+  fabrik: {fileID: 0}
   Foot: {fileID: 0}
+  proceduralWalker: {fileID: 0}
 --- !u!1 &3591573992850114956
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +266,7 @@ MonoBehaviour:
   moving: 0
   MovementAllowed: 0
   StepSpeedMultiplier: 2
-  ShowDebug: 0
+  ShowDebug: 1
   MovementCurve:
     serializedVersion: 2
     m_Curve:

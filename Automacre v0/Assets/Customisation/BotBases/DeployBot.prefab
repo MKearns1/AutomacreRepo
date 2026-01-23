@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 5676525900512228310}
   - component: {fileID: 8756243463114567952}
   m_Layer: 0
-  m_Name: BlankBot 2
+  m_Name: DeployBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,7 +419,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 3
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b2ded56eb2c504d8742221ad650334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NavAgent: {fileID: 0}
 --- !u!1 &5730344220411246473
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +794,7 @@ MonoBehaviour:
   moving: 0
   MovementAllowed: 0
   StepSpeedMultiplier: 2
+  DefaultFootPlacementOffset: {x: 0, y: 0, z: 0}
   ShowDebug: 0
   MovementCurve:
     serializedVersion: 2
