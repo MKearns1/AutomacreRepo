@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class BotAI : MonoBehaviour
 {
-    NavMeshAgent NavAgent;
+    public NavMeshAgent NavAgent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

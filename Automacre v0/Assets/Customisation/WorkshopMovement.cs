@@ -74,6 +74,6 @@ public class WorkshopMovement : MonoBehaviour
         GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
 
         ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
-        WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
+       // WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
     }
 }

@@ -38,12 +38,12 @@ public class BotBodyBase : MonoBehaviour
 
         Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredHeight;
 
-        //transform.position = Vector3.Lerp(transform.position, DesiredPos, Time.deltaTime * 5);
-
         Vector3 AvgHeight = Vector3.zero;
         float CompAvgHeight = 0;
         bool stepping = false;
 
+
+        if(ProceduralComponents.Count == 0) return;
         foreach (var comp in ProceduralComponents)
         {
             float y = comp.EndPoint.position.y;
@@ -51,15 +51,6 @@ public class BotBodyBase : MonoBehaviour
             if (comp.moving)
             {
                 stepping = true;
-
-                /*foreach (var comp2 in ProceduralComponents)
-                {
-                    if(comp2 != comp)
-                    {
-                        comp.MovementAllowed = false;
-                    }
-                    else { comp.MovementAllowed = true; }
-                }*/
                 
             }
 
@@ -128,20 +119,6 @@ public class BotBodyBase : MonoBehaviour
 
                 //CompAvgHeight += clampedHeight;*/
 
-
-        Ray FaceRay = new Ray(transform.position, transform.forward);
-
-        if (Physics.Raycast(FaceRay, out hit, 3, GroundLayer))
-        {
-            //transform.Rotate(Vector3.up*Time.deltaTime * 4000);
-            if(Vector3.Angle(hit.normal, Vector3.up) > 80)
-            transform.rotation = Quaternion.LookRotation(Vector3.Reflect(transform.forward, hit.normal), Vector3.up);
-        }
-        Debug.DrawRay(FaceRay.origin, FaceRay.direction);
-
-        // if(!stepping)
-
-       // transform.position = transform.position + transform.forward * Time.deltaTime * moveSpeed;
 
         float smoothedHeight;
         smoothedHeight = transform.position.y;
