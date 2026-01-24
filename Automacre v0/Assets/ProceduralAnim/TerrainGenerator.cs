@@ -62,7 +62,7 @@ public class TerrainGenerator : MonoBehaviour
     [NonSerialized] public float maxTerrainHeight = 0f;
     [NonSerialized] public float minHeight = 0f;
     public Gradient Colors;
-    NavMeshSurface navMeshSurface;
+    public NavMeshSurface navMeshSurface;
     [NonSerialized] public GameObject WaterPlane;
     public List<List<Node>> ArtefactPaths = new List<List<Node>>();
 
@@ -197,6 +197,8 @@ public class TerrainGenerator : MonoBehaviour
         mesh.RecalculateTangents();
         ColourTerrain();
         mesh.colors = colours;
+        GetComponent<MeshCollider>().sharedMesh = GetComponent<MeshFilter>().sharedMesh;
+        ;
 
         if (meshcollider != null)
         {
@@ -205,21 +207,22 @@ public class TerrainGenerator : MonoBehaviour
             meshcollider.sharedMesh = mesh;
         }
     }
+    [ContextMenu("CreateMesh")]
 
     void remakeMesh()
     {
         var sw = System.Diagnostics.Stopwatch.StartNew();
 
-        Destroy(mesh);
+        DestroyImmediate(mesh);
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         maxTerrainHeight = heightMultiplier;
         colours = new Color[(xSize + 1) * (zSize + 1)];
-
+        
 
         CreateShape();
         UpdateMesh();
-        // navMeshSurface.BuildNavMesh();
+         navMeshSurface.BuildNavMesh();
 
         sw.Stop();
         Debug.Log("Terrain generation time: " + sw.ElapsedMilliseconds);
@@ -315,6 +318,8 @@ public class TerrainGenerator : MonoBehaviour
 
     private void OnValidate()
     {
+        remakeMesh();
+
         if (Application.isPlaying)
         {
             remakeMesh();

@@ -101,38 +101,87 @@ public class ProceduralWalker : MonoBehaviour
         PredictedFootPos = PredictedBodyPos + BotBody.transform.TransformVector(DefaultFootPlacementOffset);
         PredictedFootPos.y = transform.position.y;
 
-
-        
+        RaycastHit DefaultPosBlockedHit;
+        Vector3 DefaultBlockDir = DefaultFootPos - StartPoint.position;
+        Ray CandidateBlockedRay = new Ray(StartPoint.position, DefaultBlockDir.normalized);
+        bool DefaultPosBlocked = Physics.Raycast(CandidateBlockedRay, out DefaultPosBlockedHit, DefaultBlockDir.magnitude, GroundLayer);
 
         RaycastHit PredictedFootRaycastFloor;
         PredictedFootPosToFloor = new(PredictedFootPos, Vector3.down);
-        bool HasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, 2, GroundLayer);
+        bool PredictedHasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, 2, GroundLayer);
+
+        RaycastHit PredictedPosBlockedHit;
+        Vector3 PredictedPosBlockDir = PredictedFootRaycastFloor.point - StartPoint.position;
+        Ray PredictedPosBlockRay = new Ray(StartPoint.position, PredictedPosBlockDir.normalized);
+        bool PredictedPosBlocked = Physics.Raycast(PredictedPosBlockRay, out PredictedPosBlockedHit, PredictedPosBlockDir.magnitude, GroundLayer);
 
         DistBetweenStartAndEnd = Vector3.Distance(StartPoint.position, EndPoint.position);
         bool FootToofar = DistBetweenStartAndEnd > GetComponent<LimbCreator>().Length;
-        
 
+        Vector3 chosenPos = GetFootPlacementPos();
 
-        if (HasGround)
+        if (DefaultPosBlocked)
+        {
+            Debug.Log("DefaultBlocked");
+            chosenPos = DefaultPosBlockedHit.point;
+        }
+        else if (PredictedHasGround == false) // IF the predicted spot didnt hit anything AND the default pos was NOT blocked
+        {
+
+        }
+        else if (PredictedPosBlocked) // IF the default pos was NOT blocked AND the predicted did hit the ground
+        {
+            Debug.Log("PredictedBlocked");
+            chosenPos = PredictedPosBlockedHit.point;
+        }
+        else // IF the default pos was NOT blocked AND the predicted did have a ground AND between the Predicted was NOT blocked
         {
             float DistBetweenStartAndCandidate = Vector3.Distance(StartPoint.position, PredictedFootRaycastFloor.point);
             bool CandidateToofar = DistBetweenStartAndCandidate > GetComponent<LimbCreator>().Length;
 
-            if (CandidateToofar || FootToofar)
+            if (!CandidateToofar)
             {
-                NextStepPos = GetFootPlacementPos();
+                chosenPos = PredictedFootRaycastFloor.point;
+            }
+        }
+
+        NextStepPos = chosenPos;
+
+        /*
+        else
+        {
+            if (PredictedHasGround)
+            {
+                if (PredictedPosBlocked)
+                {
+                    Debug.Log("PredictedBlocked");
+                    NextStepPos = PredictedPosBlockedHit.point;
+                }
+                else
+                {
+                    Debug.Log("aaaaaa");
+
+                    float DistBetweenStartAndCandidate = Vector3.Distance(StartPoint.position, PredictedFootRaycastFloor.point);
+                    bool CandidateToofar = DistBetweenStartAndCandidate > GetComponent<LimbCreator>().Length;
+
+                    if (CandidateToofar || FootToofar)
+                    {
+                        NextStepPos = GetFootPlacementPos();
+                    }
+                    else
+                    {
+                        NextStepPos = PredictedFootRaycastFloor.point;
+                    }
+                }
             }
             else
             {
-                NextStepPos = PredictedFootRaycastFloor.point;
-            }
-        }
-        else
-        {
-            NextStepPos = GetFootPlacementPos();
-        }
+                Debug.Log("sssss");
 
-        //NextStepPos = 
+                NextStepPos = GetFootPlacementPos();
+            }
+
+        }*/
 
         if (!moving && MovementAllowed && ShouldStep())
         {
@@ -250,7 +299,7 @@ public class ProceduralWalker : MonoBehaviour
         {
             Debug.Log(i);
             float lerpAmount = i / Iterations;
-            Vector3 RayOrigin = Vector3.Lerp(BotBody.transform.position, DefaultFootPos, lerpAmount);
+            Vector3 RayOrigin = Vector3.Lerp(BotBody.transform.position, PredictedFootPos, lerpAmount);
             Ray newRay = new(RayOrigin, Vector3.down);
             HasGround = Physics.Raycast(newRay, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
 
