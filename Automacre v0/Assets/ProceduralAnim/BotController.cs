@@ -9,6 +9,7 @@ public class BotController : MonoBehaviour
     public List<Transform> components = new List<Transform>();
     Dictionary<string, AttatchPoint> AttachmentPoints = new Dictionary<string, AttatchPoint>();
     public BotAI Ai;
+    public SupportManager supportManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +20,7 @@ public class BotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void AssembleBot(BotRuntimeData AssembleData)
@@ -43,7 +44,6 @@ public class BotController : MonoBehaviour
             BotComponent NewCompScript = NewComponent.GetComponent<BotComponent>();
 
             AttachmentPoints[key].AttachNewComponent(NewCompScript);
-           // NewCompScript.Initialise(Design_AttachPoints[key].botComponent.DesignInfo, this);
             NewCompScript.Initialise(Design_AttachPoints[key].botComponent.GetDesignInfo(), this);
 
 
@@ -74,6 +74,15 @@ public class BotController : MonoBehaviour
 
 
 
+        }
+
+        if (supportManager.Supported)
+        {
+            Ai.NavAgent.baseOffset = 2;
+        }
+        else
+        {
+            Ai.NavAgent.baseOffset = 1;
         }
     }
 

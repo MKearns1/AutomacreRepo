@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         cam = transform.GetChild(0).GetComponent<Camera>();
-        HudBase = GameObject.Find("Canvas").GetComponent<HUDBase>();
+        //HudBase = GameObject.Find("Canvas").GetComponent<HUDBase>();
         CamDesiredPos = transform.position;
         CamDesiredRot = transform.rotation;
         foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
@@ -145,7 +145,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, CamDesiredPos, Time.deltaTime * 10);
-        transform.rotation = Quaternion.Lerp(transform.rotation, CamDesiredRot, Time.deltaTime * 10);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, CamDesiredRot, Time.deltaTime * 10);
+        transform.rotation = CamDesiredRot;
 
         transform.Find("Cube").transform.position = CamDesiredPos;
         transform.Find("Cube").transform.rotation = CamDesiredRot;

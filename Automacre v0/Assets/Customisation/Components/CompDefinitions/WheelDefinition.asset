@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultPrefab: {fileID: 2250535285414371746, guid: 1632d6d3d2760374c9fae3af222b7811, type: 3}
   Type: 3
-  DefaultWheelPrefab: {fileID: 0}
+  ProvidesSupport: 0
+  DefaultWheelPrefab: {fileID: 219460181398453790, guid: e425eda34d861164f9cbedd9f51083c2, type: 3}

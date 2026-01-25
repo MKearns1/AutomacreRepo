@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4781078411219985818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3854104089640534509}
+  - component: {fileID: 7699389889675010107}
+  m_Layer: 0
+  m_Name: WorkshopGeneral
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3854104089640534509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781078411219985818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.6575184, y: -2.5975664, z: 6.0083294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7699389889675010107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4781078411219985818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4051534cbd0d358498011b7f8ff8d9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LegPrefab: {fileID: 2250535285414371746, guid: 2a79858de30df964fb571a6b293c47e2, type: 3}
+  FootPrefab: {fileID: 8357155842713679565, guid: 0e1ff614eef2261468c218fe10db7f30, type: 3}
+  ComponentsList:
+  - {fileID: -6689400603016825658, guid: 2a79858de30df964fb571a6b293c47e2, type: 3}
+  - {fileID: 3759396059747879528, guid: db9dc61f7b5035e438c53216f92c5e34, type: 3}
+  - {fileID: 6358434723662088780, guid: 1632d6d3d2760374c9fae3af222b7811, type: 3}
+  - {fileID: 6243338564890052766, guid: 5d9d0b824f663f24a96e0207affc0998, type: 3}
+  CurrentSelectedComponentToPlace: {fileID: 0}
+  SelectedComponentOnBot: {fileID: 0}
+  CurrentCopiedOptions: {fileID: 0}
+  SelectionArrowPrefab: {fileID: 8570731572660418684, guid: 4aff11e7d095cc44cbb08ea07fcd96a6, type: 3}

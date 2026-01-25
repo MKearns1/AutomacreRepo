@@ -10,13 +10,15 @@ public class MotionPlayer
     public Vector3 end;
     public MovementMotion GeneralMotion;
     public bool isPlaying => time < GeneralMotion.duration;
+    public float playSpeed;
 
-    public void Play(Vector3 from, Vector3 to, MovementMotion motion)
+    public void Play(Vector3 from, Vector3 to, MovementMotion motion, float Speed = 1)
     {
         start = from;
         end = to;
         GeneralMotion = motion;
         time = 0;
+        playSpeed = Speed;
     }
 
 
@@ -37,7 +39,7 @@ public class MotionPlayer
         if(!isPlaying)return;
         Debug.Log("UPDATE");
 
-        time += Time.deltaTime;
+        time += Time.deltaTime * playSpeed;
         float t = Mathf.Clamp01(time / GeneralMotion.duration);
        // t = Mathf.SmoothStep(0, 1, t);
 

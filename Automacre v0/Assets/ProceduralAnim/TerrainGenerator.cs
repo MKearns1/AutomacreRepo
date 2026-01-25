@@ -69,7 +69,7 @@ public class TerrainGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        navMeshSurface = GetComponent<NavMeshSurface>();
+/*        navMeshSurface = GetComponent<NavMeshSurface>();
 
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -77,7 +77,7 @@ public class TerrainGenerator : MonoBehaviour
 
         WaterPlane = GameObject.Find("Plane");
 
-        remakeMesh();
+        remakeMesh();*/
     }
 
     // Update is called once per frame
@@ -318,11 +318,11 @@ public class TerrainGenerator : MonoBehaviour
 
     private void OnValidate()
     {
-        remakeMesh();
+       // remakeMesh();
 
         if (Application.isPlaying)
         {
-            remakeMesh();
+           // remakeMesh();
         }
     }
 

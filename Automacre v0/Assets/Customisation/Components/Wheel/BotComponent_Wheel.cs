@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BotComponent_Wheel : BotComponent
 {
+    public Transform Wheel;
+
     public override void AssignVariablesStartup()
     {
         base.AssignVariablesStartup();
@@ -31,6 +33,9 @@ public class BotComponent_Wheel : BotComponent
         //base.Initialise(DesignInformation, BC);
 
         GetComponentInChildren<ProceduralWheel>().enabled = true;
+        GetComponentInChildren<ProceduralWheel>().BotBody = body;
+        GetComponentInChildren<ProceduralWheel>().WheelPart = Wheel;
+        GetComponentInChildren<FABRIK>().TargetTransform = Wheel.GetChild(0).transform;
 
     }
 
@@ -38,6 +43,19 @@ public class BotComponent_Wheel : BotComponent
     {
         //Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
 
+        Vector3 wheelPos = WheelPlacementPos().point;
+        GameObject newWheel = Instantiate((ComponentDefaultData as WheelDefinition).DefaultWheelPrefab, wheelPos, transform.rotation);
+
+        Wheel = newWheel.transform;
+        Transform botParent = WorkshopGeneral.GetTopParent(transform);
+        if (botParent != transform)
+        {
+            Wheel.SetParent(botParent, true);
+        }
+
+        GetComponentInChildren<FABRIK>().TargetTransform = newWheel.transform.GetChild(0).transform;
+        GetComponentInChildren<LimbCreator>().CreateJoints();
+        GetComponentInChildren<LimbCreator>().CreateJoints();
         GetComponentInChildren<ProceduralWheel>().enabled = false;
         DesignInfo = GetDesignInfo();
 
@@ -53,6 +71,24 @@ public class BotComponent_Wheel : BotComponent
     {
         Destroy(this.gameObject);
     }
+
+    public RaycastHit WheelPlacementPos()
+    {
+        int layernum = LayerMask.GetMask("Ground");
+        int layermask = 1 << layernum;
+
+        Ray floorray = new Ray(transform.position + transform.forward*.2f, Vector3.down);
+        RaycastHit hit;
+
+        bool h = Physics.Raycast(floorray, out hit, 100, layernum);
+        if (h)
+        {
+            Debug.Log(hit.collider.name);
+        }
+
+        return hit;
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

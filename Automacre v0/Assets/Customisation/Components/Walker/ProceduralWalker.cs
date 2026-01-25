@@ -1,7 +1,8 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ProceduralWalker : MonoBehaviour
+public class ProceduralWalker : ProceduralPart
 {
    // [Serializable]
     public ProceduralSettings Settings;
@@ -10,7 +11,6 @@ public class ProceduralWalker : MonoBehaviour
     Vector3 ComponentPlacementOffset;
 
     Transform StartPoint;
-    public Transform EndPoint;
     Vector3 GroundHitLocation;
     public Vector3 NextStepPos;
     Vector3 NextStepPos2;
@@ -30,22 +30,21 @@ public class ProceduralWalker : MonoBehaviour
     Vector3 DefaultFootPos;
     public bool ShowDebug;
     public AnimationCurve MovementCurve;
-    Vector3 SurfaceNormal;
+    [DoNotSerialize ]public Vector3 SurfaceNormal;
     Vector3 PredictedBodyPos;
     Vector3 PredictedFootPos;
     Ray PredictedFootPosToFloor;
     float DistBetweenStartAndEnd;
     float maxLimbLength;
+    public bool HasStepToken;
+
+    public MovementMotion StepMotion = new();
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       //StartPoint = transform.Find("GameObject").transform.Find("ConnectionPoint").transform;
-       //StartPoint = transform.Find("ConnectionPoint").transform;
-       StartPoint = transform;
-        //EndPoint = transform.Find("GameObject").transform.Find("EndPoint").transform;
-        //EndPoint = GameObject.Find("EndPoint").transform ;
-        // DefaultFootPlacementOffset = EndPoint.position - StartPoint.position;
+        StartPoint = transform;
         DefaultFootPlacementOffset = (transform.forward).normalized*2f;
         DefaultFootPlacementOffset.y = 0;
         ComponentPlacementOffset = BotBody.transform.position - transform.position;
@@ -53,52 +52,25 @@ public class ProceduralWalker : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        //Debug.Log(BotBody.GetComponent<BotAI>().NavAgent.velocity);
+        base.Update();
+
         DefaultFootPos = BotBody.transform.TransformPoint(DefaultFootPlacementOffset);// StartPoint.position + DefaultFootPlacementOffset;
         DefaultFootPos.y = transform.position.y;
         Vector3 DefaultFootPosDirection = DefaultFootPos - StartPoint.position;
 
-       // FloorRay = new Ray(StartPoint.position, Vector3.down);
-        FloorRay = new Ray(StartPoint.position, DefaultFootPosDirection);
-        Debug.DrawRay(FloorRay.origin, FloorRay.direction);
-        RaycastHit hit;
-
-        if(Physics.Raycast(FloorRay, out hit, DefaultFootPosDirection.magnitude, GroundLayer))
-        {
-            GroundHitLocation = hit.point;
-            SurfaceNormal = hit.normal;
-        }
-        else
-        {
-            FloorRay = new Ray(DefaultFootPos, Vector3.down);
-            Debug.DrawRay(FloorRay.origin, FloorRay.direction);
-            if (Physics.Raycast(FloorRay, out hit, 1000, GroundLayer))
-            {
-                GroundHitLocation = hit.point;
-                SurfaceNormal = hit.normal;
-            }
-        }
-
-         //   NextStepPos = GroundHitLocation;
-        NextStepPos2 = NextStepPos + BotBody.transform.forward * Settings.MaxStrideLength * 1.1f;
-        RaycastHit nextstepHit;
-
-        Ray NextStepRay = new Ray(StartPoint.position, NextStepPos2 - StartPoint.position);
-
-        if (Physics.Raycast(NextStepRay, out nextstepHit, 4, GroundLayer))
-        {
-            NextStepPos2 = nextstepHit.point;
-        }
-
-        StepSpeed = 1 * StepSpeedMultiplier;
-
+        StepSpeed = BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude * StepSpeedMultiplier;
+        StepSpeed = 2;
 
         NextStepPos2 = DefaultFootPos;
-       
-        PredictedBodyPos = BotBody.transform.position + BotBody.GetComponent<BotAI>().NavAgent.velocity / 2;
-        PredictedFootPos = PredictedBodyPos + BotBody.transform.TransformVector(DefaultFootPlacementOffset);
+
+        float lookAheadTime = StepMotion.duration * .5f;
+         lookAheadTime = StepMotion.duration;
+
+
+        //PredictedBodyPos = BotBody.transform.position + BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity / 2;
+        PredictedFootPos = BotBody.PredictedBodyPos + BotBody.transform.TransformVector(DefaultFootPlacementOffset);
         PredictedFootPos.y = transform.position.y;
 
         RaycastHit DefaultPosBlockedHit;
@@ -107,8 +79,8 @@ public class ProceduralWalker : MonoBehaviour
         bool DefaultPosBlocked = Physics.Raycast(CandidateBlockedRay, out DefaultPosBlockedHit, DefaultBlockDir.magnitude, GroundLayer);
 
         RaycastHit PredictedFootRaycastFloor;
-        PredictedFootPosToFloor = new(PredictedFootPos, Vector3.down);
-        bool PredictedHasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, 2, GroundLayer);
+        PredictedFootPosToFloor = new(PredictedFootPos, transform.up*-1);
+        bool PredictedHasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
 
         RaycastHit PredictedPosBlockedHit;
         Vector3 PredictedPosBlockDir = PredictedFootRaycastFloor.point - StartPoint.position;
@@ -116,14 +88,15 @@ public class ProceduralWalker : MonoBehaviour
         bool PredictedPosBlocked = Physics.Raycast(PredictedPosBlockRay, out PredictedPosBlockedHit, PredictedPosBlockDir.magnitude, GroundLayer);
 
         DistBetweenStartAndEnd = Vector3.Distance(StartPoint.position, EndPoint.position);
-        bool FootToofar = DistBetweenStartAndEnd > GetComponent<LimbCreator>().Length;
+        bool FootToofar = DistBetweenStartAndEnd > maxLimbLength;
 
         Vector3 chosenPos = GetFootPlacementPos();
 
         if (DefaultPosBlocked)
         {
-            Debug.Log("DefaultBlocked");
+            //Debug.Log("DefaultBlocked");
             chosenPos = DefaultPosBlockedHit.point;
+            SurfaceNormal = DefaultPosBlockedHit.normal;
         }
         else if (PredictedHasGround == false) // IF the predicted spot didnt hit anything AND the default pos was NOT blocked
         {
@@ -131,21 +104,29 @@ public class ProceduralWalker : MonoBehaviour
         }
         else if (PredictedPosBlocked) // IF the default pos was NOT blocked AND the predicted did hit the ground
         {
-            Debug.Log("PredictedBlocked");
+            //Debug.Log("PredictedBlocked");
             chosenPos = PredictedPosBlockedHit.point;
+            SurfaceNormal = PredictedPosBlockedHit.normal;
         }
         else // IF the default pos was NOT blocked AND the predicted did have a ground AND between the Predicted was NOT blocked
         {
             float DistBetweenStartAndCandidate = Vector3.Distance(StartPoint.position, PredictedFootRaycastFloor.point);
-            bool CandidateToofar = DistBetweenStartAndCandidate > GetComponent<LimbCreator>().Length;
+            bool CandidateToofar = DistBetweenStartAndCandidate > maxLimbLength;
 
             if (!CandidateToofar)
             {
                 chosenPos = PredictedFootRaycastFloor.point;
+                SurfaceNormal = PredictedFootRaycastFloor.normal;
             }
         }
 
         NextStepPos = chosenPos;
+
+        if (FootToofar)
+        {
+            //NextStepPos = GetFootPlacementPos();
+           // BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().AllowStep(this);
+        }
 
         /*
         else
@@ -183,39 +164,102 @@ public class ProceduralWalker : MonoBehaviour
 
         }*/
 
-        if (!moving && MovementAllowed && ShouldStep())
+        // moving = false;
+
+        if (!moving && ShouldStep() && !HasStepToken)
         {
-            moving = true;
-            // EndPoint.transform.position = NextStepPos;
-            //NextStepPos2 = NextStepPos + BotBody.transform.forward * BotBody.moveSpeed / 1;
-            PrevPos = EndPoint.position;
-            MoveToPos = NextStepPos;
+            BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().RequestStep(this);
+        }
+        if (!moving && HasStepToken)
+        {
+            BeginStep();
         }
 
+/*        if (!moving && MovementAllowed && ShouldStep() && !motionPlayer.isPlaying)
+        {
+            moving = true;
+            PrevPos = EndPoint.position;
+            MoveToPos = NextStepPos;
+           // Step(MoveToPos);
+        }*/
+
+        /*        if (!motionPlayer.isPlaying && Actions.Count > 0)
+                {
+                    Actions.Dequeue().Invoke();
+                }*/
+
+
+        /*       // FloorRay = new Ray(StartPoint.position, Vector3.down);
+        FloorRay = new Ray(StartPoint.position, DefaultFootPosDirection);
+        Debug.DrawRay(FloorRay.origin, FloorRay.direction);
+        RaycastHit hit;
+
+        if(Physics.Raycast(FloorRay, out hit, DefaultFootPosDirection.magnitude, GroundLayer))
+        {
+            GroundHitLocation = hit.point;
+            SurfaceNormal = hit.normal;
+        }
+        else
+        {
+            FloorRay = new Ray(DefaultFootPos, Vector3.down);
+            Debug.DrawRay(FloorRay.origin, FloorRay.direction);
+            if (Physics.Raycast(FloorRay, out hit, 1000, GroundLayer))
+            {
+                GroundHitLocation = hit.point;
+                SurfaceNormal = hit.normal;
+            }
+        }
+
+         //   NextStepPos = GroundHitLocation;
+        NextStepPos2 = NextStepPos + BotBody.transform.forward * Settings.MaxStrideLength * 1.1f;
+        RaycastHit nextstepHit;
+
+        Ray NextStepRay = new Ray(StartPoint.position, NextStepPos2 - StartPoint.position);
+
+        if (Physics.Raycast(NextStepRay, out nextstepHit, 4, GroundLayer))
+        {
+            NextStepPos2 = nextstepHit.point;
+        }*/
         if (moving)
         {
-            MoveTransition(PrevPos, MoveToPos, moveProgress);
-           // Debug.LogWarning("FR" + gameObject.name);
+             MoveTransition(PrevPos, MoveToPos, moveProgress);
+            // Debug.LogWarning("FR" + gameObject.name);
 
             float Dist = Vector3.Distance(EndPoint.position, MoveToPos);
             if (Dist < .1f)
             {
-               // Debug.LogWarning("POOOOOOOOOOOOOOOOOOOP" + gameObject.name);
+                // Debug.LogWarning("POOOOOOOOOOOOOOOOOOOP" + gameObject.name);
                 EndPoint.position = MoveToPos;
+                EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * transform.rotation; ;
                 moveProgress = 0;
                 MoveFinished();
             }
         }
+    }
 
+    public void Step(Vector3 target)
+    {
+        Actions.Clear();
+
+        Vector3 start = EndPoint.position;
+        float dist = Vector3.Distance(start, target);
+
+        float bodySpeed = BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude;
+
+        float footSpeed = Mathf.Max(bodySpeed * 1.5f, 0.5f);
+        float duration = dist / footSpeed;
+        duration = Mathf.Clamp(duration, 0.1f, 0.5f);
+        StepMotion.duration = duration;
+        Actions.Enqueue(() => motionPlayer.Play(EndPoint.position, target, StepMotion));
     }
 
     public void MoveTransition(Vector3 startPos, Vector3 EndPos, float amount)
     {
         moveProgress += Time.deltaTime * StepSpeed;
         float t = Mathf.Clamp01(moveProgress);
-        t= Mathf.SmoothStep(0,1,t);
-        if(MovementCurve.length > 0)
-        t = MovementCurve.Evaluate(t);
+        t = Mathf.SmoothStep(0, 1, t);
+        if (MovementCurve.length > 0)
+            t = MovementCurve.Evaluate(t);
 
         Vector3 flatPos = Vector3.Lerp(startPos, EndPos, t);
 
@@ -252,10 +296,19 @@ public class ProceduralWalker : MonoBehaviour
         }
         return EndPoint.rotation;
     }
+
+    void BeginStep()
+    {
+        moving = true;
+        HasStepToken = false;
+
+        PrevPos = EndPoint.position;
+        MoveToPos = NextStepPos;
+    }
     void MoveFinished()
     {
         moving = false;
-
+        BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().CompFinishStep(this);
     }
 
     public bool OnGround()
@@ -286,6 +339,8 @@ public class ProceduralWalker : MonoBehaviour
 
     public Vector3 GetFootPlacementPos()
     {
+        //return DefaultFootPos;
+
         RaycastHit PredictedFootRaycastFloor;
         bool HasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, 2, GroundLayer);
 
@@ -318,7 +373,7 @@ public class ProceduralWalker : MonoBehaviour
         if(!ShowDebug)return;
         if(!this.enabled)return;
         Gizmos.color = new Color(1,1,1,.25f);
-        Gizmos.DrawWireSphere(StartPoint.position,Settings.MaxReachLength);
+        //Gizmos.DrawWireSphere(StartPoint.position,Settings.MaxReachLength);
         //Gizmos.DrawWireSphere(GroundHitLocation, 0.1f);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(NextStepPos, 0.1f);
@@ -327,7 +382,7 @@ public class ProceduralWalker : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(DefaultFootPos, Vector3.one*.2f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(PredictedBodyPos, Vector3.one*.6f);
+       // Gizmos.DrawWireCube(PredictedBodyPos, Vector3.one*.6f);
         Gizmos.DrawWireCube(PredictedFootPos, Vector3.one*.3f);
 
         Gizmos.DrawLine(PredictedFootPosToFloor.origin, PredictedFootPosToFloor.origin+PredictedFootPosToFloor.direction*2);

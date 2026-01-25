@@ -34,7 +34,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         Foot.localScale = GrabberInfo.FootSize;
         proceduralWalker.enabled = true;
         proceduralWalker.BotBody = body;
-        body.GetAllProceduralComponents();
+        //body.GetAllProceduralComponents();
 
 
 /*        WalkerDesignInfo WalkerConfiguration = DesignInformation as WalkerDesignInfo;

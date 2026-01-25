@@ -9,15 +9,18 @@ public class BotBodyBase : MonoBehaviour
 
     public LayerMask GroundLayer;
     Vector3 GroundHitLocation;
-    public float DesiredHeight = 1;
+    public float DesiredOffsetFromGround = 1;
     public List<ProceduralWalker> ProceduralComponents;
     float heightVelocity = 0;
+    public float DistanceFromGround;
+    public Vector3 PredictedBodyPos;
+    public float PredictionLookAheadTime = .5f;
     //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //GetAllProceduralComponents();
+        GetAllProceduralComponents();
        // ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
         
     }
@@ -26,48 +29,42 @@ public class BotBodyBase : MonoBehaviour
     void Update()
     {
 
+        /*        FloorRay = new Ray(transform.position, Vector3.down);
+                Debug.DrawRay(FloorRay.origin, FloorRay.direction);
+                RaycastHit hit;
 
-        FloorRay = new Ray(transform.position, Vector3.down);
-        Debug.DrawRay(FloorRay.origin, FloorRay.direction);
-        RaycastHit hit;
+                if (Physics.Raycast(FloorRay, out hit, 2, GroundLayer))
+                {
+                    GroundHitLocation = hit.point;
+                }
 
-        if (Physics.Raycast(FloorRay, out hit, 2, GroundLayer))
-        {
-            GroundHitLocation = hit.point;
-        }
+                Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredOffsetFromGround;*/
 
-        Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredHeight;
 
         Vector3 AvgHeight = Vector3.zero;
         float CompAvgHeight = 0;
-        bool stepping = false;
 
-
-        if(ProceduralComponents.Count == 0) return;
+        //if(ProceduralComponents.Count == 0) return;
         foreach (var comp in ProceduralComponents)
         {
+            if(comp.moving)continue;
             float y = comp.EndPoint.position.y;
             CompAvgHeight += y;
-            if (comp.moving)
-            {
-                stepping = true;
-                
-            }
 
         }
 
-        foreach (var comp in ProceduralComponents)
+/*        foreach (var comp in ProceduralComponents)
         {
             if (comp == GetMostBehindComponent() && !comp.moving)
             {
                 comp.MovementAllowed = true;
             }
             else { comp.MovementAllowed = false;} 
-        }
+        }*/
 
             AvgHeight /= ProceduralComponents.Count;
         CompAvgHeight /= ProceduralComponents.Count;
-        CompAvgHeight += DesiredHeight;
+        CompAvgHeight += DesiredOffsetFromGround;
 
 /*
         Vector3 avgNormal = Vector3.zero;
@@ -125,7 +122,57 @@ public class BotBodyBase : MonoBehaviour
 
         smoothedHeight = Mathf.SmoothDamp(smoothedHeight, CompAvgHeight, ref heightVelocity, .25f);
 
-        transform.position = new Vector3(transform.position.x, smoothedHeight, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, smoothedHeight, transform.position.z);
+
+        PredictedBodyPos = transform.position + transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity * PredictionLookAheadTime;
+
+        RaycastHit PredictedGroundHit;
+        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50, LayerMask.GetMask("Ground")))
+        {
+            PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
+        }
+
+
+        Vector3 BotPosition = GetComponentInParent<BotController>().Ai.transform.position;
+
+        RaycastHit groundHit;
+        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out groundHit, 5, LayerMask.GetMask("Ground")))
+        {
+            BotPosition.y = groundHit.point.y + DesiredOffsetFromGround;
+            DistanceFromGround = groundHit.distance;
+            // Debug.Log("KOKOKOKO");
+        }
+
+
+        Vector3 avgNormal = Vector3.zero;
+        int normalCount = 0;
+
+        foreach (var comp in ProceduralComponents)
+        {
+           // if (!comp.OnGround()) continue;
+
+            avgNormal += comp.SurfaceNormal;
+            normalCount++;
+        }
+
+        if (normalCount > 0)
+            avgNormal.Normalize();
+        else
+            avgNormal = Vector3.up;
+
+        Vector3 forward = Vector3.ProjectOnPlane(
+    GetComponentInParent<BotController>().Ai.transform.forward,
+    avgNormal
+).normalized;
+
+        Quaternion targetRotation =
+            Quaternion.LookRotation(forward, avgNormal);
+
+        //BotPosition.y = CompAvgHeight;
+        transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        //transform.rotation = targetRotation;
+        //transform.rotation = GetComponentInParent<BotController>().Ai.NavAgent.transform.rotation;
     }
 
 
@@ -164,7 +211,17 @@ public class BotBodyBase : MonoBehaviour
 
             ProceduralComponents.Add(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralWalker>(false));
         }
-        ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;
+       // ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+        //if (!ShowDebug) return;
+        if (!this.enabled) return;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(PredictedBodyPos, Vector3.one * .6f);
     }
 }
