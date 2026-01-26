@@ -1,11 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class AttatchPoint : MonoBehaviour
 {
     public Transform AttachedComponent;
     public BotComponent botComponent;
     public string Name;
+    public List<ComponentType> UnacceptedTypes = new List<ComponentType>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

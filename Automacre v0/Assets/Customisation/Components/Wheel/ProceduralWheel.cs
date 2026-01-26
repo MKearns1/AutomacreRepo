@@ -34,7 +34,7 @@ public class ProceduralWheel : ProceduralPart
         RaycastHit FloorHit;
         Vector3 FloorDir =  Vector3.up*-1;
         Ray FloorRay = new Ray(DefaultWheelPos, FloorDir);
-        bool HitFloor = Physics.Raycast(FloorRay, out FloorHit, 2, LayerMask.GetMask("Ground"));
+        bool HitFloor = Physics.Raycast(FloorRay, out FloorHit, 5, LayerMask.GetMask("Ground"));
         Debug.DrawLine(FloorRay.origin, FloorRay.origin + FloorDir);
 
         if (DefaultPosBlocked)

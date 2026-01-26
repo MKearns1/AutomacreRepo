@@ -75,5 +75,6 @@ public enum ComponentType
     None,
     Walker,
     Grabber,
-    Wheel
+    Wheel,
+    Basket
 }

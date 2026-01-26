@@ -33,13 +33,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8323668631837741083}
-  - {fileID: 5793098155251234763}
-  - {fileID: 8787995548301127599}
-  - {fileID: 1583201428673380661}
   - {fileID: 2183180430664871228}
-  - {fileID: 5353449846038146997}
+  - {fileID: 8787995548301127599}
   - {fileID: 573215189599428481}
+  - {fileID: 1583201428673380661}
   - {fileID: 2272551275639027056}
+  - {fileID: 5793098155251234763}
+  - {fileID: 5353449846038146997}
   - {fileID: 3974192303711336732}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -127,7 +127,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint6
+      value: AttatchmentPoint8
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,6 +173,14 @@ PrefabInstance:
       propertyPath: Name
       value: frontLeftBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: UnacceptedTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: 'UnacceptedTypes.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -193,7 +201,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint2
+      value: AttatchmentPoint4
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -387,7 +395,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint3
+      value: AttatchmentPoint2
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -453,7 +461,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint7
+      value: AttatchmentPoint6
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -499,6 +507,14 @@ PrefabInstance:
       propertyPath: Name
       value: BackrightBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: UnacceptedTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: 'UnacceptedTypes.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -519,7 +535,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint4
+      value: AttatchmentPoint3
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -664,6 +680,14 @@ PrefabInstance:
       propertyPath: Name
       value: frontRightBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: UnacceptedTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: 'UnacceptedTypes.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -684,7 +708,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3933734041740441414, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_Name
-      value: AttatchmentPoint8
+      value: AttatchmentPoint7
       objectReference: {fileID: 0}
     - target: {fileID: 4668965832043820389, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -729,6 +753,14 @@ PrefabInstance:
     - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: Name
       value: backLeftBottom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: UnacceptedTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372516879506527703, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
+      propertyPath: 'UnacceptedTypes.Array.data[0]'
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8285572875018479786, guid: 7032d121eaada1a4388d7e24a68adfd7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

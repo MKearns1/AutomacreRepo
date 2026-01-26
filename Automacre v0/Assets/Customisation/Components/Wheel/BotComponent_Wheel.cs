@@ -35,6 +35,7 @@ public class BotComponent_Wheel : BotComponent
         GetComponentInChildren<ProceduralWheel>().enabled = true;
         GetComponentInChildren<ProceduralWheel>().BotBody = body;
         GetComponentInChildren<ProceduralWheel>().WheelPart = Wheel;
+        GetComponentInChildren<ProceduralWheel>().EndPoint = Wheel;
         GetComponentInChildren<FABRIK>().TargetTransform = Wheel.GetChild(0).transform;
 
     }

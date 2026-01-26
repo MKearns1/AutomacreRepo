@@ -69,11 +69,15 @@ public class WorkshopMovement : MonoBehaviour
         Transform attatchpoint = rayhit.collider.gameObject.transform;
         AttatchPoint ap = attatchpoint.GetComponent<AttatchPoint>();
 
+        if ((ap.UnacceptedTypes.Contains(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.Type)))
+        {
+            return;
+        }
         //Debug.LogWarning(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab == null);
 
         GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
 
         ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
-       // WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
+        WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
     }
 }

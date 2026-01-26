@@ -1991,6 +1991,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 1870270355589152536}
   botComponent: {fileID: 238775635328655264}
   Name: frontLeftBottom
+  UnacceptedTypes: 
 --- !u!1 &946835727310360292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,6 +3494,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 4904914665287437722}
   botComponent: {fileID: 4817974614988923706}
   Name: backLeftBottom
+  UnacceptedTypes: 
 --- !u!65 &6259281836284115223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5744,9 +5746,9 @@ Transform:
   - {fileID: 9222694392181221840}
   - {fileID: 1002268450986527731}
   - {fileID: 1503851010831360709}
-  - {fileID: 9189648035413044546}
   - {fileID: 4127177464935667989}
   - {fileID: 112748391465692362}
+  - {fileID: 9189648035413044546}
   - {fileID: 4709568450203631380}
   m_Father: {fileID: 391059557168253796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7016,6 +7018,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 0}
   botComponent: {fileID: 0}
   Name: backLeftTop
+  UnacceptedTypes: 
 --- !u!65 &3864679325848043428
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7913,10 +7916,9 @@ MonoBehaviour:
   QueueCopy:
   - {fileID: 100474665428053037}
   - {fileID: 7417469528149188949}
-  DontWalk: 2
-  CurPreventedWalk: 0
   maxActiveSteps: 2
   curActiveSteps: 0
+  actualmovementallowednum: 0
 --- !u!1 &3445637802943734198
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,6 +8349,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 0}
   botComponent: {fileID: 0}
   Name: frontLeftTop
+  UnacceptedTypes: 
 --- !u!1 &3641229007165837012
 GameObject:
   m_ObjectHideFlags: 0
@@ -9596,6 +9599,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 1481953616130529820}
   botComponent: {fileID: 4698146353377669248}
   Name: BackrightBottom
+  UnacceptedTypes: 
 --- !u!1 &4211384514338905720
 GameObject:
   m_ObjectHideFlags: 0
@@ -10674,6 +10678,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 0}
   botComponent: {fileID: 0}
   Name: BackrightTop
+  UnacceptedTypes: 
 --- !u!1 &4459210362015917725
 GameObject:
   m_ObjectHideFlags: 0
@@ -14038,6 +14043,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: 0.009883062, y: 0.9675232, z: -0.252589}
+  HasStepToken: 0
   StepMotion:
     duration: 0.5
     animCurve:
@@ -15067,6 +15073,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: -0.17405584, y: 0.98250985, z: 0.06617406}
+  HasStepToken: 0
   StepMotion:
     duration: 0.5
     animCurve:
@@ -16543,6 +16550,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 3092277623139791846}
   botComponent: {fileID: 316577681389425645}
   Name: frontRightBottom
+  UnacceptedTypes: 
 --- !u!1 &7246596376352436453
 GameObject:
   m_ObjectHideFlags: 0
@@ -16704,6 +16712,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: -0.039536867, y: 0.9961713, z: -0.077971235}
+  HasStepToken: 0
   StepMotion:
     duration: 0.5
     animCurve:
@@ -18054,6 +18063,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: -0.26932925, y: 0.88332826, z: -0.38365722}
+  HasStepToken: 0
   StepMotion:
     duration: 0.5
     animCurve:
@@ -20784,6 +20794,7 @@ MonoBehaviour:
   AttachedComponent: {fileID: 0}
   botComponent: {fileID: 0}
   Name: frontRightTop
+  UnacceptedTypes: 
 --- !u!1 &9049801780881009648
 GameObject:
   m_ObjectHideFlags: 0

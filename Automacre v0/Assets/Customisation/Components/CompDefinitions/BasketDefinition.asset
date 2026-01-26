@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: BasketDefinition
   m_EditorClassIdentifier: 
   DefaultPrefab: {fileID: 2250535285414371746, guid: 5d9d0b824f663f24a96e0207affc0998, type: 3}
-  Type: 0
+  Type: 4
+  ProvidesSupport: 0

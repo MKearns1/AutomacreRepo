@@ -468,6 +468,7 @@
 "Assets/Interfaces.cs"
 "Assets/InventoryManager.cs"
 "Assets/misc/childtest.cs"
+"Assets/misc/FaceCalculationTest.cs"
 "Assets/misc/parenttest.cs"
 "Assets/ProceduralAnim/BotBodyBase.cs"
 "Assets/ProceduralAnim/BotController.cs"
