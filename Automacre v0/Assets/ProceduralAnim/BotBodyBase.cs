@@ -16,6 +16,7 @@ public class BotBodyBase : MonoBehaviour
     public Vector3 PredictedBodyPos;
     public float PredictionLookAheadTime = .5f;
     //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
+    Vector3 smoothedUp = Vector3.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +28,7 @@ public class BotBodyBase : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { //bots fight
 
         /*        FloorRay = new Ray(transform.position, Vector3.down);
                 Debug.DrawRay(FloorRay.origin, FloorRay.direction);
@@ -51,7 +52,7 @@ public class BotBodyBase : MonoBehaviour
 
             if(comp.GetType() == typeof(ProceduralWalker))
             {
-                if ((comp as ProceduralWalker).moving) continue;
+                //if ((comp as ProceduralWalker).moving) continue;
                 float y = comp.EndPoint.position.y;
                 CompAvgHeight += y;
             }
@@ -59,15 +60,15 @@ public class BotBodyBase : MonoBehaviour
 
         }
 
-        Vector3 upNormal;
+        Vector3 upNormal = Vector3.up;
 
         if(SupportPositions.Count >= 3)
         {
-            upNormal = GetNormal(SupportPositions);
+            upNormal = GetNormal(SupportPositions).normalized;
         }
         else 
         {
-            upNormal = Vector3.up;
+           // upNormal = Vector3.up;
         }
 
         /*        foreach (var comp in ProceduralComponents)
@@ -179,7 +180,10 @@ public class BotBodyBase : MonoBehaviour
 
         //avgNormal = GetNormal(SupportPositions).normalized;
 
-
+        if (Vector3.Dot(upNormal, Vector3.up) < 0f)
+        {
+            upNormal = -upNormal;
+        }
 
         //BotPosition.y = CompAvgHeight;
         transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 5f);
@@ -189,11 +193,18 @@ public class BotBodyBase : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + upNormal);
 
         Vector3 forward = Vector3.ProjectOnPlane(GetComponentInParent<BotController>().Ai.transform.forward, upNormal).normalized;
+        if(forward.magnitude < 0.1f)
+        {
+            forward = GetComponentInParent<BotController>().Ai.transform.forward.normalized;
+        }
+
 
         Quaternion targetRot = Quaternion.LookRotation(forward, upNormal);
         //Quaternion targetRot2 = Quaternion.LookRotation(GetComponentInParent<BotController>().Ai.NavAgent.velocity, upNormal);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
+        smoothedUp = Vector3.Slerp(smoothedUp, upNormal, Time.deltaTime * 5f).normalized;
+
+      //  transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
        // transform.rotation = Quaternion.Slerp(transform.rotation, targetRot2, Time.deltaTime * 5f);
     }
 
