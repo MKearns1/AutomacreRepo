@@ -58,7 +58,7 @@ MonoBehaviour:
   Joints: 0
   Length: 0
   JointSize: 0
-  minMaxNumJoints: {x: 1, y: 20}
+  minMaxNumJoints: {x: 1, y: 100}
   minMaxLength: {x: 1, y: 8}
   minMaxJointSize: {x: 0.1, y: 0.4}
   FootSize: 0

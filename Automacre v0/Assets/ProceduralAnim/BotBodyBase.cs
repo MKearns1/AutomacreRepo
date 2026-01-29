@@ -10,6 +10,7 @@ public class BotBodyBase : MonoBehaviour
     public LayerMask GroundLayer;
     Vector3 GroundHitLocation;
     public float DesiredOffsetFromGround = 1;
+    public float MaxOffsetFromGround;
     public List<ProceduralPart> ProceduralComponents;
     float heightVelocity = 0;
     public float DistanceFromGround;
@@ -17,7 +18,7 @@ public class BotBodyBase : MonoBehaviour
     public float PredictionLookAheadTime = .5f;
     //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
     Vector3 smoothedUp = Vector3.zero;
-
+    public List<BotComponent> CurComponents;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,32 +44,42 @@ public class BotBodyBase : MonoBehaviour
 
         List<Vector3> SupportPositions = new List<Vector3>();
 
-        Vector3 AvgHeight = Vector3.zero;
         float CompAvgHeight = 0;
 
         //if(ProceduralComponents.Count == 0) return;
         foreach (var comp in ProceduralComponents)
         {
+            string type = comp.GetType().ToString();
+            if (type != "ProceduralWalker" && type != "ProceduralWheel") continue;
 
-            if(comp.GetType() == typeof(ProceduralWalker))
+            float y = 0;
+            y = comp.EndPoint.position.y;
+
+            if (comp.GetType() == typeof(ProceduralWalker))
             {
-                //if ((comp as ProceduralWalker).moving) continue;
-                float y = comp.EndPoint.position.y;
-                CompAvgHeight += y;
+                ProceduralWalker walkcomp = (ProceduralWalker)comp;
+                
+                if (walkcomp.moving)
+                {
+                    y = Mathf.Lerp(walkcomp.EndPoint.position.y, walkcomp.NextStepPos.y,.5f);
+                }
             }
-            SupportPositions.Add(comp.EndPoint.transform.position);
 
+            CompAvgHeight += y;
+
+            Vector3 pos = comp.EndPoint.position;
+            pos.y = y;
+            SupportPositions.Add(pos);
         }
+
+        CompAvgHeight /= ProceduralComponents.Count;
+        CompAvgHeight += DesiredOffsetFromGround;
 
         Vector3 upNormal = Vector3.up;
 
         if(SupportPositions.Count >= 3)
         {
             upNormal = GetNormal(SupportPositions).normalized;
-        }
-        else 
-        {
-           // upNormal = Vector3.up;
         }
 
         /*        foreach (var comp in ProceduralComponents)
@@ -79,10 +90,6 @@ public class BotBodyBase : MonoBehaviour
                     }
                     else { comp.MovementAllowed = false;} 
                 }*/
-
-        AvgHeight /= ProceduralComponents.Count;
-        CompAvgHeight /= ProceduralComponents.Count;
-        CompAvgHeight += DesiredOffsetFromGround;
 
 /*
         Vector3 avgNormal = Vector3.zero;
@@ -150,7 +157,6 @@ public class BotBodyBase : MonoBehaviour
             PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
         }
 
-
         Vector3 BotPosition = GetComponentInParent<BotController>().Ai.transform.position;
 
         RaycastHit groundHit;
@@ -185,10 +191,7 @@ public class BotBodyBase : MonoBehaviour
             upNormal = -upNormal;
         }
 
-        //BotPosition.y = CompAvgHeight;
         transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 5f);
-        //transform.rotation = targetRotation;
-        //transform.rotation = GetComponentInParent<BotController>().Ai.NavAgent.transform.rotation;
 
         Debug.DrawLine(transform.position, transform.position + upNormal);
 
@@ -204,7 +207,7 @@ public class BotBodyBase : MonoBehaviour
 
         smoothedUp = Vector3.Slerp(smoothedUp, upNormal, Time.deltaTime * 5f).normalized;
 
-      //  transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
        // transform.rotation = Quaternion.Slerp(transform.rotation, targetRot2, Time.deltaTime * 5f);
     }
 
@@ -240,11 +243,19 @@ public class BotBodyBase : MonoBehaviour
 
             if(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent == null) continue;
 
-            if(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralPart>(false) == null)continue;
+            BotComponent comp = Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent;
+            CurComponents.Add(comp);
 
-            ProceduralComponents.Add(Attachpoint.gameObject.GetComponent<AttatchPoint>().botComponent.GetComponentInChildren<ProceduralPart>(false));
+            if (comp.GetComponentInChildren<ProceduralPart>(false) == null)continue;
+
+            ProceduralComponents.Add(comp.GetComponentInChildren<ProceduralPart>(false));
         }
        // ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;
+    }
+
+    public void GetShortestSupportComponent()
+    {
+
     }
 
     public Vector3 GetNormal(List<Vector3> Points)
@@ -285,28 +296,6 @@ public class BotBodyBase : MonoBehaviour
         return averageNormal;
     }
 
-    Vector3 ComputeBestFitNormal(List<Vector3> points)
-    {
-        if (points.Count < 3)
-            return Vector3.up;
-
-        Vector3 centroid = Vector3.zero;
-        foreach (var p in points) centroid += p;
-        centroid /= points.Count;
-
-        Vector3 normal = Vector3.zero;
-        for (int i = 0; i < points.Count; i++)
-        {
-            Vector3 a = points[i] - centroid;
-            Vector3 b = points[(i + 1) % points.Count] - centroid;
-            normal += Vector3.Cross(a, b);
-        }
-
-        if (normal.sqrMagnitude < 0.0001f)
-            return Vector3.up;
-
-        return normal.normalized;
-    }
 
 
     private void OnDrawGizmos()

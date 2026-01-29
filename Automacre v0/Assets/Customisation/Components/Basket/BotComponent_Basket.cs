@@ -5,6 +5,7 @@ using UnityEngine.XR;
 public class BotComponent_Basket : BotComponent
 {
     public Transform Basket;
+    public Transform PlacePoint;
     //public ProceduralWalker proceduralWalker;
 
     public override void Awake()

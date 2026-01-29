@@ -38,10 +38,7 @@ public class WorkshopGeneral : MonoBehaviour
     void Update()
     {
 
-        Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(GameObject.Find("Canvas").transform as RectTransform, Input.mousePosition, null, out pos);
-
-        cursor.anchoredPosition = pos;
+        
 
         /* if (SelectedComponentOnBot == null) { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(false); }
          else { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(true); }*/

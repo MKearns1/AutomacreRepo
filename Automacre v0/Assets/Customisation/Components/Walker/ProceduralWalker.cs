@@ -37,6 +37,7 @@ public class ProceduralWalker : ProceduralPart
     float DistBetweenStartAndEnd;
     float maxLimbLength;
     public bool HasStepToken;
+    bool onGround;
 
     public MovementMotion StepMotion = new();
 
@@ -49,6 +50,7 @@ public class ProceduralWalker : ProceduralPart
         DefaultFootPlacementOffset.y = 0;
         ComponentPlacementOffset = BotBody.transform.position - transform.position;
         maxLimbLength = GetComponent<LimbCreator>().Length;
+        onGround = true;
     }
 
     // Update is called once per frame
@@ -165,6 +167,7 @@ public class ProceduralWalker : ProceduralPart
         }*/
 
         // moving = false;
+
 
         if (!moving && ShouldStep() && !HasStepToken)
         {
@@ -301,6 +304,7 @@ public class ProceduralWalker : ProceduralPart
     {
         moving = true;
         HasStepToken = false;
+        onGround = false;
 
         PrevPos = EndPoint.position;
         MoveToPos = NextStepPos;
@@ -308,6 +312,7 @@ public class ProceduralWalker : ProceduralPart
     void MoveFinished()
     {
         moving = false;
+        onGround = true;
         BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().CompFinishStep(this);
     }
 

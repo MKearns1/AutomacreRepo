@@ -16,10 +16,11 @@ public class ProceduralWheel : ProceduralPart
     // Update is called once per frame
     protected override void Update()
     {
-        Quaternion lookrot = Quaternion.LookRotation(BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity, transform.up);
+        Quaternion lookrot; 
 
         if (BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude > 0)
         {
+            lookrot = Quaternion.LookRotation(BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity, transform.up);
             WheelPart.rotation = Quaternion.Slerp(WheelPart.rotation, lookrot, Time.deltaTime *5);
         }
 

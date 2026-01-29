@@ -270,6 +270,8 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       arcHeight: 0
+    Completed: 0
+    playSpeed: 0
   EndPoint: {fileID: 0}
   RestingPosition: {fileID: 8711084282162020648}
   RestingPosition2: {x: 0, y: 0, z: 0}
@@ -301,33 +303,52 @@ MonoBehaviour:
     m_RotationOrder: 4
   moving: 0
   state: 0
+  Length: 0
   ReachMotion:
-    duration: 1
+    duration: 2
     animCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 2
-        outSlope: 2
+        inSlope: 3.0099523
+        outSlope: 3.0099523
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.14663732
       - serializedVersion: 3
-        time: 1
-        value: 1
+        time: 0.5659296
+        value: 0.9166627
+        inSlope: 0.72266173
+        outSlope: 0.72266173
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21876042
+        outWeight: 0.16385931
+      - serializedVersion: 3
+        time: 0.90999943
+        value: 1.1052351
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.5096686
+      - serializedVersion: 3
+        time: 0.9966736
+        value: 1
+        inSlope: -0.37121522
+        outSlope: -0.37121522
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.24793272
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    arcHeight: 1.5
+    arcHeight: 3
   WithdrawMotion:
     duration: 2
     animCurve:
@@ -336,25 +357,144 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: 3.0099523
+        outSlope: 3.0099523
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.14663732
       - serializedVersion: 3
-        time: 1
-        value: 1
+        time: 0.5659296
+        value: 0.9166627
+        inSlope: 0.72266173
+        outSlope: 0.72266173
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21876042
+        outWeight: 0.16385931
+      - serializedVersion: 3
+        time: 0.90999943
+        value: 1.1052351
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.5096686
+      - serializedVersion: 3
+        time: 0.9966736
+        value: 1
+        inSlope: -0.37121522
+        outSlope: -0.37121522
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.24793272
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    arcHeight: 1
+    arcHeight: 3
+  colliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5798334751311151215
 GameObject:
   m_ObjectHideFlags: 0
