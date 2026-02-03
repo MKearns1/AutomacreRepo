@@ -107,7 +107,7 @@ public class FABRIK : IKSolver
             
             }
 
-            if (usePole)
+            //if (usePole)
             {
                 for (int b = 1; b < JointPositions.Count - 1; b++)
                 {
