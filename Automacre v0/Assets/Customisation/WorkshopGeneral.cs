@@ -7,9 +7,12 @@ public class WorkshopGeneral : MonoBehaviour
 {
     public static WorkshopGeneral instance;
 
+    public bool useKeyframeAnim;
     public GameObject LegPrefab;
     public GameObject FootPrefab;
     public List<BotComponent> ComponentsList = new List<BotComponent>();
+    public List<BotComponent> ComponentsList_Keyframed = new List<BotComponent>();
+
     //public List<GameObject> ComponentsList = new List<GameObject>();
 
     public BotComponent CurrentSelectedComponentToPlace;
@@ -105,8 +108,14 @@ public class WorkshopGeneral : MonoBehaviour
     public BotComponent GetComponentByName(string name)
     {
         BotComponent component1 = null;
+        List<BotComponent> list = ComponentsList;
 
-        foreach (BotComponent component in ComponentsList)
+        if (useKeyframeAnim)
+        {
+            list = ComponentsList_Keyframed;
+        }
+
+        foreach (BotComponent component in list)
         {
             Debug.Log(component.CompName);
             if (component.CompName != name) continue;
@@ -128,5 +137,10 @@ public class WorkshopGeneral : MonoBehaviour
         }
 
         return curParent;
+    }
+
+    public void SetAnimType(bool keyframed)
+    {
+        useKeyframeAnim = keyframed;
     }
 }

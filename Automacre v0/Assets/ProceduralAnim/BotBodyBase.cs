@@ -152,7 +152,7 @@ public class BotBodyBase : MonoBehaviour
         PredictedBodyPos = transform.position + transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity * PredictionLookAheadTime;
 
         RaycastHit PredictedGroundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50, LayerMask.GetMask("Ground")))
+        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
         {
             PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
         }
@@ -160,7 +160,7 @@ public class BotBodyBase : MonoBehaviour
         Vector3 BotPosition = GetComponentInParent<BotController>().Ai.transform.position;
 
         RaycastHit groundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out groundHit, 5, LayerMask.GetMask("Ground")))
+        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
         {
             BotPosition.y = groundHit.point.y + DesiredOffsetFromGround;
             DistanceFromGround = groundHit.distance;

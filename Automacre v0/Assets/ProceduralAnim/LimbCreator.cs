@@ -62,6 +62,7 @@ public class LimbCreator : MonoBehaviour
     public void CreateBone(Vector3 Position, Transform Parent, string name = "Bone")
     {
         //GameObject newJoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        
         GameObject newJoint = GameObject.Instantiate(LimbJointPrefab);
         newJoint.transform.position = Position;
         newJoint.transform.localScale = Vector3.one * JointSize;
