@@ -134,7 +134,7 @@ public class ProceduralAnimBase : MonoBehaviour
     {
         if(!Application.isPlaying)return;
         Gizmos.color = new Color(1,1,1,.25f);
-        Gizmos.DrawWireSphere(StartPoint.position,Settings.MaxReachLength);
+        //Gizmos.DrawWireSphere(StartPoint.position,Settings.MaxReachLength);
         //Gizmos.DrawWireSphere(GroundHitLocation, 0.1f);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(NextStepPos, 0.1f);
