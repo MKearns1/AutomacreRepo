@@ -21,5 +21,6 @@ public class BotComponent_Walker_Keyrframe : BotComponent
             transform.localScale = new Vector3(-1* transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
         
+
     }
 }

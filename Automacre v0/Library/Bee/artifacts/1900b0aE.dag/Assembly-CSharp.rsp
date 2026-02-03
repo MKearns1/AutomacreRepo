@@ -488,6 +488,7 @@
 "Assets/Resources/ParticleEffectScript.cs"
 "Assets/Resources/ResourceScript.cs"
 "Assets/Resources/Wood/Resource_Wood.cs"
+"Assets/Splitscreen/SplitscreenManager.cs"
 "Assets/Storage/StorageScript.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 "Assets/UI/CanvasManager.cs"

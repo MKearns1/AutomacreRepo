@@ -45,6 +45,7 @@ public class WorkshopGeneral : MonoBehaviour
 
         /* if (SelectedComponentOnBot == null) { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(false); }
          else { GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(true); }*/
+        if(GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include) != null)
         GameObject.FindFirstObjectByType<ComponentOptionsPopUp>(FindObjectsInactive.Include).gameObject.SetActive(SelectedComponentOnBot != null);
     }
 
