@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor.UIElements;
+#endif
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ComponentOptionDetails_LimbType : ComponentOptionDetails
 {

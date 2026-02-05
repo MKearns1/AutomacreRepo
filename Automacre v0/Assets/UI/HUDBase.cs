@@ -1,5 +1,7 @@
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,12 +24,12 @@ public class HUDBase : MonoBehaviour
         
     }
 
-    public void AddNewTask(Direction direction)
+/*    public void AddNewTask(Direction direction)
     {
         GameObject newTask = GameObject.Instantiate(Task);
         newTask.transform.SetParent(
         transform.Find("TaskManager").Find("ScrollArea").Find("Content"), false);
-    }
+    }*/
 
     public void Hover(IClickable ClickableObj)
     {

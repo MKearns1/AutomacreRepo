@@ -1,10 +1,11 @@
-using TreeEditor;
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using System;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
 using System.Data;
 using Unity.VisualScripting;
 using System.IO;
@@ -64,7 +65,7 @@ public class TerrainGenerator : MonoBehaviour
     public Gradient Colors;
     public NavMeshSurface navMeshSurface;
     [NonSerialized] public GameObject WaterPlane;
-    public List<List<Node>> ArtefactPaths = new List<List<Node>>();
+    //public List<List<Node>> ArtefactPaths = new List<List<Node>>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

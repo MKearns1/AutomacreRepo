@@ -1,6 +1,9 @@
 using NUnit.Framework;
 using Unity.AI.Navigation;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

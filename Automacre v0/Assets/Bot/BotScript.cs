@@ -8,7 +8,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
-using static UnityEditor.Progress;
 
 public class BotScript : MonoBehaviour
 {

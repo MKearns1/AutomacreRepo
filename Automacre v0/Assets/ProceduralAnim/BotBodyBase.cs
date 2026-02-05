@@ -195,6 +195,7 @@ public class BotBodyBase : MonoBehaviour
 
         Debug.DrawLine(transform.position, transform.position + upNormal);
 
+        //Vector3 forward = GetComponentInParent<BotController>().Ai.transform.forward.normalized; 
         Vector3 forward = Vector3.ProjectOnPlane(GetComponentInParent<BotController>().Ai.transform.forward, upNormal).normalized;
         if(forward.magnitude < 0.1f)
         {
@@ -203,6 +204,7 @@ public class BotBodyBase : MonoBehaviour
 
 
         Quaternion targetRot = Quaternion.LookRotation(forward, upNormal);
+         //targetRot = Quaternion.LookRotation(forward, Vector3.up);
         //Quaternion targetRot2 = Quaternion.LookRotation(GetComponentInParent<BotController>().Ai.NavAgent.velocity, upNormal);
 
         smoothedUp = Vector3.Slerp(smoothedUp, upNormal, Time.deltaTime * 5f).normalized;
