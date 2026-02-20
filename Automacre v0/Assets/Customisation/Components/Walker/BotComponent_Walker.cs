@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -34,30 +35,31 @@ public class BotComponent_Walker : BotComponent_LimbType
         Foot.localScale = GrabberInfo.FootSize;
         proceduralWalker.enabled = true;
         proceduralWalker.BotBody = body;
+        fabrik.Pole.transform.position += body.transform.forward*5;
         //body.GetAllProceduralComponents();
 
 
-/*        WalkerDesignInfo WalkerConfiguration = DesignInformation as WalkerDesignInfo;
+        /*        WalkerDesignInfo WalkerConfiguration = DesignInformation as WalkerDesignInfo;
 
-        body = BC.body;
-      //  GameObject Foot = Instantiate(WorkshopGeneral.instance.FootPrefab, transform.position + Vector3.down + transform.forward, Quaternion.identity);
-        GetComponentInChildren<ProceduralWalker>().EndPoint = Foot.transform;
-        GetComponentInChildren<ProceduralWalker>().BotBody = body;
-        GetComponentInChildren<FABRIK>().TargetTransform = Foot.transform;
+                body = BC.body;
+              //  GameObject Foot = Instantiate(WorkshopGeneral.instance.FootPrefab, transform.position + Vector3.down + transform.forward, Quaternion.identity);
+                GetComponentInChildren<ProceduralWalker>().EndPoint = Foot.transform;
+                GetComponentInChildren<ProceduralWalker>().BotBody = body;
+                GetComponentInChildren<FABRIK>().TargetTransform = Foot.transform;
 
-        Debug.Log(WalkerConfiguration == null);
-        GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
-        GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
-        Foot.localScale = WalkerConfiguration.FootSize;
-        GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
+                Debug.Log(WalkerConfiguration == null);
+                GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
+                GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
+                Foot.localScale = WalkerConfiguration.FootSize;
+                GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
 
-        GetComponentInChildren<LimbCreator>().CreateJoints();
-        GetComponentInChildren<LimbCreator>().CreateJoints();
+                GetComponentInChildren<LimbCreator>().CreateJoints();
+                GetComponentInChildren<LimbCreator>().CreateJoints();
 
-        transform.GetComponentInChildren<ProceduralWalker>().enabled = true;
+                transform.GetComponentInChildren<ProceduralWalker>().enabled = true;
 
-        Debug.Log("Initialise Component : " + gameObject.name);
-        body.GetAllProceduralComponents();*/
+                Debug.Log("Initialise Component : " + gameObject.name);
+                body.GetAllProceduralComponents();*/
     }
 
     public override void OnAttached()
@@ -74,6 +76,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
 
         Foot = newFoot.transform;
+        Foot.transform.rotation = Quaternion.FromToRotation(Foot.transform.up, FootPlacementPosition().normal) * Foot.transform.rotation;         ;
         Transform botParent = WorkshopGeneral.GetTopParent(transform);
         if (botParent != transform)
         {
@@ -95,6 +98,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         int layermask = 1 << layernum;
 
         Ray floorray = new Ray(transform.position + transform.forward, Vector3.down);
+        floorray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
 
         bool h = Physics.Raycast(floorray, out hit, 100, layernum);

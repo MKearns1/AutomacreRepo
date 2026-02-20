@@ -23,8 +23,9 @@ public class BotBodyBase : MonoBehaviour
     void Start()
     {
         GetAllProceduralComponents();
-       // ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
-        
+        // ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
+        Debug.Log(GetShortestSupportComponent());
+        DesiredOffsetFromGround = GetShortestSupportComponent().GetComponent<LimbCreator>().Length * .8f;
     }
 
     // Update is called once per frame
@@ -255,10 +256,31 @@ public class BotBodyBase : MonoBehaviour
        // ProceduralComponents[Random.Range(0, ProceduralComponents.Count)].MovementAllowed = true;
     }
 
-    public void GetShortestSupportComponent()
+    public ProceduralWalker GetShortestSupportComponent()
     {
+        if (ProceduralComponents == null || ProceduralComponents.Count == 0)
+            return null;
 
+        ProceduralWalker shortest = null;
+        float shortestLength = float.MaxValue;
+
+        foreach (var part in ProceduralComponents)
+        {
+            var walker = part as ProceduralWalker;
+            if (walker == null)
+                continue;
+
+
+            if (walker.maxLimbLength < shortestLength)
+            {
+                shortestLength = walker.maxLimbLength;
+                shortest = walker;
+            }
+        }
+
+        return shortest;
     }
+
 
     public Vector3 GetNormal(List<Vector3> Points)
     {

@@ -19,7 +19,7 @@ public class FABRIK : IKSolver
         }
         else
         {
-            Pole.position = transform.position + (Joints[Joints.Count - 1].Joint.position - transform.position) / 2 + Vector3.up;
+            //Pole.position = transform.position + (Joints[Joints.Count - 1].Joint.position - transform.position) / 2 + Vector3.up;
         }
 
     }

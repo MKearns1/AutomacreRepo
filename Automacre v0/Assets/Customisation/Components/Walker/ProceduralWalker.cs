@@ -22,7 +22,7 @@ public class ProceduralWalker : ProceduralPart
     public bool moving;
     public bool MovementAllowed;
     float moveProgress;
-    float StepSpeed;
+    public float StepSpeed;
     public float StepSpeedMultiplier = 2;
     Vector3 PrevPos;
     Vector3 MoveToPos;
@@ -35,9 +35,11 @@ public class ProceduralWalker : ProceduralPart
     Vector3 PredictedFootPos;
     Ray PredictedFootPosToFloor;
     float DistBetweenStartAndEnd;
-    float maxLimbLength;
+    [DoNotSerialize] public float maxLimbLength;
     public bool HasStepToken;
     bool onGround;
+
+    Vector3 BotForward;
 
     public MovementMotion StepMotion = new();
 
@@ -46,11 +48,18 @@ public class ProceduralWalker : ProceduralPart
     void Start()
     {
         StartPoint = transform;
-        DefaultFootPlacementOffset = (transform.forward).normalized*2f;
+        //DefaultFootPlacementOffset = (transform.forward).normalized*2f;
+        DefaultFootPlacementOffset = Vector3.zero;
+        DefaultFootPlacementOffset = (transform.right).normalized * .5f;
+        DefaultFootPlacementOffset = (BotBody.transform.position - transform.position).normalized * -.5f;
         DefaultFootPlacementOffset.y = 0;
-        ComponentPlacementOffset = BotBody.transform.position - transform.position;
+        //ComponentPlacementOffset = BotBody.transform.position - transform.position;
         maxLimbLength = GetComponent<LimbCreator>().Length;
         onGround = true;
+        BotForward = transform.GetComponentInParent<BotBodyBase>().transform.forward;
+        Settings.MaxStrideLength = maxLimbLength/2;
+        StepMotion.arcHeight = maxLimbLength / 2;
+        StepSpeed = Mathf.Lerp(1, 2, Mathf.InverseLerp(8, 1, maxLimbLength));
     }
 
     // Update is called once per frame
@@ -62,8 +71,8 @@ public class ProceduralWalker : ProceduralPart
         DefaultFootPos.y = transform.position.y;
         Vector3 DefaultFootPosDirection = DefaultFootPos - StartPoint.position;
 
-        StepSpeed = BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude * StepSpeedMultiplier;
-        StepSpeed = 2;
+        //StepSpeed = BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude * StepSpeedMultiplier;
+        //StepSpeed = 2;
 
         NextStepPos2 = DefaultFootPos;
 
@@ -269,7 +278,7 @@ public class ProceduralWalker : ProceduralPart
         float Fulldist = Vector3.Distance(PrevPos, EndPos);
         float curdist = Vector3.Distance(EndPoint.position, EndPos);
 
-        float maxJumpHeight = 1;
+        float maxJumpHeight = maxLimbLength/2;
         float height = 4 * maxJumpHeight * t * (1 - t);
         flatPos.y += height;
         EndPoint.position = flatPos;
@@ -340,6 +349,7 @@ public class ProceduralWalker : ProceduralPart
 
        // return  BodyRotatedTooMuch;
         return FootFarAway || BodyRotatedTooMuch;
+        return FootFarAway;
     }
 
     public Vector3 GetFootPlacementPos()

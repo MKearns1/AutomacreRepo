@@ -41,8 +41,8 @@ public class LimbCreator : MonoBehaviour
         Joints[Joints.Count - 1].transform.GetChild(0).gameObject.SetActive(false); //removes visual of last joint
 /*        if(Pole != null)
         DestroyImmediate(Pole.gameObject);
-
-        if (HasPole)
+*/
+/*        if (Pole != null)
         {
             GameObject pole = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             Vector3 MidWayPoint = Vector3.Lerp(Joints[Joints.Count - 1].position, Joints[0].position, 0.5f);
