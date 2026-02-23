@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4051534cbd0d358498011b7f8ff8d9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useKeyframeAnim: 0
   LegPrefab: {fileID: 2250535285414371746, guid: 2a79858de30df964fb571a6b293c47e2, type: 3}
   FootPrefab: {fileID: 8357155842713679565, guid: 0e1ff614eef2261468c218fe10db7f30, type: 3}
   ComponentsList:
@@ -51,6 +52,8 @@ MonoBehaviour:
   - {fileID: 3759396059747879528, guid: db9dc61f7b5035e438c53216f92c5e34, type: 3}
   - {fileID: 6358434723662088780, guid: 1632d6d3d2760374c9fae3af222b7811, type: 3}
   - {fileID: 6243338564890052766, guid: 5d9d0b824f663f24a96e0207affc0998, type: 3}
+  ComponentsList_Keyframed:
+  - {fileID: -6798878509251952741, guid: aeec12fdad0e6b9499e7a1801871a5e7, type: 3}
   CurrentSelectedComponentToPlace: {fileID: 0}
   SelectedComponentOnBot: {fileID: 0}
   CurrentCopiedOptions: {fileID: 0}
