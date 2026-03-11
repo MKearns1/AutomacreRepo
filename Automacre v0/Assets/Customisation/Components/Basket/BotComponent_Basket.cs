@@ -25,7 +25,7 @@ public class BotComponent_Basket : BotComponent
 
     }
 
-    public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         base.Initialise(DesignInformation, BC);
 

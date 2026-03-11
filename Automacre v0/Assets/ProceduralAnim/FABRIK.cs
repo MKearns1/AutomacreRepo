@@ -7,7 +7,6 @@ public class FABRIK : IKSolver
     public int iterations = 10;
     public Transform TargetTransform;
     public Transform Pole;
-    bool usePole;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()

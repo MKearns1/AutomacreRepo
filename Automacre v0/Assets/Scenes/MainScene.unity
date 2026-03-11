@@ -12725,14 +12725,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkshopGeneral
       objectReference: {fileID: 0}
-    - target: {fileID: 7699389889675010107, guid: c621ca47fafc94f4c9ebae412206dbe3, type: 3}
-      propertyPath: ComponentsList_Keyframed.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7699389889675010107, guid: c621ca47fafc94f4c9ebae412206dbe3, type: 3}
-      propertyPath: 'ComponentsList_Keyframed.Array.data[0]'
-      value: 
-      objectReference: {fileID: -6798878509251952741, guid: aeec12fdad0e6b9499e7a1801871a5e7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

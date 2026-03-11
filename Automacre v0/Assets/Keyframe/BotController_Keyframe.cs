@@ -3,24 +3,57 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BotController : MonoBehaviour
+public class BotController_Keyframe : BotController
 {
-    public BotBodyBase body;
-    public List<Transform> components = new List<Transform>();
+    //public BotBodyBase body;
+    public bool Prebuilt;
     Dictionary<string, AttatchPoint> AttachmentPoints = new Dictionary<string, AttatchPoint>();
-    public BotAI Ai;
     public SupportManager supportManager;
+
+    Transform Body;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if(AttachmentPoints.Count == 0) InitialiseAttachPoints();
+        Body = transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 forward = Ai.transform.forward;
+
+        Vector3 desiredDir =
+            Ai.NavAgent.desiredVelocity.normalized;
+
+        float turnAmount =
+            Vector3.SignedAngle(
+                forward,
+                desiredDir,
+                Vector3.up
+            );
+
+
+        Body.transform.position = Ai.transform.position;
+        Body.transform.rotation = Ai.transform.rotation;
+
+        Body.GetChild(0).GetComponent<Animator>().SetFloat("Velocity", Ai.NavAgent.velocity.magnitude);
+        Body.GetChild(0).GetComponent<Animator>().SetFloat("Angle", turnAmount);
+
+
+        if (Ai.NavAgent.velocity.magnitude > 0)
+        {
+            Body.GetChild(0).GetComponent<Animator>().speed = Ai.NavAgent.velocity.magnitude/4;
+        }
+        else
+        {
+            Body.GetChild(0).GetComponent<Animator>().speed = 1;
+        }
+
+       
+
+
     }
 
     public void AssembleBot(BotRuntimeData AssembleData)
@@ -44,35 +77,7 @@ public class BotController : MonoBehaviour
             BotComponent NewCompScript = NewComponent.GetComponent<BotComponent>();
 
             AttachmentPoints[key].AttachNewComponent(NewCompScript);
-            NewCompScript.Initialise(Design_AttachPoints[key].botComponent.GetDesignInfo(), this);
-
-
-            /*switch (Design_AttachPoints[key].botComponent.Type)
-            {
-                case ComponentType.None:
-
-                    break;
-
-                case ComponentType.Walker:
-                    GameObject walker = Instantiate(WorkshopGeneral.instance.LegPrefab, AttachmentPoints[key].transform);
-                    AttachmentPoints[key].AttachNewComponent(walker.GetComponent<BotComponent>());
-                    walker.GetComponent<BotComponent>().Initialise(this);
-                    Debug.Log("Added Walker Component");
-                    break;
-
-                case ComponentType.Grabber:
-
-                    break;
-
-                case ComponentType.Wheel:
-
-                    break;
-            }*/
-
-            // GameObject ComponentType = DesingAPs[key];
-            // GameObject newComponent = Instantiate();
-
-
+            //NewCompScript.Initialise(Design_AttachPoints[key].botComponent.GetDesignInfo(), this);
 
         }
 

@@ -19,6 +19,8 @@ public class WorkshopGeneral : MonoBehaviour
     public BotComponent SelectedComponentOnBot;
     public ComponentOptionDetails CurrentCopiedOptions;
     public GameObject SelectionArrowPrefab;
+    public GameObject TransformGizmoPrefab;
+    public GameObject CurTransformGizmo;
     RectTransform cursor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

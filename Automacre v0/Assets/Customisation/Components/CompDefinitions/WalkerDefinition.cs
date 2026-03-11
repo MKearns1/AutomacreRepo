@@ -7,4 +7,5 @@ using UnityEngine;
 public class WalkerDefinition : ComponentDefinition
 {
     public GameObject DefaultFootPrefab;
+    public Vector3 DefaultPoleOffset;
 }

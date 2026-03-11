@@ -38,7 +38,7 @@ public class SplitscreenManager : MonoBehaviour
         Debug.Log(CopyBots.Count);
     }
 
-    public void CopyBot(BotController bot)
+    public void CopyBot(BotController_Procedural bot)
     {
         //GameObject newBot = GameObject.Instantiate(bot, bot.transform.position + Offset, bot.transform.rotation);
         GameObject newBot = GameObject.Instantiate(CopyTemplate, bot.transform.position + Offset, bot.transform.rotation);

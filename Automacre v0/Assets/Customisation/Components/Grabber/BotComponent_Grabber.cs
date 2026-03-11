@@ -22,7 +22,7 @@ public class BotComponent_Grabber : BotComponent_LimbType
         
     }
 
-    public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         base.Initialise(DesignInformation, BC);
         GrabberDesignInfo GrabberInfo = DesignInformation as GrabberDesignInfo;

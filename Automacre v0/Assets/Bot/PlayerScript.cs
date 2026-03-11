@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     float AgentStopDistance=10;
 
     public List<BotScript> CurrentSelectedBots1;
-    public List<BotController> CurrentSelectedBots;
+    public List<BotController_Procedural> CurrentSelectedBots;
     HUDBase HudBase;
     RaycastHit CurrentHoveredObj;
 
@@ -176,10 +176,10 @@ public class PlayerScript : MonoBehaviour
         if (hit.collider != null)
         {
 
-            if (hit.collider.GetComponentInParent<BotController>() != null)
-            CurrentSelectedBots.Add(hit.collider.GetComponentInParent<BotController>());
+            if (hit.collider.GetComponentInParent<BotController_Procedural>() != null)
+            CurrentSelectedBots.Add(hit.collider.GetComponentInParent<BotController_Procedural>());
 
-            foreach (BotController bot in CurrentSelectedBots)
+            foreach (BotController_Procedural bot in CurrentSelectedBots)
             {
                 bot.Ai.MoveTo(hit.point);
             }

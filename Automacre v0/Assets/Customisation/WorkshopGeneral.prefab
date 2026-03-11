@@ -53,8 +53,9 @@ MonoBehaviour:
   - {fileID: 6358434723662088780, guid: 1632d6d3d2760374c9fae3af222b7811, type: 3}
   - {fileID: 6243338564890052766, guid: 5d9d0b824f663f24a96e0207affc0998, type: 3}
   ComponentsList_Keyframed:
-  - {fileID: -6798878509251952741, guid: aeec12fdad0e6b9499e7a1801871a5e7, type: 3}
+  - {fileID: -6798878509251952741, guid: cb7e9e15715cbce44bab8a63faa62e72, type: 3}
   CurrentSelectedComponentToPlace: {fileID: 0}
   SelectedComponentOnBot: {fileID: 0}
   CurrentCopiedOptions: {fileID: 0}
   SelectionArrowPrefab: {fileID: 8570731572660418684, guid: 4aff11e7d095cc44cbb08ea07fcd96a6, type: 3}
+  TransformGizmoPrefab: {fileID: 1537740355597121034, guid: 09c51c8ad71b6f04eb8ffd394c452075, type: 3}

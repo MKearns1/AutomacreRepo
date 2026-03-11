@@ -30,12 +30,12 @@ public class DeploymentScript : MonoBehaviour
             Debug.Log(ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
 
         }
-        Bot.GetComponent<BotController>().AssembleBot(WorkshopBot.DesignData);
+        Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
 
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>().enabled = false;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
         GameObject.FindGameObjectWithTag("PlayerDeploy").transform.GetChild(0).GetComponent<Camera>().enabled = true;
-        GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController>());
+        GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController_Procedural>());
         Destroy(GameObject.Find("Canvas"));
     }
 }

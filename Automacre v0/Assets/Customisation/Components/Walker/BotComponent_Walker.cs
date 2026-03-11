@@ -25,7 +25,7 @@ public class BotComponent_Walker : BotComponent_LimbType
 
     }
 
-    public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         base.Initialise(DesignInformation, BC);
         WalkerDesignInfo GrabberInfo = DesignInformation as WalkerDesignInfo;
@@ -35,7 +35,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         Foot.localScale = GrabberInfo.FootSize;
         proceduralWalker.enabled = true;
         proceduralWalker.BotBody = body;
-        fabrik.Pole.transform.position += body.transform.forward*5;
+        
         //body.GetAllProceduralComponents();
 
 
@@ -119,6 +119,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
         info.FootSize = Foot.localScale;
         info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
+        info.PoleOffset = GetComponentInChildren<LimbCreator>().PoleOffset;
         return info;
 
 

@@ -53,14 +53,52 @@ public class WorkshopMovement : MonoBehaviour
 
             if(rayhit.collider.gameObject.tag == "AttatchPoint")
             {
-                if(WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return ;
+                Debug.Log("Attempt Attach");
+                if (WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return ;
                 ClickAttachPoint(rayhit);
             }
 
             if(rayhit.collider.transform.GetComponentInParent<BotComponent>() != null)
             {
+                Debug.Log("Select Component on Bot");
                 WorkshopGeneral.instance.SelectBotsComponent(rayhit.collider.transform.GetComponentInParent<BotComponent>());
             }
+
+            if(rayhit.collider.gameObject.GetComponent<Transformable>() != null)
+            {
+                Debug.Log("Transform: " + rayhit.collider.gameObject);
+                rayhit.collider.gameObject.GetComponent<Transformable>().Select();
+            }
+
+            TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
+
+            if (gizmo != null)
+            {
+                switch (rayhit.collider.gameObject.name)
+                {
+                    case "X":
+                        gizmo.transform.position += new Vector3(1, 0, 0);
+                        break;
+                    case "Y":
+                        gizmo.transform.position += new Vector3(0, 1, 0);
+                        break;
+                    case "Z":
+                        gizmo.transform.position += new Vector3(0, 0, 1);
+                        break;
+
+                    case "X-":
+                        gizmo.transform.position += new Vector3(-1, 0, 0);
+                        break;
+                    case "Y-":
+                        gizmo.transform.position += new Vector3(0, -1, 0);
+                        break;
+                    case "Z-":
+                        gizmo.transform.position += new Vector3(0, 0, -1);
+                        break;
+                }
+
+            }
+
         }
     }
 

@@ -14,6 +14,7 @@ public class LimbCreator : MonoBehaviour
     public Transform Pole;
     public GameObject LimbSegmentPrefab;
     public GameObject LimbJointPrefab;
+    public Vector3 PoleOffset { get { return transform.InverseTransformPoint(Pole.position); return Pole.position - transform.position;  } }
 
     [ExecuteAlways]
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,6 +58,12 @@ public class LimbCreator : MonoBehaviour
         {
             GetComponent<FABRIK>().GetAllBones();
         }
+        if (Pole == null) 
+        {
+           // CreatePole();
+           return;
+        }
+       // PoleOffset = Pole.position - transform.position;
     }
 
     public void CreateBone(Vector3 Position, Transform Parent, string name = "Bone")
@@ -127,6 +134,17 @@ public class LimbCreator : MonoBehaviour
         {
             DestroyImmediate(transform.Find("Pole").gameObject);
         }
+    }
+
+    public void CreatePole(Vector3 Position)
+    {
+        if(Pole!= null) { Destroy(Pole.gameObject); }
+
+        Pole = Instantiate(new GameObject("Pole"), transform.parent).transform; //new GameObject("Pole").transform;
+        Pole.gameObject.name = "Pole";
+        Pole.position = Position;
+        Pole.SetParent(transform.parent, true);
+        GetComponent<FABRIK>().Pole = Pole;Debug.Log(Pole);
     }
 
     // Update is called once per frame

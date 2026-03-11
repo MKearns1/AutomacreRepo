@@ -2493,6 +2493,7 @@ MonoBehaviour:
     m_Bits: 128
   moving: 0
   MovementAllowed: 0
+  StepSpeed: 0
   StepSpeedMultiplier: 2
   DefaultFootPlacementOffset: {x: 0, y: 0, z: 0}
   ShowDebug: 0
@@ -2503,6 +2504,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: 0, y: 0, z: 0}
+  maxLimbLength: 0
   HasStepToken: 0
   StepMotion:
     duration: 1
@@ -3060,9 +3062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1ed8a00705f646a222f72b38dde27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 0}
-  components: []
   Ai: {fileID: 0}
+  body: {fileID: 0}
   supportManager: {fileID: 0}
 --- !u!1 &577685975
 GameObject:
@@ -9086,7 +9087,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 5d85c0bafcb6a234589431782babe533, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4d7e92202e1934d4d81c6789a266f9be, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1578528908
 Transform:
@@ -12449,14 +12450,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkshopGeneral
       objectReference: {fileID: 0}
-    - target: {fileID: 7699389889675010107, guid: c621ca47fafc94f4c9ebae412206dbe3, type: 3}
-      propertyPath: ComponentsList_Keyframed.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7699389889675010107, guid: c621ca47fafc94f4c9ebae412206dbe3, type: 3}
-      propertyPath: 'ComponentsList_Keyframed.Array.data[0]'
-      value: 
-      objectReference: {fileID: -6798878509251952741, guid: cb7e9e15715cbce44bab8a63faa62e72, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

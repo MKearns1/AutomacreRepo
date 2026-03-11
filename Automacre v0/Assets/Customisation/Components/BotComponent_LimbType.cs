@@ -24,7 +24,7 @@ public class BotComponent_LimbType : BotComponent
         
     }
 
-    public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         LimbTypeDesignInfo LimbDesigninfo = DesignInformation as LimbTypeDesignInfo;
 
@@ -34,6 +34,9 @@ public class BotComponent_LimbType : BotComponent
         LimbCreator.Length = LimbDesigninfo.LimbLength;
         LimbCreator.CreateJoints();
         LimbCreator.CreateJoints();
+        //LimbCreator.PoleOffset = LimbDesigninfo.PoleOffset;
+        LimbCreator.CreatePole(transform.TransformPoint(LimbDesigninfo.PoleOffset));Debug.Log(LimbDesigninfo.PoleOffset);
+        //LimbCreator.Pole.position = LimbCreator.transform.position + LimbCreator.PoleOffset;
 /*
 
 
@@ -64,6 +67,8 @@ public class BotComponent_LimbType : BotComponent
         LimbCreator = GetComponentInChildren<LimbCreator>();
         fabrik = GetComponentInChildren<FABRIK>();
 
+        LimbCreator.CreatePole(transform.TransformPoint((ComponentDefaultData as WalkerDefinition).DefaultPoleOffset));
+
         /*Vector3 HandPos = GetComponentInChildren<ProceduralGrabber>().RestingPosition.position;
 
         GameObject newHand = Instantiate((ComponentDefaultData as GrabberDefinition).DefaultClawPrefab, HandPos, transform.rotation);
@@ -88,6 +93,7 @@ public class BotComponent_LimbType : BotComponent
         info.NumberofJoints = GetComponentInChildren<LimbCreator>().NumberOfJoints;
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
         info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
+        info.PoleOffset = GetComponentInChildren<LimbCreator>().PoleOffset;
 
         return info;
     }
@@ -104,6 +110,7 @@ public class LimbTypeDesignInfo : ComponentDesignInfo
     public int NumberofJoints;
     public float LimbLength;
     public float JointSize;
+    public Vector3 PoleOffset;
 
     public LimbTypeDesignInfo()
     {

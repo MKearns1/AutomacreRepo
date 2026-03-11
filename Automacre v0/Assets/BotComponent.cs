@@ -29,7 +29,7 @@ public class BotComponent : MonoBehaviour
         
     }
 
-    public virtual void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public virtual void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         Debug.LogWarning("THIS IS THE BASE BotComponent Script");
     }

@@ -39,7 +39,7 @@ public class AttatchPoint : MonoBehaviour
         return hit;
     }*/
 
-    public void AttachNewComponent(BotComponent NewComp, BotController BC = null)
+    public void AttachNewComponent(BotComponent NewComp, BotController_Procedural BC = null)
     {
         AttachedComponent = NewComp.transform;
         botComponent = NewComp;

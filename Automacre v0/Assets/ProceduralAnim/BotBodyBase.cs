@@ -153,15 +153,15 @@ public class BotBodyBase : MonoBehaviour
         PredictedBodyPos = transform.position + transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity * PredictionLookAheadTime;
 
         RaycastHit PredictedGroundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
         {
             PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
         }
 
-        Vector3 BotPosition = GetComponentInParent<BotController>().Ai.transform.position;
+        Vector3 BotPosition = GetComponentInParent<BotController_Procedural>().Ai.transform.position;
 
         RaycastHit groundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
         {
             BotPosition.y = groundHit.point.y + DesiredOffsetFromGround;
             DistanceFromGround = groundHit.distance;
@@ -197,10 +197,10 @@ public class BotBodyBase : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + upNormal);
 
         //Vector3 forward = GetComponentInParent<BotController>().Ai.transform.forward.normalized; 
-        Vector3 forward = Vector3.ProjectOnPlane(GetComponentInParent<BotController>().Ai.transform.forward, upNormal).normalized;
+        Vector3 forward = Vector3.ProjectOnPlane(GetComponentInParent<BotController_Procedural>().Ai.transform.forward, upNormal).normalized;
         if(forward.magnitude < 0.1f)
         {
-            forward = GetComponentInParent<BotController>().Ai.transform.forward.normalized;
+            forward = GetComponentInParent<BotController_Procedural>().Ai.transform.forward.normalized;
         }
 
 

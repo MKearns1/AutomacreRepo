@@ -28,7 +28,7 @@ public class BotComponent_Wheel : BotComponent
         return base.GetSelectedArrowPos();
     }
 
-    public override void Initialise(ComponentDesignInfo DesignInformation, BotController BC)
+    public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         //base.Initialise(DesignInformation, BC);
 
