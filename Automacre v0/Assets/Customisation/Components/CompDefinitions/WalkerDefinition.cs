@@ -8,4 +8,5 @@ public class WalkerDefinition : ComponentDefinition
 {
     public GameObject DefaultFootPrefab;
     public Vector3 DefaultPoleOffset;
+    public Vector3 DefaultFootOffset;
 }

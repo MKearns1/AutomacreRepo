@@ -3,7 +3,8 @@ using UnityEngine;
 public class Transformable : MonoBehaviour
 {
     public TransformGizmo Gizmo;
-    public Transform TargetTransform { get { return transform.parent.GetComponentInChildren<LimbCreator>().Pole; } }
+    public Transform TargetTransform;
+    //{ get { return transform.parent.GetComponentInChildren<LimbCreator>().Pole; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

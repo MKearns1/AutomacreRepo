@@ -70,6 +70,7 @@ public class BotBodyBase : MonoBehaviour
 
             Vector3 pos = comp.EndPoint.position;
             pos.y = y;
+
             SupportPositions.Add(pos);
         }
 
@@ -284,7 +285,105 @@ public class BotBodyBase : MonoBehaviour
 
     public Vector3 GetNormal(List<Vector3> Points)
     {
-        Vector3 center = Vector3.zero;
+        Vector3 avgPos = Vector3.zero;
+        foreach (Vector3 foot in Points)
+        {
+            avgPos += foot;
+        }
+        avgPos /= Points.Count;
+
+        float minStance = 0.2f;
+        float maxStance = 10;
+
+        float stanceSize = 0f;
+
+        Vector3 normal = Vector3.zero;
+
+        for (int i = 0; i < Points.Count; i++)
+        {
+            Vector3 current = Points[i];
+            Vector3 next = Points[(i + 1) % Points.Count];
+
+            normal.x += (current.y - next.y) * (current.z + next.z);
+            normal.y += (current.z - next.z) * (current.x + next.x);
+            normal.z += (current.x - next.x) * (current.y + next.y);
+
+            stanceSize += Vector2.Distance(new Vector2(Points[i].x, Points[i].z), new Vector2(avgPos.x, avgPos.z));
+        }
+
+        float tiltWeight = Mathf.InverseLerp(minStance, maxStance, stanceSize);
+
+        Debug.Log(stanceSize);
+        Vector3 adjustedNormal = Vector3.Slerp(Vector3.up, normal, tiltWeight);
+
+
+        return adjustedNormal.normalized;
+
+/*
+        List<Vector3> OrderedPoints = new List<Vector3>();
+        List<float> angles = new List<float>();
+        List<KeyValuePair<Vector3, float>> pp = new();
+
+        Vector3 avgPos = Vector3.zero;
+
+        foreach (Vector3 foot in Points)
+        {
+            avgPos += foot;
+        }
+        avgPos /= Points.Count;
+        Vector2 avgPos2D = new Vector2(avgPos.x, avgPos.z);
+
+        Vector3 dir1 = avgPos + Vector3.forward;
+
+
+        foreach (Vector3 foot in Points)
+        {
+            Vector2 t2a = new Vector2(foot.x,foot.z);
+
+            Vector2 dir2 = (t2a - avgPos2D).normalized;
+
+            float quaternion = Vector2.SignedAngle(Vector2.left, dir2);
+
+            angles.Add(quaternion);
+            pp.Add(new KeyValuePair<Vector3, float>(foot, quaternion));
+
+            //Debug.Log(t2.gameObject.name + " " + quaternion);
+        }
+
+        pp.Sort((a, b) => a.Value.CompareTo(b.Value));
+
+        foreach (KeyValuePair<Vector3, float> k in pp)
+        {
+            OrderedPoints.Add(k.Key);
+        }
+
+
+        Vector3 averageNormal = Vector3.zero;
+
+        for (int i = 0; i < OrderedPoints.Count; i++)
+        {
+            Vector3 current = OrderedPoints[i];
+            Vector3 next = OrderedPoints[(i + 1) % OrderedPoints.Count];
+
+            Vector3 directionFromCenterToCurrent = current - avgPos;
+            Vector3 directionFromCenterToNext = next - avgPos;
+
+            Vector3 planeNormal = Vector3.Cross(
+                directionFromCenterToCurrent,
+                directionFromCenterToNext
+            );
+
+            if (planeNormal != Vector3.zero)
+            {
+                averageNormal += planeNormal.normalized;
+            }
+        }
+        return averageNormal;
+*/
+
+
+
+/*        Vector3 center = Vector3.zero;
 
         foreach (Vector3 foot in Points)
         {
@@ -317,7 +416,7 @@ public class BotBodyBase : MonoBehaviour
                 averageNormal += planeNormal.normalized;
             }
         }
-        return averageNormal;
+        return averageNormal;*/
     }
 
 

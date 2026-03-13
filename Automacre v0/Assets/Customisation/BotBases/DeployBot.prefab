@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProceduralComponents: []
   QueueCopy: []
-  maxActiveSteps: 2
+  maxActiveSteps: 1
   curActiveSteps: 0
   actualmovementallowednum: 0
 --- !u!1 &2562722885788612602
@@ -390,9 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1ed8a00705f646a222f72b38dde27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 6123666463270262496}
-  components: []
   Ai: {fileID: 1298590325560662435}
+  body: {fileID: 6123666463270262496}
   supportManager: {fileID: 6667365556192957355}
 --- !u!1 &4671163745677312519
 GameObject:

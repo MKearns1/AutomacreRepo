@@ -64,6 +64,9 @@ public class LimbCreator : MonoBehaviour
            return;
         }
        // PoleOffset = Pole.position - transform.position;
+
+        // SET THE TARGET TRANSFORM OF 'CONNECTION POINT' FOR TRANSFORM GIZMO
+       GetComponentInParent<BotComponent_Walker>().transform.GetComponentInChildren<Transformable>().TargetTransform = Pole;
     }
 
     public void CreateBone(Vector3 Position, Transform Parent, string name = "Bone")

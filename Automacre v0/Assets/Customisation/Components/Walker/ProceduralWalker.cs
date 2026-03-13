@@ -49,10 +49,10 @@ public class ProceduralWalker : ProceduralPart
     {
         StartPoint = transform;
         //DefaultFootPlacementOffset = (transform.forward).normalized*2f;
-        DefaultFootPlacementOffset = Vector3.zero;
-        DefaultFootPlacementOffset = (transform.right).normalized * .5f;
-        DefaultFootPlacementOffset = (BotBody.transform.position - transform.position).normalized * -.5f;
-        DefaultFootPlacementOffset.y = 0;
+       // DefaultFootPlacementOffset = Vector3.zero;
+       // DefaultFootPlacementOffset = (transform.right).normalized * .5f;
+       // DefaultFootPlacementOffset = (BotBody.transform.position - transform.position).normalized * -.5f;
+       // DefaultFootPlacementOffset.y = 0;
         //ComponentPlacementOffset = BotBody.transform.position - transform.position;
         maxLimbLength = GetComponent<LimbCreator>().Length;
         onGround = true;
@@ -90,7 +90,9 @@ public class ProceduralWalker : ProceduralPart
         bool DefaultPosBlocked = Physics.Raycast(CandidateBlockedRay, out DefaultPosBlockedHit, DefaultBlockDir.magnitude, GroundLayer);
 
         RaycastHit PredictedFootRaycastFloor;
-        PredictedFootPosToFloor = new(PredictedFootPos, transform.up*-1);
+        PredictedFootPosToFloor = new(PredictedFootPos, 
+            //transform.up*-1);
+            Vector3.down);
         bool PredictedHasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
 
         RaycastHit PredictedPosBlockedHit;
@@ -242,7 +244,7 @@ public class ProceduralWalker : ProceduralPart
             {
                 // Debug.LogWarning("POOOOOOOOOOOOOOOOOOOP" + gameObject.name);
                 EndPoint.position = MoveToPos;
-                EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * transform.rotation; ;
+                EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * BotBody.transform.rotation; 
                 moveProgress = 0;
                 MoveFinished();
             }
@@ -367,7 +369,7 @@ public class ProceduralWalker : ProceduralPart
         float Iterations = 10;
         for (int i = (int)Iterations; i > 0; i--)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             float lerpAmount = i / Iterations;
             Vector3 RayOrigin = Vector3.Lerp(BotBody.transform.position, PredictedFootPos, lerpAmount);
             Ray newRay = new(RayOrigin, Vector3.down);

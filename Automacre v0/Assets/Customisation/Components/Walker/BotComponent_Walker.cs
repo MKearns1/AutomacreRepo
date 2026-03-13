@@ -35,6 +35,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         Foot.localScale = GrabberInfo.FootSize;
         proceduralWalker.enabled = true;
         proceduralWalker.BotBody = body;
+        proceduralWalker.DefaultFootPlacementOffset = GrabberInfo.FootOffset;
         
         //body.GetAllProceduralComponents();
 
@@ -69,7 +70,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         fabrik = GetComponentInChildren<FABRIK>();
         proceduralWalker.enabled = false;
         base.OnAttached();
-        
+
 
         Vector3 footpos = FootPlacementPosition().point;
         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
@@ -82,7 +83,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         {
             Foot.SetParent(botParent,true);
         }
-
+        
         fabrik.TargetTransform = newFoot.transform;
         proceduralWalker.enabled = false;
         LimbCreator.CreateJoints();
@@ -97,8 +98,10 @@ public class BotComponent_Walker : BotComponent_LimbType
         int layernum = LayerMask.GetMask("Ground");
         int layermask = 1 << layernum;
 
-        Ray floorray = new Ray(transform.position + transform.forward, Vector3.down);
-        floorray = new Ray(transform.position, Vector3.down);
+        Vector3 RaystartPos = transform.TransformPoint((ComponentDefaultData as WalkerDefinition).DefaultFootOffset);
+
+        Ray floorray = new Ray(RaystartPos, Vector3.down);
+        //floorray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
 
         bool h = Physics.Raycast(floorray, out hit, 100, layernum);
@@ -120,6 +123,9 @@ public class BotComponent_Walker : BotComponent_LimbType
         info.FootSize = Foot.localScale;
         info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
         info.PoleOffset = GetComponentInChildren<LimbCreator>().PoleOffset;
+
+        // Gets Offset from base
+        info.FootOffset = transform.parent.parent.transform.InverseTransformPoint(Foot.position); info.FootOffset.y = 0;
         return info;
 
 
@@ -157,6 +163,7 @@ public class BotComponent_Walker : BotComponent_LimbType
 public class WalkerDesignInfo : LimbTypeDesignInfo
 {
     public Vector3 FootSize;
+    public Vector3 FootOffset;
 
     public WalkerDesignInfo()
     {
