@@ -452,6 +452,7 @@
 "Assets/Customisation/Components/CompDefinitions/BasketDefinition.cs"
 "Assets/Customisation/Components/CompDefinitions/ComponentDefinition.cs"
 "Assets/Customisation/Components/CompDefinitions/GrabberDefinition.cs"
+"Assets/Customisation/Components/CompDefinitions/LimbTypeDefinition.cs"
 "Assets/Customisation/Components/CompDefinitions/WalkerDefinition.cs"
 "Assets/Customisation/Components/CompDefinitions/WheelDefinition.cs"
 "Assets/Customisation/Components/Grabber/BotComponent_Grabber.cs"

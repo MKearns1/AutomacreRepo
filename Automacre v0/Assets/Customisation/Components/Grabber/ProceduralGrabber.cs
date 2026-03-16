@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 public class ProceduralGrabber : ProceduralPart
 {
-    public Transform RestingPosition;
+    //public Transform RestingPosition;
     public Vector3 RestingPosition2;
+
+    public Vector3 HandRestPosOffset;
     private float moveProgress;
     public float BaseSpeed;
     public float SpeedMultiplier;
@@ -42,7 +44,8 @@ public class ProceduralGrabber : ProceduralPart
         base.Update();
         motionPlayer.update2(EndPoint);
 
-        RestingPosition2 = transform.position + transform.forward;
+        RestingPosition2 = transform.parent.parent.parent.transform.TransformPoint(HandRestPosOffset);
+        //transform.position + transform.forward;
 
         if (!motionPlayer.isPlaying && Actions.Count >0)
         {

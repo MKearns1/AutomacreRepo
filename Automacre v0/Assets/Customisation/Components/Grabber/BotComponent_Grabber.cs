@@ -31,36 +31,39 @@ public class BotComponent_Grabber : BotComponent_LimbType
         fabrik.TargetTransform = Hand.transform;
         Hand.localScale = GrabberInfo.HandSize;
         proceduralGrabber.enabled = true;
+        proceduralGrabber.HandRestPosOffset = GrabberInfo.HandOffset;
 
 
-/*        GrabberDesignInfo WalkerConfiguration = DesignInformation as GrabberDesignInfo;
+        /*        GrabberDesignInfo WalkerConfiguration = DesignInformation as GrabberDesignInfo;
 
-        body = BC.body;
-        proceduralGrabber.EndPoint = Hand.transform;
-        //GetComponentInChildren<ProceduralGrabber>().BotBody = body;
-        GetComponentInChildren<FABRIK>().TargetTransform = Hand.transform;
+                body = BC.body;
+                proceduralGrabber.EndPoint = Hand.transform;
+                //GetComponentInChildren<ProceduralGrabber>().BotBody = body;
+                GetComponentInChildren<FABRIK>().TargetTransform = Hand.transform;
 
-        Debug.Log(WalkerConfiguration == null);
-        GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
-      //  GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
-        Hand.localScale = WalkerConfiguration.HandSize;
-        GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
+                Debug.Log(WalkerConfiguration == null);
+                GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
+              //  GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
+                Hand.localScale = WalkerConfiguration.HandSize;
+                GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
 
-        GetComponentInChildren<LimbCreator>().CreateJoints();
-        GetComponentInChildren<LimbCreator>().CreateJoints();
+                GetComponentInChildren<LimbCreator>().CreateJoints();
+                GetComponentInChildren<LimbCreator>().CreateJoints();
 
-        transform.GetComponentInChildren<ProceduralGrabber>().enabled = true;
+                transform.GetComponentInChildren<ProceduralGrabber>().enabled = true;
 
-        Debug.Log("Initialise Component : " + gameObject.name);
-        //body.GetAllProceduralComponents();*/
+                Debug.Log("Initialise Component : " + gameObject.name);
+                //body.GetAllProceduralComponents();*/
     }
 
     public override void OnAttached()
     {
         base.OnAttached();
+
         proceduralGrabber = GetComponentInChildren<ProceduralGrabber>();
 
-        Vector3 HandPos = proceduralGrabber.RestingPosition.position;
+        Vector3 HandPos = transform.TransformPoint((ComponentDefaultData as GrabberDefinition).DefaultClawRestOffset);
+            //proceduralGrabber.RestingPosition.position;
 
         GameObject newHand = Instantiate((ComponentDefaultData as GrabberDefinition).DefaultClawPrefab, HandPos, transform.rotation);
         Hand = newHand.transform;
@@ -85,6 +88,8 @@ public class BotComponent_Grabber : BotComponent_LimbType
         info.LimbLength = GetComponentInChildren<LimbCreator>().Length;
         info.HandSize = Hand.localScale;
         info.JointSize = GetComponentInChildren<LimbCreator>().JointSize;
+        info.PoleOffset = GetComponentInChildren<LimbCreator>().PoleOffset;
+        info.HandOffset = transform.parent.parent.transform.InverseTransformPoint(Hand.position);
 
         return info;
     }
@@ -108,6 +113,7 @@ public class BotComponent_Grabber : BotComponent_LimbType
 public class GrabberDesignInfo : LimbTypeDesignInfo
 {
     public Vector3 HandSize;
+    public Vector3 HandOffset;
 
     public GrabberDesignInfo()
     {

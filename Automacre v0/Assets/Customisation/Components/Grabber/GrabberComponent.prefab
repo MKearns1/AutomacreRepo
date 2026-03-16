@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6585258960266416898}
   - component: {fileID: 6554390501626326254}
   - component: {fileID: 564089332104525049}
+  - component: {fileID: 5157450324126221122}
   m_Layer: 0
   m_Name: ConnectionPoint
   m_TagString: Untagged
@@ -108,6 +109,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5157450324126221122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623422812243491165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee28fa8ca6859a1478b30f07a7137525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gizmo: {fileID: 0}
+  TargetTransform: {fileID: 2803333583803315007}
 --- !u!1 &2250535285414371746
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,7 +71,6 @@ public class BotComponent_Walker : BotComponent_LimbType
         proceduralWalker.enabled = false;
         base.OnAttached();
 
-
         Vector3 footpos = FootPlacementPosition().point;
         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
         Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);

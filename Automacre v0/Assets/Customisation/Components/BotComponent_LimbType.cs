@@ -67,7 +67,7 @@ public class BotComponent_LimbType : BotComponent
         LimbCreator = GetComponentInChildren<LimbCreator>();
         fabrik = GetComponentInChildren<FABRIK>();
 
-        LimbCreator.CreatePole(transform.TransformPoint((ComponentDefaultData as WalkerDefinition).DefaultPoleOffset));
+        LimbCreator.CreatePole(transform.TransformPoint((ComponentDefaultData as LimbTypeDefinition).DefaultPoleOffset));
 
         /*Vector3 HandPos = GetComponentInChildren<ProceduralGrabber>().RestingPosition.position;
 
