@@ -23,6 +23,11 @@ public class WorkshopGeneral : MonoBehaviour
     public GameObject CurTransformGizmo;
     RectTransform cursor;
 
+    Transform BodySpawnPos { get { return transform.GetChild(0); } }
+    public GameObject CurBody;
+    public List<GameObject> BodyTypes = new List<GameObject>();
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +41,7 @@ public class WorkshopGeneral : MonoBehaviour
         }
         //Cursor.visible = false;
         cursor = GameObject.Find("Cursor").GetComponent<RectTransform>();
-
+        SetBotBody(BodyTypes[0]);
     }
 
     // Update is called once per frame
@@ -145,5 +150,16 @@ public class WorkshopGeneral : MonoBehaviour
     public void SetAnimType(bool keyframed)
     {
         useKeyframeAnim = keyframed;
+    }
+
+    public void SetBotBody(GameObject BodyPrefab)
+    {
+        if(CurBody != null) Destroy(CurBody);
+        Bot_Workshop BotBase = GameObject.FindFirstObjectByType<Bot_Workshop>();
+        GameObject newBody = Instantiate(BodyPrefab, BotBase.transform);
+        newBody.transform.position = BodySpawnPos.position;
+        CurBody = newBody;
+        CurBody.name = "BotBody";
+        BotBase.GetAllAttachPoints();
     }
 }

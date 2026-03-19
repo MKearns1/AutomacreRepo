@@ -10,9 +10,20 @@ public class Bot_Workshop : MonoBehaviour
     void Start()
     {
         //AttatchPoints.Clear();
+        GetAllAttachPoints();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void GetAllAttachPoints()
+    {
         DesignData.AttachPoints.Clear();
 
-        foreach (Transform child in transform.Find("BotBase").transform)
+        foreach (Transform child in transform.Find("BotBody").transform)
         {
             if (!child.gameObject.activeInHierarchy) continue;
 
@@ -23,11 +34,5 @@ public class Bot_Workshop : MonoBehaviour
             DesignData.AttachPoints.Add(childAP.Name, childAP);
         }
         Debug.Log(gameObject.name + " Attached " + DesignData.AttachPoints.Count);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
