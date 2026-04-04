@@ -9,6 +9,7 @@ public class BotController_Procedural : BotController
     Dictionary<string, AttatchPoint> AttachmentPoints = new Dictionary<string, AttatchPoint>();
     public SupportManager supportManager;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -73,6 +74,8 @@ public class BotController_Procedural : BotController
 
 
         }
+
+        body.DesiredOffsetFromGround = AssembleData.OffsetFromGround + Vector3.Distance(body.transform.position, body.LowestPoint.position);
 
         if (supportManager.Supported)
         {

@@ -127,6 +127,37 @@ MonoBehaviour:
   maxActiveSteps: 1
   curActiveSteps: 0
   actualmovementallowednum: 0
+--- !u!1 &2442747227356602671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2280550057172939409}
+  m_Layer: 0
+  m_Name: LowestPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2280550057172939409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442747227356602671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.738, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8279602307694434471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2562722885788612602
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1ed8a00705f646a222f72b38dde27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BodyType: Boxy
   Ai: {fileID: 1298590325560662435}
   body: {fileID: 6123666463270262496}
   supportManager: {fileID: 6667365556192957355}
@@ -437,6 +469,7 @@ Transform:
   - {fileID: 4760575444341875942}
   - {fileID: 827051730939234460}
   - {fileID: 2140926284914026962}
+  - {fileID: 2280550057172939409}
   m_Father: {fileID: 5676525900512228310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2692334371355131598
@@ -536,6 +569,7 @@ MonoBehaviour:
   PredictedBodyPos: {x: 0, y: 0, z: 0}
   PredictionLookAheadTime: 0.5
   CurComponents: []
+  LowestPoint: {fileID: 2280550057172939409}
 --- !u!114 &6667365556192957355
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ TagManager:
   - PlayerWorkshop
   - SelectionArrow
   - TransformGizmo
+  - PreviewBotCamera
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - Bot
   - Ground
-  - 
+  - AlwaysOnTop
   - 
   - 
   - 

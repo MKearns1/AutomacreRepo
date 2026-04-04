@@ -8,8 +8,8 @@ public class WorkshopMovement : MonoBehaviour
     float pitch = 0;
 
     float ZoomSpeed = .2f;
-
-    
+    float GizmoIncrementRate = .5f;
+    bool holdingCtrl;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,9 +43,17 @@ public class WorkshopMovement : MonoBehaviour
             MainCam.transform.localPosition -= Vector3.forward * ZoomSpeed;
         }
 
+        holdingCtrl = false;
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            holdingCtrl = true;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit rayhit = Interfaces.CastMouseOverObject(MainCam);
+            RaycastHit[] rayhits = Interfaces.CastMouseOverObjects(MainCam);
+
+            RaycastHit rayhit = GetBestRaycastHit(rayhits);
 
             if (rayhit.collider == null) return;
 
@@ -71,29 +79,30 @@ public class WorkshopMovement : MonoBehaviour
             }
 
             TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
+            if (holdingCtrl) { GizmoIncrementRate = .25f; } else { GizmoIncrementRate = 1; }
 
             if (gizmo != null)
             {
                 switch (rayhit.collider.gameObject.name)
                 {
                     case "X":
-                        gizmo.transform.position += new Vector3(1, 0, 0);
+                        gizmo.IncrementMove(Vector3.right * GizmoIncrementRate);
                         break;
                     case "Y":
-                        gizmo.transform.position += new Vector3(0, 1, 0);
+                        gizmo.IncrementMove(Vector3.up * GizmoIncrementRate);
                         break;
                     case "Z":
-                        gizmo.transform.position += new Vector3(0, 0, 1);
+                        gizmo.IncrementMove(Vector3.forward * GizmoIncrementRate);
                         break;
 
                     case "X-":
-                        gizmo.transform.position += new Vector3(-1, 0, 0);
+                        gizmo.IncrementMove(Vector3.left * GizmoIncrementRate);
                         break;
                     case "Y-":
-                        gizmo.transform.position += new Vector3(0, -1, 0);
+                        gizmo.IncrementMove(Vector3.down * GizmoIncrementRate);
                         break;
                     case "Z-":
-                        gizmo.transform.position += new Vector3(0, 0, -1);
+                        gizmo.IncrementMove(Vector3.back * GizmoIncrementRate);
                         break;
                 }
 
@@ -118,4 +127,53 @@ public class WorkshopMovement : MonoBehaviour
         ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
         WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
     }
+
+    public int GetHitPriority(RaycastHit rayhit)
+    {
+        if (rayhit.collider.gameObject.tag == "AttatchPoint")
+        {
+            if (WorkshopGeneral.instance.CurrentSelectedComponentToPlace != null) return 80;
+      
+        }
+
+        if (rayhit.collider.transform.GetComponentInParent<BotComponent>() != null)
+        {
+            return 100;
+        }
+
+        if (rayhit.collider.gameObject.GetComponent<Transformable>() != null)
+        {
+            return 50;
+        }
+
+        TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
+
+        if (gizmo != null)
+        {
+            return 110;
+        }
+        return 0;
+    }
+
+    public RaycastHit GetBestRaycastHit(RaycastHit[] rayHits)
+    {
+        if (rayHits == null || rayHits.Length == 0) return default;
+
+        RaycastHit BestHit = default;
+        int BestPriority = 0;
+
+        foreach (RaycastHit hit in rayHits)
+        {
+            int curPriority = GetHitPriority(hit);
+            if (BestPriority < curPriority)
+            {
+                BestPriority = curPriority;
+                BestHit = hit;
+            }
+        }
+        if(BestPriority ==0 ) return default;
+
+        return BestHit;
+    }
 }
+

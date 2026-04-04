@@ -36,14 +36,25 @@ public class Interfaces
         return null;
     }
 
-    public static RaycastHit CastMouseOverObject(Camera cam)
+    /*    public static RaycastHit CastMouseOverObject(Camera cam)
+        {
+            Ray Mouseray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            Physics.RaycastAll(Mouseray.origin, Mouseray.direction, out hit);
+
+            return hit;
+        }*/
+
+
+    public static RaycastHit[] CastMouseOverObjects(Camera cam)
     {
         Ray Mouseray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        Physics.Raycast(Mouseray, out hit);
+        RaycastHit[] hits = Physics.RaycastAll(Mouseray.origin, Mouseray.direction);
 
-        return hit;
+        Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+        return hits;
     }
 
 }

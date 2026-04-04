@@ -7,6 +7,7 @@ using UnityEditor.Experimental.GraphView;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -154,7 +155,8 @@ public class PlayerScript : MonoBehaviour
         transform.Find("Cube").transform.position = CamDesiredPos;
         transform.Find("Cube").transform.rotation = CamDesiredRot;
 
-        CurrentHoveredObj = Interfaces.CastMouseOverObject(cam);
+        if(Interfaces.CastMouseOverObjects(cam).Length == 0) { CurrentHoveredObj = default; return; }
+        CurrentHoveredObj = Interfaces.CastMouseOverObjects(cam)[0];
 
         /*if (CurrentHoveredObj.collider != null)
         {
@@ -171,7 +173,7 @@ public class PlayerScript : MonoBehaviour
     public void MouseClick()
     {
         RaycastHit hit;
-        hit = Interfaces.CastMouseOverObject(cam);
+        hit = Interfaces.CastMouseOverObjects(cam)[0];
 
         if (hit.collider != null)
         {

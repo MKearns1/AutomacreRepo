@@ -9,7 +9,7 @@ public class BotBodyBase : MonoBehaviour
 
     public LayerMask GroundLayer;
     Vector3 GroundHitLocation;
-    public float DesiredOffsetFromGround = 1;
+    public float DesiredOffsetFromGround;
     public float MaxOffsetFromGround;
     public List<ProceduralPart> ProceduralComponents;
     float heightVelocity = 0;
@@ -19,13 +19,14 @@ public class BotBodyBase : MonoBehaviour
     //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
     Vector3 smoothedUp = Vector3.zero;
     public List<BotComponent> CurComponents;
+    public Transform LowestPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GetAllProceduralComponents();
         // ProceduralComponents[Random.Range(0,ProceduralComponents.Count)].MovementAllowed = true;
         Debug.Log(GetShortestSupportComponent());
-        DesiredOffsetFromGround = GetShortestSupportComponent().GetComponent<LimbCreator>().Length * .8f;
+       // DesiredOffsetFromGround = GetShortestSupportComponent().GetComponent<LimbCreator>().Length * .8f;
     }
 
     // Update is called once per frame
@@ -42,6 +43,8 @@ public class BotBodyBase : MonoBehaviour
                 }
 
                 Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredOffsetFromGround;*/
+
+        Debug.LogWarning(DesiredOffsetFromGround);
 
         List<Vector3> SupportPositions = new List<Vector3>();
 
@@ -83,6 +86,19 @@ public class BotBodyBase : MonoBehaviour
         {
             upNormal = GetNormal(SupportPositions).normalized;
         }
+        else if (SupportPositions.Count == 2)
+        {
+            upNormal = GetNormal2D(SupportPositions[0], SupportPositions[1]);
+        }
+
+        for (int i = 0; i < SupportPositions.Count; i++)
+        {
+            Debug.DrawLine(
+                SupportPositions[i],
+                SupportPositions[(i + 1) % SupportPositions.Count],
+                Color.green
+            );
+        }
 
         /*        foreach (var comp in ProceduralComponents)
                 {
@@ -93,40 +109,40 @@ public class BotBodyBase : MonoBehaviour
                     else { comp.MovementAllowed = false;} 
                 }*/
 
-/*
-        Vector3 avgNormal = Vector3.zero;
-        Vector3 center = Vector3.zero;
+        /*
+                Vector3 avgNormal = Vector3.zero;
+                Vector3 center = Vector3.zero;
 
-        foreach (var comp in ProceduralComponents)
-        {
-            center += comp.EndPoint.position;
-        }
-        center /= ProceduralComponents.Count;
+                foreach (var comp in ProceduralComponents)
+                {
+                    center += comp.EndPoint.position;
+                }
+                center /= ProceduralComponents.Count;
 
-        for (int i = 0; i < ProceduralComponents.Count; i++)
-        {
-            Vector3 a = ProceduralComponents[i].EndPoint.position - center;
-            Vector3 b = ProceduralComponents[(i + 1) % ProceduralComponents.Count].EndPoint.position - center;
+                for (int i = 0; i < ProceduralComponents.Count; i++)
+                {
+                    Vector3 a = ProceduralComponents[i].EndPoint.position - center;
+                    Vector3 b = ProceduralComponents[(i + 1) % ProceduralComponents.Count].EndPoint.position - center;
 
-            avgNormal += Vector3.Cross(a, b);
-        }
+                    avgNormal += Vector3.Cross(a, b);
+                }
 
-        avgNormal.Normalize();
+                avgNormal.Normalize();
 
-        Vector3 desiredUp = Vector3.Slerp(
-    transform.up,
-    avgNormal,
-    0.02f   // tilt strength
-);
-        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, desiredUp).normalized;
+                Vector3 desiredUp = Vector3.Slerp(
+            transform.up,
+            avgNormal,
+            0.02f   // tilt strength
+        );
+                Vector3 forward = Vector3.ProjectOnPlane(transform.forward, desiredUp).normalized;
 
-        Quaternion desiredRotation = Quaternion.LookRotation(forward, desiredUp);
-        transform.rotation = Quaternion.Slerp(
-    transform.rotation,
-    desiredRotation,
-    Time.deltaTime * 5f
-);
-*/
+                Quaternion desiredRotation = Quaternion.LookRotation(forward, desiredUp);
+                transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            desiredRotation,
+            Time.deltaTime * 5f
+        );
+        */
 
         /*        //float maxAllowedHeight = Mathf.Infinity;
 
@@ -154,7 +170,8 @@ public class BotBodyBase : MonoBehaviour
         PredictedBodyPos = transform.position + transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity * PredictionLookAheadTime;
 
         RaycastHit PredictedGroundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
+       // if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
         {
             PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
         }
@@ -162,7 +179,9 @@ public class BotBodyBase : MonoBehaviour
         Vector3 BotPosition = GetComponentInParent<BotController_Procedural>().Ai.transform.position;
 
         RaycastHit groundHit;
-        if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
+        //if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
+        //if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
         {
             BotPosition.y = groundHit.point.y + DesiredOffsetFromGround;
             DistanceFromGround = groundHit.distance;
@@ -193,7 +212,9 @@ public class BotBodyBase : MonoBehaviour
             upNormal = -upNormal;
         }
 
-        transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 5f);
+       // transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 5f);
+        transform.position = Vector3.Lerp(transform.position, BotPosition, Time.deltaTime * 10);
+        //transform.position = BotPosition;
 
         Debug.DrawLine(transform.position, transform.position + upNormal);
 
@@ -277,14 +298,17 @@ public class BotBodyBase : MonoBehaviour
                 shortestLength = walker.maxLimbLength;
                 shortest = walker;
             }
-        }
+            Debug.Log(walker.maxLimbLength);
 
+        }
         return shortest;
     }
 
 
     public Vector3 GetNormal(List<Vector3> Points)
     {
+        Points = OrderPoints(Points);
+
         Vector3 avgPos = Vector3.zero;
         foreach (Vector3 foot in Points)
         {
@@ -419,7 +443,38 @@ public class BotBodyBase : MonoBehaviour
         return averageNormal;*/
     }
 
+    public Vector3 GetNormal2D(Vector3 PointA, Vector3 PointB)
+    {
+        Vector3 Direction = PointB - PointA;
 
+        Vector3 side = Vector3.Cross(Vector3.up, Direction);
+        side.Normalize();
+        Vector3 normal = Vector3.Cross(Direction,side);
+        normal.Normalize();
+        return normal;
+    }
+    List<Vector3> OrderPoints(List<Vector3> points)
+    {
+        Vector3 center = Vector3.zero;
+
+        foreach (var p in points)
+            center += p;
+
+        center /= points.Count;
+
+        points.Sort((b, a) =>
+        {
+            Vector2 da = new Vector2(a.x - center.x, a.z - center.z);
+            Vector2 db = new Vector2(b.x - center.x, b.z - center.z);
+
+            float angleA = Mathf.Atan2(da.y, da.x);
+            float angleB = Mathf.Atan2(db.y, db.x);
+
+            return angleA.CompareTo(angleB);
+        });
+
+        return points;
+    }
 
     private void OnDrawGizmos()
     {

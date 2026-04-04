@@ -35,7 +35,7 @@ public class ProceduralWalker : ProceduralPart
     Vector3 PredictedFootPos;
     Ray PredictedFootPosToFloor;
     float DistBetweenStartAndEnd;
-    [DoNotSerialize] public float maxLimbLength;
+    [DoNotSerialize] public float maxLimbLength { get { return GetComponent<LimbCreator>().Length;  } set { } }
     public bool HasStepToken;
     bool onGround;
 

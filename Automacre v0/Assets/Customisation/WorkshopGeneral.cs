@@ -41,7 +41,7 @@ public class WorkshopGeneral : MonoBehaviour
         }
         //Cursor.visible = false;
         cursor = GameObject.Find("Cursor").GetComponent<RectTransform>();
-        SetBotBody(BodyTypes[0]);
+        SetBotBody("Boxy");
     }
 
     // Update is called once per frame
@@ -152,14 +152,30 @@ public class WorkshopGeneral : MonoBehaviour
         useKeyframeAnim = keyframed;
     }
 
-    public void SetBotBody(GameObject BodyPrefab)
+    public void SetBotBody(string BodyTypeName)
     {
-        if(CurBody != null) Destroy(CurBody);
         Bot_Workshop BotBase = GameObject.FindFirstObjectByType<Bot_Workshop>();
-        GameObject newBody = Instantiate(BodyPrefab, BotBase.transform);
+
+        if (CurBody != null)
+        {
+            BotBase.DestroyAllComponents();
+            Destroy(CurBody);
+        }
+
+        GameObject newBody = Instantiate(GetBodyTypeByName(BodyTypeName), BotBase.transform);
         newBody.transform.position = BodySpawnPos.position;
         CurBody = newBody;
         CurBody.name = "BotBody";
-        BotBase.GetAllAttachPoints();
+        BotBase.BodyType = BodyTypeName;
+        BotBase.Invoke("GetAllAttachPoints", .1f);// Delay is needed to give time for the new body to be instantiated.
+        //BotBase.GetAllAttachPoints();
+    }
+    GameObject GetBodyTypeByName(string name)
+    {
+        foreach (var body in BodyTypes)
+        {
+            if (body.GetComponent<WorkshopBot_Body>().BodyType == name) return body;
+        }
+        return null;
     }
 }

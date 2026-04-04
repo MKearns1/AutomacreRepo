@@ -16,12 +16,33 @@ public class TransformGizmo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(LinkedTransform == null)Destroy(gameObject);
         LinkedTransform.position = transform.position;
     }
 
-    public void Initialise(Transform linkedT)
+    public void Initialise(Transform linkedT, Transformable transformable = null)
     {
         LinkedTransform = linkedT;
         transform.position = LinkedTransform.position;
+        
+        if(transformable==null)return;
+
+        if (!transformable.hasX)
+        {
+            Destroy(X);
+        }
+        if (!transformable.hasY)
+        {
+            Destroy(Y);
+        }
+        if (!transformable.hasZ)
+        {
+            Destroy(Z);
+        }
+    }
+
+    public void IncrementMove(Vector3 MoveAmount)
+    {
+        transform.position += MoveAmount;
     }
 }

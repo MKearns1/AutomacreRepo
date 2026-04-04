@@ -519,6 +519,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gizmo: {fileID: 0}
   TargetTransform: {fileID: 4623985898926633319}
+  hasX: 1
+  hasY: 0
+  hasZ: 1
 --- !u!65 &2141051707381107682
 BoxCollider:
   m_ObjectHideFlags: 0

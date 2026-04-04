@@ -96,7 +96,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5797235798344519389}
   - component: {fileID: 1966422220179687085}
-  - component: {fileID: 8636761210177207951}
   - component: {fileID: 7811755568735803075}
   m_Layer: 0
   m_Name: Main Camera
@@ -171,14 +170,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8636761210177207951
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5260398817904208099}
-  m_Enabled: 1
 --- !u!114 &7811755568735803075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CamMoveSpeed: 15
-  RotationSpeed: 10
+  RotationSpeed: 1
+  CurrentSelectedBots1: []
   CurrentSelectedBots: []
 --- !u!23 &506857420805415330
 MeshRenderer:

@@ -4,6 +4,9 @@ public class Transformable : MonoBehaviour
 {
     public TransformGizmo Gizmo;
     public Transform TargetTransform;
+    public bool hasX = true;
+    public bool hasY = true;    
+    public bool hasZ = true;    
     //{ get { return transform.parent.GetComponentInChildren<LimbCreator>().Pole; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,6 +27,6 @@ public class Transformable : MonoBehaviour
         GameObject newGizmo = Instantiate(WorkshopGeneral.instance.TransformGizmoPrefab, transform.position, Quaternion.Euler(0,0,0));
         Gizmo = newGizmo.GetComponent<TransformGizmo>();
         WorkshopGeneral.instance.CurTransformGizmo = Gizmo.gameObject;
-        Gizmo.Initialise(TargetTransform);
+        Gizmo.Initialise(TargetTransform, this);
     }
 }

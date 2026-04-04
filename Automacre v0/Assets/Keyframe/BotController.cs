@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BotController : MonoBehaviour
 {
+    public string BodyType;
+
     public BotAI Ai;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
