@@ -325,6 +325,8 @@ public class ProceduralWalker : ProceduralPart
         moving = false;
         onGround = true;
         BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().CompFinishStep(this);
+        //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = EndPoint.position;
+        Destroy(Instantiate(VFXManager.instance.StepParticleVFX.gameObject,EndPoint.position, Quaternion.identity), 1);
     }
 
     public bool OnGround()

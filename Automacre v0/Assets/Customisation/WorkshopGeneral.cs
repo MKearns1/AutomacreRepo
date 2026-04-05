@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
 
 public class WorkshopGeneral : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class WorkshopGeneral : MonoBehaviour
     Transform BodySpawnPos { get { return transform.GetChild(0); } }
     public GameObject CurBody;
     public List<GameObject> BodyTypes = new List<GameObject>();
-
+    public bool Mirror;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,11 +65,18 @@ public class WorkshopGeneral : MonoBehaviour
         {
             CurrentSelectedComponentToPlace = null;
             cursor.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
+            cursor.Find("CompIcon").GetComponent<Image>().enabled = false;
+            cursor.Find("CompIcon").GetChild(0).GetComponent<Image>().enabled = false;
+            cursor.Find("CompIcon").Find("CompImage").GetComponent<Image>().enabled = false;
             return;
         }
 
         CurrentSelectedComponentToPlace = GetComponentByName(name);
         cursor.Find("Text").GetComponent<TextMeshProUGUI>().text = name;
+        cursor.Find("CompIcon").GetComponent<Image>().enabled = true;
+        cursor.Find("CompIcon").GetChild(0).GetComponent<Image>().enabled = true;
+        cursor.Find("CompIcon").Find("CompImage").GetComponent<Image>().enabled = true;
+        cursor.Find("CompIcon").Find("CompImage").GetComponent<Image>().sprite = GameObject.FindFirstObjectByType<CanvasManager>().GetCompIcon(name);
 
     }
 
@@ -107,6 +115,10 @@ public class WorkshopGeneral : MonoBehaviour
 
     public void RemoveComponentFromBot(BotComponent RemovedComponent)
     {
+        if (Mirror)
+        {
+            GetMirroredAttachPoint(RemovedComponent.GetComponentInParent<AttatchPoint>(),null, RemovedComponent.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints).botComponent.RemoveFromBot();
+        }
         RemovedComponent.RemoveFromBot();
         ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
         if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
@@ -177,5 +189,44 @@ public class WorkshopGeneral : MonoBehaviour
             if (body.GetComponent<WorkshopBot_Body>().BodyType == name) return body;
         }
         return null;
+    }
+
+    public AttatchPoint GetMirroredAttachPoint(AttatchPoint ap, List<AttatchPoint> BotAttachPoints = default, System.Collections.Generic.Dictionary<string, AttatchPoint> DataAP = default )
+    {
+        Vector3 PredictedMirrorPos = new Vector3(-ap.transform.localPosition.x,ap.transform.localPosition.y,ap.transform.localPosition.z);
+
+        AttatchPoint closestPoint = null;
+        float Closest = float.MaxValue;
+
+        if (BotAttachPoints != null)
+        {
+            foreach (var attatchPoint in BotAttachPoints)
+            {
+                float curClosest = Vector3.Distance(PredictedMirrorPos, attatchPoint.transform.localPosition);
+                if (curClosest < Closest)
+                {
+                    closestPoint = attatchPoint;
+                    Closest = curClosest;
+                }
+            }
+        }
+        if (DataAP != null)
+        {
+            foreach (var attatchPoint in DataAP.Values)
+            {
+                float curClosest = Vector3.Distance(PredictedMirrorPos, attatchPoint.transform.localPosition);
+                if (curClosest < Closest)
+                {
+                    closestPoint = attatchPoint;
+                    Closest = curClosest;
+                }
+            }
+        }
+        return closestPoint;
+    }
+
+    public void SetMirrorMode(bool mirror)
+    {
+        Mirror = mirror;
     }
 }

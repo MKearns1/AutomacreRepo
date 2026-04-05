@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+
 
 public class WorkshopMovement : MonoBehaviour
 {
@@ -116,16 +118,35 @@ public class WorkshopMovement : MonoBehaviour
         Transform attatchpoint = rayhit.collider.gameObject.transform;
         AttatchPoint ap = attatchpoint.GetComponent<AttatchPoint>();
 
-        if ((ap.UnacceptedTypes.Contains(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.Type)))
+        System.Collections.Generic.List<AttatchPoint> DesiredPoints = new System.Collections.Generic.List<AttatchPoint>();
+        DesiredPoints.Add(ap);
+
+        if (WorkshopGeneral.instance.Mirror)
         {
-            return;
+            System.Collections.Generic.List<AttatchPoint> botAttachPoints = new System.Collections.Generic.List<AttatchPoint>();
+            foreach (var aps in ap.transform.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints.Values) { botAttachPoints.Add(aps); }
+            AttatchPoint MirroredPoint = WorkshopGeneral.instance.GetMirroredAttachPoint(ap, botAttachPoints);
+
+            DesiredPoints.Add(MirroredPoint);           
         }
+
+        foreach (var AttachPoint in DesiredPoints) 
+        {
+            if ((ap.UnacceptedTypes.Contains(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.Type)))
+            {
+                continue;
+            }
+            if(AttachPoint.botComponent != null) { AttachPoint.botComponent.RemoveFromBot(); }
+
+            GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, AttachPoint.transform.position, AttachPoint.transform.rotation);
+
+            AttachPoint.AttachNewComponent(newComp.GetComponent<BotComponent>());
+        }
+
+
         //Debug.LogWarning(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab == null);
 
-        GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, attatchpoint.position, attatchpoint.rotation);
-
-        ap.AttachNewComponent(newComp.GetComponent<BotComponent>());
-        WorkshopGeneral.instance.SelectBotsComponent(newComp.GetComponent<BotComponent>());
+       // WorkshopGeneral.instance.SelectMenuComponent(newComp.GetComponent<BotComponent>().CompName);
     }
 
     public int GetHitPriority(RaycastHit rayhit)

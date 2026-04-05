@@ -6,7 +6,13 @@ public class Transformable : MonoBehaviour
     public Transform TargetTransform;
     public bool hasX = true;
     public bool hasY = true;    
-    public bool hasZ = true;    
+    public bool hasZ = true;
+
+    public Vector3 Bounds;
+    public Transform Origin;
+
+    public IGizmoConstraint Constraint;
+
     //{ get { return transform.parent.GetComponentInChildren<LimbCreator>().Pole; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,4 +35,16 @@ public class Transformable : MonoBehaviour
         WorkshopGeneral.instance.CurTransformGizmo = Gizmo.gameObject;
         Gizmo.Initialise(TargetTransform, this);
     }
+
+    public bool ValidPosition(Vector3 pos)
+    {
+        if (Constraint == null) return true;
+
+        return Constraint.IsValidPosition(pos);
+    }
+}
+
+public interface IGizmoConstraint
+{
+    bool IsValidPosition(Vector3 position);
 }

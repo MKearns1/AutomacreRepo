@@ -15,6 +15,6 @@ MonoBehaviour:
   DefaultPrefab: {fileID: 2250535285414371746, guid: 2a79858de30df964fb571a6b293c47e2, type: 3}
   Type: 1
   ProvidesSupport: 1
+  DefaultPoleOffset: {x: 0, y: 3, z: 2}
   DefaultFootPrefab: {fileID: 8357155842713679565, guid: 0e1ff614eef2261468c218fe10db7f30, type: 3}
-  DefaultPoleOffset: {x: 0, y: 5, z: 2}
   DefaultFootOffset: {x: 0, y: 0, z: 1}

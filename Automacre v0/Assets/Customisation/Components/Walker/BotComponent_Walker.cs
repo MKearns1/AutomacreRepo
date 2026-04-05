@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -73,6 +74,12 @@ public class BotComponent_Walker : BotComponent_LimbType
 
         Vector3 footpos = FootPlacementPosition().point;
         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
+
+        AreaConstraint c = newFoot.transform.AddComponent<AreaConstraint>();
+        //c.Origin = transform;
+        //c.MaxDistance = LimbCreator.Length;
+        newFoot.transform.GetComponent<Transformable>().Constraint = c;
+
         Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
 
         Foot = newFoot.transform;

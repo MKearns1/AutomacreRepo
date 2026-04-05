@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2431296374931100206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4822440190011183503}
+  m_Layer: 0
+  m_Name: BodySpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4822440190011183503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431296374931100206}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3854104089640534509}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4781078411219985818
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +60,8 @@ Transform:
   m_LocalPosition: {x: 7.6575184, y: -2.5975664, z: 6.0083294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4822440190011183503}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7699389889675010107
@@ -59,3 +91,12 @@ MonoBehaviour:
   CurrentCopiedOptions: {fileID: 0}
   SelectionArrowPrefab: {fileID: 8570731572660418684, guid: 4aff11e7d095cc44cbb08ea07fcd96a6, type: 3}
   TransformGizmoPrefab: {fileID: 1537740355597121034, guid: 09c51c8ad71b6f04eb8ffd394c452075, type: 3}
+  CurTransformGizmo: {fileID: 0}
+  CurBody: {fileID: 0}
+  BodyTypes:
+  - {fileID: 2915661194853589136, guid: a0fc8ff14488b604f976cba136d6b470, type: 3}
+  - {fileID: 2915661194853589136, guid: 1a54926493f0ad8478110423568d733b, type: 3}
+  - {fileID: 2915661194853589136, guid: cefcc7099e5de9542b3cfbc1df46f324, type: 3}
+  - {fileID: 2915661194853589136, guid: 0274b4ee88e995e419a8d56233d39291, type: 3}
+  - {fileID: 2915661194853589136, guid: fb46c5b7feba68b4b8e20ca5c6e174ef, type: 3}
+  - {fileID: 2915661194853589136, guid: 8b60f5aff1eae02418156b6341ab3159, type: 3}

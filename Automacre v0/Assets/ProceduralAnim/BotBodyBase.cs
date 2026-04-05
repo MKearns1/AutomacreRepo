@@ -14,6 +14,7 @@ public class BotBodyBase : MonoBehaviour
     public List<ProceduralPart> ProceduralComponents;
     float heightVelocity = 0;
     public float DistanceFromGround;
+    public float PredictedDistanceFromGround;
     public Vector3 PredictedBodyPos;
     public float PredictionLookAheadTime = .5f;
     //public List<AttatchPoint> AttatchPoints = new List<AttatchPoint>();
@@ -44,7 +45,7 @@ public class BotBodyBase : MonoBehaviour
 
                 Vector3 DesiredPos = GroundHitLocation + Vector3.up * DesiredOffsetFromGround;*/
 
-        Debug.LogWarning(DesiredOffsetFromGround);
+       // Debug.LogWarning(DesiredOffsetFromGround);
 
         List<Vector3> SupportPositions = new List<Vector3>();
 
@@ -171,21 +172,41 @@ public class BotBodyBase : MonoBehaviour
 
         RaycastHit PredictedGroundHit;
        // if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
-        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
+/*        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedGroundHit, 50))//LayerMask.GetMask("Ground")
         {
             PredictedBodyPos.y = PredictedGroundHit.point.y + DesiredOffsetFromGround;
-        }
+        }*/
 
         Vector3 BotPosition = GetComponentInParent<BotController_Procedural>().Ai.transform.position;
 
-        RaycastHit groundHit;
+        float PredictedGroundY = 0;
+        float currentGroundY = 0;
+
+        RaycastHit PredictedgroundHit;
         //if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
         //if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
-        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+
+        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedgroundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+        {
+            PredictedBodyPos.y = PredictedgroundHit.point.y + DesiredOffsetFromGround;
+            PredictedDistanceFromGround = PredictedgroundHit.distance;
+            PredictedGroundY = PredictedgroundHit.point.y;
+        }
+
+        RaycastHit groundHit;
+        if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+        {
+            DistanceFromGround = groundHit.distance;
+            currentGroundY = groundHit.point.y;
+        }
+
+        if(PredictedGroundY > currentGroundY)
+        {
+            BotPosition.y = PredictedgroundHit.point.y + DesiredOffsetFromGround;
+        }
+        else
         {
             BotPosition.y = groundHit.point.y + DesiredOffsetFromGround;
-            DistanceFromGround = groundHit.distance;
-            // Debug.Log("KOKOKOKO");
         }
 
 

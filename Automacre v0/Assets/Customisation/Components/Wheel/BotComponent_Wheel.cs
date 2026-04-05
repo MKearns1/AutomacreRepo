@@ -70,6 +70,7 @@ public class BotComponent_Wheel : BotComponent
 
     public override void RemoveFromBot()
     {
+        Destroy(Wheel.gameObject);
         Destroy(this.gameObject);
     }
 
