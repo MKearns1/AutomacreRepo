@@ -63,6 +63,11 @@ public class BotComponent : MonoBehaviour
 
     }
 
+    public virtual void Highlight()
+    {
+
+    }
+
 }
 [Serializable]
 public abstract class ComponentDesignInfo

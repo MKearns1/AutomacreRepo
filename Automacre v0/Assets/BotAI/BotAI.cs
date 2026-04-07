@@ -9,6 +9,8 @@ public class BotAI : MonoBehaviour
     void Start()
     {
         NavAgent = GetComponent<NavMeshAgent>();
+        NavAgent.speed = 3;
+        //NavAgent.acceleration = 10000000000000;
     }
 
     // Update is called once per frame

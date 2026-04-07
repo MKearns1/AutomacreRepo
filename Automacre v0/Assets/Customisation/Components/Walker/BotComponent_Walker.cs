@@ -8,6 +8,7 @@ public class BotComponent_Walker : BotComponent_LimbType
 {
     public Transform Foot;
     public ProceduralWalker proceduralWalker;
+    public int MovementGroup;
 
     public override void Awake()
     {
@@ -23,21 +24,23 @@ public class BotComponent_Walker : BotComponent_LimbType
     // Update is called once per frame
     void Update()
     {
-
+        //GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = FootPlacementPosition().point;
     }
 
     public override void Initialise(ComponentDesignInfo DesignInformation, BotController_Procedural BC)
     {
         base.Initialise(DesignInformation, BC);
-        WalkerDesignInfo GrabberInfo = DesignInformation as WalkerDesignInfo;
-
+        WalkerDesignInfo WalkerInfo = DesignInformation as WalkerDesignInfo;
+        DesignInfo = WalkerInfo;
         proceduralWalker.EndPoint = Foot.transform;
         fabrik.TargetTransform = Foot.transform;
-        Foot.localScale = GrabberInfo.FootSize;
+        Foot.localScale = WalkerInfo.FootSize;
         proceduralWalker.enabled = true;
         proceduralWalker.BotBody = body;
-        proceduralWalker.DefaultFootPlacementOffset = GrabberInfo.FootOffset;
-        
+        proceduralWalker.DefaultFootPlacementOffset = WalkerInfo.FootOffset;
+        Foot.transform.position = FootPlacementPosition().point;
+        MovementGroup = WalkerInfo.MovementGroup;
+        //GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = Foot.transform.position;
         //body.GetAllProceduralComponents();
 
 
@@ -90,7 +93,7 @@ public class BotComponent_Walker : BotComponent_LimbType
             Foot.SetParent(botParent,true);
         }
         
-        fabrik.TargetTransform = newFoot.transform;
+        fabrik.TargetTransform = newFoot.transform.Find("Joint");
         proceduralWalker.enabled = false;
         LimbCreator.CreateJoints();
         LimbCreator.CreateJoints();
@@ -105,6 +108,15 @@ public class BotComponent_Walker : BotComponent_LimbType
         int layermask = 1 << layernum;
 
         Vector3 RaystartPos = transform.TransformPoint((ComponentDefaultData as WalkerDefinition).DefaultFootOffset);
+        Debug.LogWarning("ray " + RaystartPos);
+
+        if (DesignInfo is WalkerDesignInfo info)
+        {
+            Debug.LogWarning("POOOOOOOOOOOOOOOOOP33333333");
+            //RaystartPos = transform.parent.parent.transform.TransformPoint(info.FootOffset);
+            RaystartPos = body.transform.TransformPoint(info.FootOffset);
+            Debug.LogWarning("rayinfo " + RaystartPos);
+        }
 
         Ray floorray = new Ray(RaystartPos, Vector3.down);
         //floorray = new Ray(transform.position, Vector3.down);
@@ -115,7 +127,7 @@ public class BotComponent_Walker : BotComponent_LimbType
         {
             Debug.Log(hit.collider.name);
         }
-
+        //GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = hit.point;
         return hit;
     }
 
@@ -132,6 +144,7 @@ public class BotComponent_Walker : BotComponent_LimbType
 
         // Gets Offset from base
         info.FootOffset = transform.parent.parent.transform.InverseTransformPoint(Foot.position); info.FootOffset.y = 0;
+        info.MovementGroup = MovementGroup;
         return info;
 
 
@@ -146,6 +159,8 @@ public class BotComponent_Walker : BotComponent_LimbType
     public override void OnSelected()
     {
         //GameObject.Instantiate()
+
+        GetComponent<SelectionHighlight>()?.SetHighlight(true);
     }
 
     public override Vector3 GetSelectedArrowPos()
@@ -163,6 +178,27 @@ public class BotComponent_Walker : BotComponent_LimbType
         base.AssignVariablesStartup();
         proceduralWalker = GetComponentInChildren<ProceduralWalker>();
     }
+
+    public override void Highlight()
+    {
+
+
+/*        for (int i = 0; i < 10; i++)
+        {
+            // Instantiate a new GameObject at a unique position
+            GameObject newObject = Instantiate(myPrefab, new Vector3(i * 2f, 0, 0), Quaternion.identity);
+
+            // Create a new MaterialPropertyBlock
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+
+            // Set a random color in the MaterialPropertyBlock
+            propertyBlock.SetColor("_Color", Random.ColorHSV());
+
+            // Apply the MaterialPropertyBlock to the GameObject
+            newObject.GetComponent<MeshRenderer>().SetPropertyBlock(propertyBlock);
+        }*/
+    }
+
 }
 [Serializable]
 
@@ -170,6 +206,7 @@ public class WalkerDesignInfo : LimbTypeDesignInfo
 {
     public Vector3 FootSize;
     public Vector3 FootOffset;
+    public int MovementGroup;
 
     public WalkerDesignInfo()
     {

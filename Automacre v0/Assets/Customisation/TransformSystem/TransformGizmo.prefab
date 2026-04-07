@@ -93,7 +93,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.236582, y: 8.31, z: -0.6}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1895518998859469321}
@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LinkedTransform: {fileID: 0}
+  LinkedTransformable: {fileID: 0}
   X: {fileID: 6136321945711742267}
   Y: {fileID: 422831913188537305}
   Z: {fileID: 105886975201648916}
+  Bounds: {x: 4, y: 5, z: 4}
 --- !u!1 &4685108688277321317
 GameObject:
   m_ObjectHideFlags: 0

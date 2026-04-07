@@ -88,7 +88,10 @@ public class WorkshopGeneral : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
         GameObject SelectionArrow = GameObject.Instantiate(SelectionArrowPrefab, SelectedComponent.GetSelectedArrowPos(), SelectedComponent.transform.rotation);
+        SelectedComponentOnBot.OnSelected();
 
+
+        //HUD OPTIONS
         if (OptionsCanvas.CurrentOption != null) Destroy(OptionsCanvas.CurrentOption);
 
         GameObject NewOptionsPopup;
@@ -158,6 +161,7 @@ public class WorkshopGeneral : MonoBehaviour
 
         return curParent;
     }
+
 
     public void SetAnimType(bool keyframed)
     {

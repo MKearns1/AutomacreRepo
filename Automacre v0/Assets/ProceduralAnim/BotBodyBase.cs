@@ -64,7 +64,7 @@ public class BotBodyBase : MonoBehaviour
             {
                 ProceduralWalker walkcomp = (ProceduralWalker)comp;
                 
-                if (walkcomp.moving)
+                if (walkcomp.IsMoving)
                 {
                     y = Mathf.Lerp(walkcomp.EndPoint.position.y, walkcomp.NextStepPos.y,.5f);
                 }

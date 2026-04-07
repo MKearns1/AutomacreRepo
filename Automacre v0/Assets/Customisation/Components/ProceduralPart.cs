@@ -18,7 +18,8 @@ public class ProceduralPart : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-       // motionPlayer.update2(EndPoint);  
+        //Debug.LogWarning("Actions: " + Actions.Count);
+        //motionPlayer.update(EndPoint);  
     }
 
 }

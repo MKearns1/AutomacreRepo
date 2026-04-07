@@ -123,6 +123,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gizmo: {fileID: 0}
   TargetTransform: {fileID: 2803333583803315007}
+  hasX: 1
+  hasY: 1
+  hasZ: 1
+  Bounds: {x: 0, y: 0, z: 0}
+  Origin: {fileID: 0}
 --- !u!1 &2250535285414371746
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3126576563263263070}
   - component: {fileID: -6689400603016825658}
+  - component: {fileID: 8804396597799793325}
   m_Layer: 0
   m_Name: WalkerComponent
   m_TagString: Untagged
@@ -177,6 +183,21 @@ MonoBehaviour:
   fabrik: {fileID: 0}
   Foot: {fileID: 0}
   proceduralWalker: {fileID: 0}
+--- !u!114 &8804396597799793325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250535285414371746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3ccb69340fd854da0671ca2098b699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectColor: {r: 0, g: 0.6, b: 0.06802598, a: 1}
+  HoverColor: {r: 0, g: 0.46232617, b: 0.6, a: 1}
 --- !u!1 &3591573992850114956
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,8 +344,31 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  NoGroundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   SurfaceNormal: {x: 0, y: 0, z: 0}
-  maxLimbLength: 0
   HasStepToken: 0
   StepMotion:
     duration: 0.5

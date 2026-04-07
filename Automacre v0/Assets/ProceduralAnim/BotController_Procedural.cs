@@ -30,6 +30,8 @@ public class BotController_Procedural : BotController
 
         Debug.Log(AttachmentPoints.Count);
 
+        List<BotComponent_Walker> walkers = new();
+
         foreach (var key in Design_AttachPoints.Keys)
         {
             if (!AttachmentPoints.ContainsKey(key)) continue;
@@ -45,6 +47,9 @@ public class BotController_Procedural : BotController
             AttachmentPoints[key].AttachNewComponent(NewCompScript);
             NewCompScript.Initialise(Design_AttachPoints[key].botComponent.GetDesignInfo(), this);
 
+            if(!(NewCompScript is BotComponent_Walker walker))return;
+           // if(walker.GetComponentInChildren<ProceduralWalker>() == null)return;
+            walkers.Add(walker);
 
             /*switch (Design_AttachPoints[key].botComponent.Type)
             {
@@ -77,6 +82,11 @@ public class BotController_Procedural : BotController
 
         body.DesiredOffsetFromGround = AssembleData.OffsetFromGround + Vector3.Distance(body.transform.position, body.LowestPoint.position);
 
+        List<MovementCoordinator.MovementGroup> movementGroups = new List<MovementCoordinator.MovementGroup>();
+        movementGroups = CreateMovementGroups(walkers);
+
+        GetComponentInChildren<MovementCoordinator>().movementGroups = movementGroups;
+
         if (supportManager.Supported)
         {
             Ai.NavAgent.baseOffset = 2;
@@ -102,5 +112,29 @@ public class BotController_Procedural : BotController
             AttachmentPoints.Add(childAP.Name, childAP);
         }
         Debug.Log(gameObject.name + " Attached " + AttachmentPoints.Count);
+    }
+
+    public List<MovementCoordinator.MovementGroup> CreateMovementGroups(List<BotComponent_Walker> walkers)
+    {
+        Dictionary<int, MovementCoordinator.MovementGroup> groupMap = new();
+
+        foreach (var walker in walkers)
+        {
+            if (!groupMap.ContainsKey(walker.MovementGroup))
+            {
+                groupMap[walker.MovementGroup] = new MovementCoordinator.MovementGroup
+                {
+                    Group = walker.MovementGroup,
+                    Walkers = new List<ProceduralWalker>()
+                };
+            }
+
+            var proceduralWalker = walker.GetComponentInChildren<ProceduralWalker>();
+            if(proceduralWalker != null)
+                groupMap[walker.MovementGroup].Walkers.Add(proceduralWalker);
+
+        }
+
+        return groupMap.Values.OrderBy(g => g.Group).ToList();
     }
 }

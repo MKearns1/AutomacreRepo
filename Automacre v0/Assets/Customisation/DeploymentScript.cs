@@ -21,8 +21,8 @@ public class DeploymentScript : MonoBehaviour
 
     public void Deploy()
     {
-        GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType),Vector3.right*10,Quaternion.identity);
-
+        GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType),WorkshopBot.transform.position,Quaternion.identity);
+        WorkshopBot.gameObject.SetActive(false);
 
         // BotRuntimeData BotData = new BotRuntimeData();
         // BotData.AttachPoints = WorkshopBot.DesignData.AttachPoints;
@@ -32,12 +32,15 @@ public class DeploymentScript : MonoBehaviour
             Debug.Log(ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
 
         }
+
         Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
 
-        GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>().enabled = false;
+        Camera WorkshopCam = GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>();WorkshopCam.enabled = false;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
         //GameObject.FindGameObjectWithTag("PlayerDeploy").transform.GetChild(0).GetComponent<Camera>().enabled = true;
-        Instantiate(DeployPlayerPrefab);
+        Instantiate(DeployPlayerPrefab, GameObject.Find("DeploySpawnPos").transform.position,Quaternion.identity);
+        Destroy(FindFirstObjectByType<CanvasManager>().gameObject);
+        LevelEventsManager.instance.BotDeployed();
 
         GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController_Procedural>());
         Destroy(GameObject.Find("Canvas"));

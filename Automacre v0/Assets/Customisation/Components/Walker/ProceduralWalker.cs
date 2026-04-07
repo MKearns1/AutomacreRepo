@@ -19,7 +19,7 @@ public class ProceduralWalker : ProceduralPart
 
     public LayerMask GroundLayer;
 
-    public bool moving;
+    public bool IsMoving;
     public bool MovementAllowed;
     float moveProgress;
     public float StepSpeed;
@@ -30,14 +30,18 @@ public class ProceduralWalker : ProceduralPart
     Vector3 DefaultFootPos;
     public bool ShowDebug;
     public AnimationCurve MovementCurve;
+    public AnimationCurve NoGroundCurve;
     [DoNotSerialize ]public Vector3 SurfaceNormal;
     Vector3 PredictedBodyPos;
     Vector3 PredictedFootPos;
     Ray PredictedFootPosToFloor;
-    float DistBetweenStartAndEnd;
+    [HideInInspector] public float DistBetweenStartAndEnd;
+    [HideInInspector] public float ExtensionRatio;
     [DoNotSerialize] public float maxLimbLength { get { return GetComponent<LimbCreator>().Length;  } set { } }
     public bool HasStepToken;
     bool onGround;
+    public bool WantsToStep;
+    MovementCoordinator Coordinator;
 
     Vector3 BotForward;
 
@@ -59,7 +63,8 @@ public class ProceduralWalker : ProceduralPart
         BotForward = transform.GetComponentInParent<BotBodyBase>().transform.forward;
         Settings.MaxStrideLength = maxLimbLength/2;
         StepMotion.arcHeight = maxLimbLength / 2;
-        StepSpeed = Mathf.Lerp(1, 2, Mathf.InverseLerp(8, 1, maxLimbLength));
+       // StepSpeed = Mathf.Lerp(1, 2, Mathf.InverseLerp(8, 1, maxLimbLength));
+        Coordinator = BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>();
     }
 
     // Update is called once per frame
@@ -102,6 +107,7 @@ public class ProceduralWalker : ProceduralPart
 
         DistBetweenStartAndEnd = Vector3.Distance(StartPoint.position, EndPoint.position);
         bool FootToofar = DistBetweenStartAndEnd > maxLimbLength;
+        ExtensionRatio = DistBetweenStartAndEnd / maxLimbLength;
 
         Vector3 chosenPos = GetFootPlacementPos();
 
@@ -179,23 +185,86 @@ public class ProceduralWalker : ProceduralPart
 
         // moving = false;
 
+        float DistToNextPos = Vector3.Distance(EndPoint.position, NextStepPos);
+        float DistFromBasePos = Vector3.Distance(EndPoint.Find("Joint").position, StartPoint.position);
 
-        if (!moving && ShouldStep() && !HasStepToken)
+
+            StepUpdate();
+
+
+        if (!IsMoving)
+        {
+            Vector3 socket = StartPoint.position;
+            Vector3 toFoot = EndPoint.position - socket;
+            if (toFoot.magnitude > maxLimbLength)
+                EndPoint.position = socket + toFoot.normalized * maxLimbLength;
+        }
+        return;
+
+        Vector3 dir = (-StartPoint.position + EndPoint.position).normalized;
+
+        if(FootToofar && !IsMoving)
+        EndPoint.position = StartPoint.position + dir * maxLimbLength;
+
+/*        AnimationCurve StepCurve = MovementCurve;
+        if(Vector3.Distance(NextStepPos, PredictedFootPosToFloor.origin + PredictedFootPosToFloor.direction.normalized) < .01f){
+            StepCurve = NoGroundCurve;
+        }
+
+        if (!IsMoving && ShouldStep() && !HasStepToken)
         {
             BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().RequestStep(this);
         }
-        if (!moving && HasStepToken)
+        if (!IsMoving && ((HasStepToken && DistToNextPos > .2F) || false))
         {
-            BeginStep();
+            //BeginStep();
+            BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().POO(this);
         }
-
-/*        if (!moving && MovementAllowed && ShouldStep() && !motionPlayer.isPlaying)
+        else if (!IsMoving && (DistFromBasePos > maxLimbLength * 1.1f && DistToNextPos > 1.0f))
         {
-            moving = true;
-            PrevPos = EndPoint.position;
-            MoveToPos = NextStepPos;
-           // Step(MoveToPos);
+            BeginStep2();
+            //BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().POO(this);
+
+        }
+        if (IsMoving)
+        {
+            MoveTransition(PrevPos, MoveToPos, moveProgress, StepCurve);
+            // Debug.LogWarning("FR" + gameObject.name);
+
+            float Dist = Vector3.Distance(EndPoint.position, MoveToPos);
+            if (Dist < .1f)
+            {
+                // Debug.LogWarning("POOOOOOOOOOOOOOOOOOOP" + gameObject.name);
+                EndPoint.position = MoveToPos;
+                EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * BotBody.transform.rotation;
+                moveProgress = 0;
+                MoveFinished();
+            }
         }*/
+
+
+        // Debug.LogWarning(ShouldStep());
+        /*        if (ShouldStep() && !motionPlayer.isPlaying)
+                {
+                    Debug.LogWarning("Actions: " + Actions.Count);
+
+                    Step(NextStepPos);
+                }
+
+                if (!motionPlayer.isPlaying && Actions.Count > 0)
+                {
+                    Actions.Dequeue().Invoke();
+                }*/
+
+
+
+        /*        if (!moving && MovementAllowed && ShouldStep() && !motionPlayer.isPlaying)
+                {
+                    moving = true;
+                    PrevPos = EndPoint.position;
+                    MoveToPos = NextStepPos;
+                   // Step(MoveToPos);
+                }*/
 
         /*        if (!motionPlayer.isPlaying && Actions.Count > 0)
                 {
@@ -234,46 +303,110 @@ public class ProceduralWalker : ProceduralPart
         {
             NextStepPos2 = nextstepHit.point;
         }*/
-        if (moving)
-        {
-             MoveTransition(PrevPos, MoveToPos, moveProgress);
-            // Debug.LogWarning("FR" + gameObject.name);
 
-            float Dist = Vector3.Distance(EndPoint.position, MoveToPos);
-            if (Dist < .1f)
-            {
-                // Debug.LogWarning("POOOOOOOOOOOOOOOOOOOP" + gameObject.name);
-                EndPoint.position = MoveToPos;
-                EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * BotBody.transform.rotation; 
-                moveProgress = 0;
-                MoveFinished();
-            }
+
+    }
+
+    void StepUpdate()
+    {
+        WantsToStep = !IsMoving && ShouldStep();
+
+        if (!IsMoving && IsFootCriticallyTooFar())
+        {
+            Coordinator.RequestEmergencyStep(this);
+            return;
         }
+
+        if (IsMoving)
+        {
+            StepAnimationTick();
+        }
+    }
+
+    void StepAnimationTick()
+    {
+        MoveTransition(PrevPos, MoveToPos, moveProgress, MovementCurve);
+        moveProgress += Time.deltaTime * StepSpeed;
+
+        if(Vector3.Distance(EndPoint.position, MoveToPos) < 0.1f)
+        {
+           OnStepFinished();
+        }
+    }
+
+    public void ExecuteStep()
+    {
+        if ((IsMoving))
+        {
+            return;
+        }
+
+        IsMoving = true;
+        WantsToStep = false;
+        moveProgress = 0;
+        PrevPos = EndPoint.position;
+        MoveToPos = NextStepPos;
+    }
+
+    void OnStepFinished()
+    {
+        EndPoint.position = MoveToPos;
+        EndPoint.rotation = Quaternion.FromToRotation(transform.up, SurfaceNormal) * BotBody.transform.rotation;
+
+        moveProgress = 0;
+        IsMoving = false;
+
+        Destroy(Instantiate(VFXManager.instance.StepParticleVFX.gameObject, EndPoint.position, Quaternion.identity), 1);
+
+        Coordinator.NotifyStepFinished(this);
+    }
+
+    bool IsFootCriticallyTooFar()
+    {
+        float distFromBase = Vector3.Distance(EndPoint.Find("Joint").position, transform.position);
+        float distToTarget = Vector3.Distance(EndPoint.position, NextStepPos);
+
+        return distFromBase > maxLimbLength * 1.2 && distToTarget > .5f;
     }
 
     public void Step(Vector3 target)
     {
         Actions.Clear();
 
-        Vector3 start = EndPoint.position;
-        float dist = Vector3.Distance(start, target);
+        Vector3 start =
+            EndPoint.position;
 
-        float bodySpeed = BotBody.transform.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude;
+        float bodySpeed =
+            BotBody.transform.parent
+            .GetComponentInChildren<BotAI>()
+            .NavAgent.velocity.magnitude;
 
-        float footSpeed = Mathf.Max(bodySpeed * 1.5f, 0.5f);
-        float duration = dist / footSpeed;
-        duration = Mathf.Clamp(duration, 0.1f, 0.5f);
-        StepMotion.duration = duration;
-        Actions.Enqueue(() => motionPlayer.Play(EndPoint.position, target, StepMotion));
+        float strideMultiplier = 1.2f;
+        float minFootSpeed = 1.0f;
+
+        float footSpeed =
+            Mathf.Max(
+                bodySpeed * strideMultiplier,
+                minFootSpeed
+            );
+
+        Actions.Enqueue(() =>
+            motionPlayer.PlayWithSpeed(
+                start,
+                target,
+                StepMotion,
+                footSpeed
+            )
+        );
     }
 
-    public void MoveTransition(Vector3 startPos, Vector3 EndPos, float amount)
+    public void MoveTransition(Vector3 startPos, Vector3 EndPos, float amount, AnimationCurve movementCurve)
     {
-        moveProgress += Time.deltaTime * StepSpeed;
+       // moveProgress += Time.deltaTime * StepSpeed;
         float t = Mathf.Clamp01(moveProgress);
         t = Mathf.SmoothStep(0, 1, t);
-        if (MovementCurve.length > 0)
-            t = MovementCurve.Evaluate(t);
+        if (movementCurve.length > 0)
+            t = movementCurve.Evaluate(t);
 
         Vector3 flatPos = Vector3.Lerp(startPos, EndPos, t);
 
@@ -311,10 +444,18 @@ public class ProceduralWalker : ProceduralPart
         return EndPoint.rotation;
     }
 
-    void BeginStep()
+    public void BeginStep()
     {
-        moving = true;
+        IsMoving = true;
         HasStepToken = false;
+        onGround = false;
+
+        PrevPos = EndPoint.position;
+        MoveToPos = NextStepPos;
+    }
+    void BeginStep2()
+    {
+        IsMoving = true;
         onGround = false;
 
         PrevPos = EndPoint.position;
@@ -322,11 +463,12 @@ public class ProceduralWalker : ProceduralPart
     }
     void MoveFinished()
     {
-        moving = false;
+        IsMoving = false;
         onGround = true;
         BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().CompFinishStep(this);
         //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = EndPoint.position;
         Destroy(Instantiate(VFXManager.instance.StepParticleVFX.gameObject,EndPoint.position, Quaternion.identity), 1);
+        BotBody.transform.parent.GetComponentInChildren<MovementCoordinator>().getGroupFor(this).Moving = false;
     }
 
     public bool OnGround()
@@ -338,6 +480,7 @@ public class ProceduralWalker : ProceduralPart
     {
         Vector3 a = EndPoint.position;
         Vector3 b = DefaultFootPos;
+        //Vector3 b = NextStepPos;
         a.y = 0;
         b.y = 0;
 
@@ -351,6 +494,7 @@ public class ProceduralWalker : ProceduralPart
         //Debug.Log(FootAngleError);
         bool BodyRotatedTooMuch = FootAngleError > 30;
 
+
        // return  BodyRotatedTooMuch;
         return FootFarAway || BodyRotatedTooMuch;
         return FootFarAway;
@@ -361,7 +505,7 @@ public class ProceduralWalker : ProceduralPart
         //return DefaultFootPos;
 
         RaycastHit PredictedFootRaycastFloor;
-        bool HasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, 2, GroundLayer);
+        bool HasGround = Physics.Raycast(PredictedFootPosToFloor, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
 
         if (HasGround)
         {
@@ -375,7 +519,8 @@ public class ProceduralWalker : ProceduralPart
             float lerpAmount = i / Iterations;
             Vector3 RayOrigin = Vector3.Lerp(BotBody.transform.position, PredictedFootPos, lerpAmount);
             Ray newRay = new(RayOrigin, Vector3.down);
-            HasGround = Physics.Raycast(newRay, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
+            //HasGround = Physics.Raycast(newRay, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
+            HasGround = Physics.SphereCast(newRay.origin, 1, newRay.direction, out PredictedFootRaycastFloor, maxLimbLength, GroundLayer);
 
             if(!HasGround)continue;
 
@@ -383,7 +528,8 @@ public class ProceduralWalker : ProceduralPart
         }
 
 //        return Vector3.zero;
-        return DefaultFootPos;
+       // return PredictedFootPosToFloor.origin + PredictedFootPosToFloor.direction.normalized*maxLimbLength;
+        return PredictedFootPosToFloor.origin + PredictedFootPosToFloor.direction.normalized;
     }
 
     private void OnDrawGizmos()

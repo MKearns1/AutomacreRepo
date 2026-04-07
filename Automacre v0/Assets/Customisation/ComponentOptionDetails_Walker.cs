@@ -10,6 +10,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
     [Header("Walker Settings")]
     public float FootSize;
     public Vector2 minMaxFootSize;
+    public int MoveGroup;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -96,6 +97,20 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
 
     }
 
+    public void ChangeMoveGroup(int amount)
+    {
+        BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
+
+        int nextAmount = MoveGroup+amount;
+
+        MoveGroup = nextAmount;
+
+        walker.MovementGroup = MoveGroup;
+
+        UpdateUI();
+
+    }
+
     /*    public void ChangeJointSize(int amount)
         {
             BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
@@ -131,10 +146,12 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
         if (WalkerOptions != null)
         {
             FootSize = WalkerOptions.FootSize;
+            MoveGroup = WalkerOptions.MoveGroup;
         }
         else
         {
             FootSize = WalkerComp.Foot.localScale.x;
+            MoveGroup = WalkerComp.MovementGroup;
         }
 
         UpdateUI();
@@ -178,6 +195,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
         var SelectedGrabber = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
 
         float newFootSize = FootSize;
+        int newMoveGroup = MoveGroup;
 
         if (WalkerCopyComponent == null && WalkerCopyOptions == null)
         {
@@ -188,15 +206,19 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
         if (WalkerCopyOptions != null)
         {
             newFootSize = WalkerCopyOptions.FootSize;
+            newMoveGroup = WalkerCopyOptions.MoveGroup;
         }
         else
         {
             newFootSize = WalkerCopyComponent.Foot.localScale.y;
+            newMoveGroup = WalkerCopyComponent.MovementGroup;
         }
 
         FootSize = newFootSize;
+        MoveGroup = newMoveGroup;
 
         SelectedGrabber.Foot.localScale = new Vector3(newFootSize, newFootSize, newFootSize);
+        SelectedGrabber.MovementGroup = MoveGroup;
 
         UpdateUI();
         return;
@@ -265,6 +287,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
     {
         var options = base.Clone() as ComponentOptionDetails_Walker;
         options.FootSize = this.FootSize;
+        options.MoveGroup = this.MoveGroup;
         return options;
     }
 
@@ -272,6 +295,7 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
     {
         base.UpdateUI();
         transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = FootSize.ToString();
+        transform.Find("MoveGroup").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = MoveGroup.ToString();
 
     }
 }

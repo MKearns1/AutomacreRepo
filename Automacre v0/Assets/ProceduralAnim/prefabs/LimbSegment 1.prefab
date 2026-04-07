@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1284248449040064675}
   - component: {fileID: 329591185070759592}
   - component: {fileID: 5071198590010769512}
+  - component: {fileID: 9174366840924202181}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9174366840924202181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306269954696350929}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6406981858109556129
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +119,7 @@ GameObject:
   - component: {fileID: 3353759601716709259}
   - component: {fileID: 3702696177006233166}
   - component: {fileID: 6683375033897539362}
+  - component: {fileID: 6869547781161362851}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -172,6 +195,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6869547781161362851
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406981858109556129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8507451322485657769
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,8 +286,8 @@ Transform:
   m_GameObject: {fileID: 9211311528088900182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.25}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 12.5}
+  m_LocalPosition: {x: 0, y: 0, z: 3.75}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 7.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3353759601716709259}

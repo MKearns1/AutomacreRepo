@@ -58,7 +58,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
         Limb.LimbCreator.NumberOfJoints = nextAmount;
         Limb.LimbCreator.CreateJoints();
         Limb.LimbCreator.CreateJoints();
-
+        Limb.transform.GetComponent<SelectionHighlight>().UpdateVisual();
         // transform.Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
         Joints = nextAmount;
         UpdateUI();
@@ -75,6 +75,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
         Limb.LimbCreator.Length = nextAmount;
         Limb.LimbCreator.CreateJoints();
         Limb.LimbCreator.CreateJoints();
+        Limb.transform.GetComponent<SelectionHighlight>().UpdateVisual();
 
         // transform.Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
         Length = nextAmount;
@@ -93,6 +94,7 @@ public class ComponentOptionDetails_LimbType : ComponentOptionDetails
         Limb.LimbCreator.JointSize = nextAmount;
         Limb.LimbCreator.CreateJoints();
         Limb.LimbCreator.CreateJoints();
+        Limb.transform.GetComponent<SelectionHighlight>().UpdateVisual();
 
         //transform.Find("FootSize").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
 

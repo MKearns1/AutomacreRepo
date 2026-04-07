@@ -57,7 +57,7 @@ public class MotionPlayer
         if(!isPlaying)return;
         Debug.Log("UPDATE");
 
-        time += Time.deltaTime * playSpeed;
+        time += Time.deltaTime * 1;
         float t = Mathf.Clamp01(time / GeneralMotion.duration);
        // t = Mathf.SmoothStep(0, 1, t);
 
@@ -135,7 +135,27 @@ public class MotionPlayer
 
         return;
     }
+    public void PlayWithSpeed(
+    Vector3 from,
+    Vector3 to,
+    MovementMotion motion,
+    float speed
+)
+    {
+        start = from;
+        end = to;
 
+        GeneralMotion = motion;
+
+        float distance =
+            Vector3.Distance(from, to);
+
+        GeneralMotion.duration =
+            distance / Mathf.Max(speed, 0.01f);
+
+        time = 0;
+        Completed = false;
+    }
     public void Cancel()
     {
         time = GeneralMotion.duration;

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEditor.Build.Player;
 using UnityEngine;
 
 
@@ -12,6 +13,9 @@ public class WorkshopMovement : MonoBehaviour
     float ZoomSpeed = .2f;
     float GizmoIncrementRate = .5f;
     bool holdingCtrl;
+
+    SelectionHighlight currentHoverHighlight;
+    SelectionHighlight currentSelectedHighlight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,58 +63,22 @@ public class WorkshopMovement : MonoBehaviour
 
             if (rayhit.collider == null) return;
 
-            Debug.Log(rayhit.collider.gameObject);
-
-            if(rayhit.collider.gameObject.tag == "AttatchPoint")
-            {
-                Debug.Log("Attempt Attach");
-                if (WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return ;
-                ClickAttachPoint(rayhit);
-            }
-
-            if(rayhit.collider.transform.GetComponentInParent<BotComponent>() != null)
-            {
-                Debug.Log("Select Component on Bot");
-                WorkshopGeneral.instance.SelectBotsComponent(rayhit.collider.transform.GetComponentInParent<BotComponent>());
-            }
-
-            if(rayhit.collider.gameObject.GetComponent<Transformable>() != null)
-            {
-                Debug.Log("Transform: " + rayhit.collider.gameObject);
-                rayhit.collider.gameObject.GetComponent<Transformable>().Select();
-            }
-
-            TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
-            if (holdingCtrl) { GizmoIncrementRate = .25f; } else { GizmoIncrementRate = 1; }
-
-            if (gizmo != null)
-            {
-                switch (rayhit.collider.gameObject.name)
-                {
-                    case "X":
-                        gizmo.IncrementMove(Vector3.right * GizmoIncrementRate);
-                        break;
-                    case "Y":
-                        gizmo.IncrementMove(Vector3.up * GizmoIncrementRate);
-                        break;
-                    case "Z":
-                        gizmo.IncrementMove(Vector3.forward * GizmoIncrementRate);
-                        break;
-
-                    case "X-":
-                        gizmo.IncrementMove(Vector3.left * GizmoIncrementRate);
-                        break;
-                    case "Y-":
-                        gizmo.IncrementMove(Vector3.down * GizmoIncrementRate);
-                        break;
-                    case "Z-":
-                        gizmo.IncrementMove(Vector3.back * GizmoIncrementRate);
-                        break;
-                }
-
-            }
-
+            Click(rayhit);
         }
+
+        SelectionHighlight newHover = null;
+        RaycastHit[] hits = Interfaces.CastMouseOverObjects(GetComponentInChildren<Camera>());
+        if (hits.Length == 0) return;
+
+        newHover = hits[0].collider.transform?.GetComponentInParent<SelectionHighlight>();
+
+        if(currentHoverHighlight != newHover)
+        {
+            if(currentHoverHighlight!= null) currentHoverHighlight.SetHover(false);
+            if(newHover != null) newHover.SetHover(true);
+            currentHoverHighlight = newHover;
+        }
+        Debug.Log(hits[0].collider.transform);
     }
 
     public void ClickAttachPoint(RaycastHit rayhit)
@@ -195,6 +163,73 @@ public class WorkshopMovement : MonoBehaviour
         if(BestPriority ==0 ) return default;
 
         return BestHit;
+    }
+
+    public void Click(RaycastHit rayhit)
+    {
+        BotComponent botComponent = rayhit.collider.transform.GetComponentInParent<BotComponent>();
+        Transformable transformable = rayhit.collider.gameObject.GetComponent<Transformable>();
+        TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
+        SelectionHighlight newSelected = rayhit.collider.GetComponentInParent<SelectionHighlight>();
+
+        Debug.Log(rayhit.collider.gameObject);
+
+        if (rayhit.collider.gameObject.tag == "AttatchPoint")
+        {
+            Debug.Log("Attempt Attach");
+            if (WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return;
+            ClickAttachPoint(rayhit);
+        }
+
+        if (botComponent != null)
+        {
+            WorkshopGeneral.instance.SelectBotsComponent(botComponent);
+        }
+
+        if (transformable != null)
+        {
+            transformable.Select();
+        }
+        else if (rayhit.collider.gameObject.GetComponentInParent<Transformable>() != null)
+        {
+            rayhit.collider.gameObject.GetComponentInParent<Transformable>().Select();
+        }
+
+        if (currentSelectedHighlight != newSelected)
+        {
+            if(currentSelectedHighlight != null) currentSelectedHighlight.SetSelected(false);
+            if(newSelected != null) newSelected.SetSelected(true);
+            currentSelectedHighlight = newSelected;
+        }
+
+        if (holdingCtrl) { GizmoIncrementRate = .25f; } else { GizmoIncrementRate = 1; }
+
+        if (gizmo != null)
+        {
+            switch (rayhit.collider.gameObject.name)
+            {
+                case "X":
+                    gizmo.IncrementMove(Vector3.right * GizmoIncrementRate);
+                    break;
+                case "Y":
+                    gizmo.IncrementMove(Vector3.up * GizmoIncrementRate);
+                    break;
+                case "Z":
+                    gizmo.IncrementMove(Vector3.forward * GizmoIncrementRate);
+                    break;
+
+                case "X-":
+                    gizmo.IncrementMove(Vector3.left * GizmoIncrementRate);
+                    break;
+                case "Y-":
+                    gizmo.IncrementMove(Vector3.down * GizmoIncrementRate);
+                    break;
+                case "Z-":
+                    gizmo.IncrementMove(Vector3.back * GizmoIncrementRate);
+                    break;
+            }
+
+        }
     }
 }
 
