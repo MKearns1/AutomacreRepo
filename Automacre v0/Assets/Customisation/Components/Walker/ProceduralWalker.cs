@@ -191,7 +191,7 @@ public class ProceduralWalker : ProceduralPart
 
             StepUpdate();
 
-
+        return;
         if (!IsMoving)
         {
             Vector3 socket = StartPoint.position;
@@ -366,7 +366,9 @@ public class ProceduralWalker : ProceduralPart
         float distFromBase = Vector3.Distance(EndPoint.Find("Joint").position, transform.position);
         float distToTarget = Vector3.Distance(EndPoint.position, NextStepPos);
 
-        return distFromBase > maxLimbLength * 1.2 && distToTarget > .5f;
+        return distFromBase > maxLimbLength * 1.1
+            //&& distToTarget > .5f
+            ;
     }
 
     public void Step(Vector3 target)
@@ -493,10 +495,13 @@ public class ProceduralWalker : ProceduralPart
         float FootAngleError = Vector3.Angle(StartPoint.forward, (c - StartPoint.position).normalized);
         //Debug.Log(FootAngleError);
         bool BodyRotatedTooMuch = FootAngleError > 30;
+        float DistToNextPos = Vector3.Distance(EndPoint.position, NextStepPos);
 
 
-       // return  BodyRotatedTooMuch;
-        return FootFarAway || BodyRotatedTooMuch;
+        // return  BodyRotatedTooMuch;
+        return (FootFarAway || BodyRotatedTooMuch)
+            && DistToNextPos >.5f
+            ;
         return FootFarAway;
     }
 
@@ -542,7 +547,8 @@ public class ProceduralWalker : ProceduralPart
         //Gizmos.DrawWireSphere(GroundHitLocation, 0.1f);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(NextStepPos, 0.1f);
-        Gizmos.DrawWireSphere(NextStepPos, Settings.MaxStrideLength);
+       // Gizmos.DrawWireSphere(NextStepPos, Settings.MaxStrideLength);
+        Gizmos.DrawWireSphere(DefaultFootPos, Settings.MaxStrideLength);
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(DefaultFootPos, Vector3.one*.2f);

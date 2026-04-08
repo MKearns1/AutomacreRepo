@@ -23,6 +23,8 @@ public class MovementCoordinator : MonoBehaviour
 
     public List<ProceduralWalker> Walkers = new();
 
+    public bool UseUnorderedMovement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,18 +38,31 @@ public class MovementCoordinator : MonoBehaviour
 
         StepSpeed = 
             Math.Max(2, movementGroups.Count * 0.75f);
+
+        //UseUnorderedMovement = true;
         //Mathf.Lerp(1.5f, 4, )
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (UseUnorderedMovement)
+        {
+            foreach (var group in movementGroups)
+            {
+                group.Tick2(GaitClock, this);
+            }
+            return;
+        }
+
         GaitClock = (GaitClock + Time.deltaTime * GaitFrequency) % 1f;
 
         foreach (var group in movementGroups)
         {
             group.Tick(GaitClock, this);
         }
+
+        
 
         return;
       QueueCopy.Clear();
@@ -238,6 +253,33 @@ public class MovementCoordinator : MonoBehaviour
            // TriggerGroupStep(coordinator);
         }
 
+        public void Tick2(float clock, MovementCoordinator coordinator)
+        {
+            foreach(ProceduralWalker walker in Walkers)
+            {
+                if (walker.WantsToStep &&  !walker.IsMoving)
+                {
+                    walker.ExecuteStep();
+                }
+            }
+            return;
+            float phase = (clock - PhaseOffset + 1) % 1;
+            bool inWindow = phase < PhaseWindow;
+
+            if (!inWindow || IsMoving)
+            {
+                return;
+            }
+
+            if (coordinator.OtherMovementGroupsMoving(this)) return;
+
+            float urgency = (float)Walkers.Count(w => w.WantsToStep) / MathF.Max(1, Walkers.Count);
+            if (urgency < StepUrgencyThreshold) return;
+
+            coordinator.getGroupFor(coordinator.GetMostBehindWalkerGroup(coordinator)).TriggerGroupStep(coordinator);
+            // TriggerGroupStep(coordinator);
+        }
+
         void TriggerGroupStep(MovementCoordinator coordinator)
         {
             IsMoving = true;
@@ -247,6 +289,8 @@ public class MovementCoordinator : MonoBehaviour
             {
                 if(walker == null || walker.IsMoving) continue;
                 walker.StepSpeed = coordinator.StepSpeed;
+                
+               //walker.Invoke(nameof(walker.ExecuteStep), UnityEngine.Random.Range(0,.2f));
                 walker.ExecuteStep();
                 activeSteppers++;
             }
