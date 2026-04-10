@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using NUnit.Framework.Internal.Execution;
 
 public class WorkshopGeneral : MonoBehaviour
 {
@@ -28,6 +29,12 @@ public class WorkshopGeneral : MonoBehaviour
     public GameObject CurBody;
     public List<GameObject> BodyTypes = new List<GameObject>();
     public bool Mirror;
+
+    public GameObject PrebuiltBotPrefab;
+    public GameObject curPrebuilt;
+    public bool PrebuiltMode;
+
+    public Bot_Workshop BotWorkshopBase;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -83,7 +90,7 @@ public class WorkshopGeneral : MonoBehaviour
     public void SelectBotsComponent(BotComponent SelectedComponent)
     {
         ComponentOptionsPopUp OptionsCanvas =
-            GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+            GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("Custom").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
 
         SelectedComponentOnBot = SelectedComponent;
 
@@ -233,5 +240,28 @@ public class WorkshopGeneral : MonoBehaviour
     public void SetMirrorMode(bool mirror)
     {
         Mirror = mirror;
+    }
+
+    public void DeployPrebuilt(string name)
+    {
+        switch (name)
+        {
+
+            case "Boxy1":
+                Instantiate(PrebuiltBotPrefab, BodySpawnPos.position, Quaternion.identity);
+                GameObject.FindFirstObjectByType<DeploymentScript>().Deploy();
+                break;
+        }
+    }
+
+    public void SelectPrebuiltType(string name)
+    {
+        switch (name)
+        {
+            case "Boxy1":
+                Instantiate(null);
+                    break;
+
+        }
     }
 }

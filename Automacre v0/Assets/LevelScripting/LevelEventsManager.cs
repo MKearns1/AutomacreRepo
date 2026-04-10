@@ -59,4 +59,6 @@ public class LevelEventsManager : MonoBehaviour
         GameObject.FindFirstObjectByType<CanvasManager>().EndGamePopUp.transform.Find("Collectables").
             Find("ValueText").GetComponent<TextMeshProUGUI>().text = collectedCollectables.ToString();
     }
+
+
 }

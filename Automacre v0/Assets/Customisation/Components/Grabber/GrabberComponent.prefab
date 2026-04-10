@@ -123,6 +123,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gizmo: {fileID: 0}
   TargetTransform: {fileID: 2803333583803315007}
+  hasX: 1
+  hasY: 1
+  hasZ: 1
+  Bounds: {x: 0, y: 0, z: 0}
+  Origin: {fileID: 0}
 --- !u!1 &2250535285414371746
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3126576563263263070}
   - component: {fileID: 3759396059747879528}
+  - component: {fileID: 8646918730871559124}
   m_Layer: 0
   m_Name: GrabberComponent
   m_TagString: Untagged
@@ -180,6 +186,21 @@ MonoBehaviour:
   fabrik: {fileID: 0}
   Hand: {fileID: 254403327819256858}
   proceduralGrabber: {fileID: 0}
+--- !u!114 &8646918730871559124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250535285414371746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3ccb69340fd854da0671ca2098b699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectColor: {r: 0, g: 0.6, b: 0.06802598, a: 1}
+  HoverColor: {r: 0, g: 0.46232617, b: 0.6, a: 1}
 --- !u!1 &3591573992850114956
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,8 +309,8 @@ MonoBehaviour:
     Completed: 0
     playSpeed: 0
   EndPoint: {fileID: 0}
-  RestingPosition: {fileID: 8711084282162020648}
   RestingPosition2: {x: 0, y: 0, z: 0}
+  HandRestPosOffset: {x: 0, y: 0, z: 0}
   BaseSpeed: 1
   SpeedMultiplier: 0
   MovementCurve:

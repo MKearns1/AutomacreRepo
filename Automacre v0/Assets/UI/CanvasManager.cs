@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class CanvasManager : MonoBehaviour
     public GameObject WorkshopUI;
     public GameObject EndGamePopUp;
 
+    public GameObject CustomTab;
+    public GameObject PrebuiltTab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +28,7 @@ public class CanvasManager : MonoBehaviour
         EnterMode("Workshop");
 
         cursor = transform.Find("Cursor").GetComponent<RectTransform>();
-
+        SetWorkshopBotType("Custom");
     }
 
     // Update is called once per frame
@@ -71,6 +76,39 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    public void SetWorkshopBotType(string type)
+    {
+        switch (type)
+        {
+            case "Custom":
+                CustomTab.SetActive(true);
+                PrebuiltTab.SetActive(false);
+                WorkshopGeneral.instance.PrebuiltMode = false;
+                WorkshopGeneral.instance.BotWorkshopBase.gameObject.SetActive(true);
+
+                break;
+
+            case "Prebuilt":
+                CustomTab.SetActive(false);
+                PrebuiltTab.SetActive(true);
+                WorkshopGeneral.instance.PrebuiltMode = true;
+                WorkshopGeneral.instance.BotWorkshopBase.gameObject.SetActive(false);
+                break;
+        }
+    }
+
+    public void BackToWorkshop()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+            Application.Quit();
+#endif
+    }
 }
 
 [Serializable]

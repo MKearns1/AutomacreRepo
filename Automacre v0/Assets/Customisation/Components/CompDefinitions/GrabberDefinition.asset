@@ -15,6 +15,6 @@ MonoBehaviour:
   DefaultPrefab: {fileID: 2250535285414371746, guid: db9dc61f7b5035e438c53216f92c5e34, type: 3}
   Type: 2
   ProvidesSupport: 0
-  DefaultPoleOffset: {x: 0, y: 2, z: 1}
+  DefaultPoleOffset: {x: 0, y: 3, z: 1}
   DefaultClawPrefab: {fileID: 5558457999569766348, guid: 15f36fe71161f2143a3777c0169613f2, type: 3}
   DefaultClawRestOffset: {x: 0, y: 2, z: 1}

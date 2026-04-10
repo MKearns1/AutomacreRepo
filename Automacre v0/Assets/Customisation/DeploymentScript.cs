@@ -21,21 +21,29 @@ public class DeploymentScript : MonoBehaviour
 
     public void Deploy()
     {
-        GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType),WorkshopBot.transform.position,Quaternion.identity);
-        WorkshopBot.gameObject.SetActive(false);
-
-        // BotRuntimeData BotData = new BotRuntimeData();
-        // BotData.AttachPoints = WorkshopBot.DesignData.AttachPoints;
-
-        foreach (var ap in WorkshopBot.DesignData.AttachPoints.Keys)
+        if (WorkshopGeneral.instance.PrebuiltMode)
         {
-            Debug.LogWarning("THIS " + ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
+           // WorkshopGeneral.instance.DeployPrebuilt("Boxy1");
+        }
+        else
+        {
+            GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), WorkshopBot.transform.position, Quaternion.identity);
+            WorkshopBot.gameObject.SetActive(false);
 
+            // BotRuntimeData BotData = new BotRuntimeData();
+            // BotData.AttachPoints = WorkshopBot.DesignData.AttachPoints;
+
+            foreach (var ap in WorkshopBot.DesignData.AttachPoints.Keys)
+            {
+                Debug.LogWarning("THIS " + ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
+
+            }
+
+            Debug.LogWarning("POOOO" + WorkshopBot.DesignData.poo());
+
+            Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
         }
 
-        Debug.LogWarning("POOOO" + WorkshopBot.DesignData.poo());
-
-        Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
 
         Camera WorkshopCam = GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>();WorkshopCam.enabled = false;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
