@@ -21,6 +21,7 @@ public class BotBodyBase : MonoBehaviour
     Vector3 smoothedUp = Vector3.zero;
     public List<BotComponent> CurComponents;
     public Transform LowestPoint;
+    public LayerMask IgnoreLayers;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -186,21 +187,25 @@ public class BotBodyBase : MonoBehaviour
         //if (Physics.Raycast(GetComponentInParent<BotController_Procedural>().Ai.transform.position, Vector3.down, out groundHit, 5))//LayerMask.GetMask("Ground")
         //if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
 
-        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedgroundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(PredictedBodyPos, Vector3.down, out PredictedgroundHit, float.PositiveInfinity, ~IgnoreLayers))//LayerMask.GetMask("Ground")
         {
             PredictedBodyPos.y = PredictedgroundHit.point.y + DesiredOffsetFromGround;
             PredictedDistanceFromGround = PredictedgroundHit.distance;
             PredictedGroundY = PredictedgroundHit.point.y;
+
+            //Debug.LogWarning(transform.parent.name+PredictedgroundHit.collider.gameObject);
         }
 
         RaycastHit groundHit;
-        if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, LayerMask.GetMask("Ground")))//LayerMask.GetMask("Ground")
+        if (Physics.Raycast(LowestPoint.position, Vector3.down, out groundHit, float.PositiveInfinity, ~IgnoreLayers))//LayerMask.GetMask("Ground")
         {
             DistanceFromGround = groundHit.distance;
             currentGroundY = groundHit.point.y;
+           // Debug.LogWarning(transform.parent.name + groundHit.collider.gameObject);
+
         }
 
-        if(PredictedGroundY > currentGroundY)
+        if (PredictedGroundY > currentGroundY)
         {
             BotPosition.y = PredictedgroundHit.point.y + DesiredOffsetFromGround;
         }
@@ -319,7 +324,7 @@ public class BotBodyBase : MonoBehaviour
                 shortestLength = walker.maxLimbLength;
                 shortest = walker;
             }
-            Debug.Log(walker.maxLimbLength);
+            //Debug.Log(walker.maxLimbLength);
 
         }
         return shortest;
@@ -358,7 +363,7 @@ public class BotBodyBase : MonoBehaviour
 
         float tiltWeight = Mathf.InverseLerp(minStance, maxStance, stanceSize);
 
-        Debug.Log(stanceSize);
+        //Debug.Log(stanceSize);
         Vector3 adjustedNormal = Vector3.Slerp(Vector3.up, normal, tiltWeight);
 
 

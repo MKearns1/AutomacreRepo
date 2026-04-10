@@ -20,6 +20,7 @@ public class BotComponent_Wheel : BotComponent
         WheelDesignInfo info = new WheelDesignInfo();
 
         info.WheelSize = Vector3.one;
+        info.length= GetComponentInChildren<LimbCreator>().Length;
         return info;
     }
 
@@ -32,17 +33,24 @@ public class BotComponent_Wheel : BotComponent
     {
         //base.Initialise(DesignInformation, BC);
 
+        WheelDesignInfo info = DesignInformation as WheelDesignInfo; 
+
         GetComponentInChildren<ProceduralWheel>().enabled = true;
         GetComponentInChildren<ProceduralWheel>().BotBody = body;
         GetComponentInChildren<ProceduralWheel>().WheelPart = Wheel;
         GetComponentInChildren<ProceduralWheel>().EndPoint = Wheel;
         GetComponentInChildren<FABRIK>().TargetTransform = Wheel.GetChild(0).transform;
 
+        GetComponentInChildren<LimbCreator>().Length = info.length;
+        GetComponentInChildren<LimbCreator>().CreateJoints();
+        GetComponentInChildren<LimbCreator>().CreateJoints();
     }
 
     public override void OnAttached()
     {
         //Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
+
+        Debug.LogWarning("POOOOOOOOOOOOOOP");
 
         Vector3 wheelPos = WheelPlacementPos().point;
         GameObject newWheel = Instantiate((ComponentDefaultData as WheelDefinition).DefaultWheelPrefab, wheelPos, transform.rotation);
@@ -53,6 +61,7 @@ public class BotComponent_Wheel : BotComponent
         {
             Wheel.SetParent(botParent, true);
         }
+        GetComponentInChildren<LimbCreator>().Length = Mathf.Clamp(Mathf.Round(Vector3.Distance(transform.position, wheelPos) * 1.1f), 0, 8);
 
         GetComponentInChildren<FABRIK>().TargetTransform = newWheel.transform.GetChild(0).transform;
         GetComponentInChildren<LimbCreator>().CreateJoints();
@@ -109,6 +118,7 @@ public class BotComponent_Wheel : BotComponent
 public class WheelDesignInfo : ComponentDesignInfo
 {
     public Vector3 WheelSize;
+    public float length;
 
     public WheelDesignInfo()
     {

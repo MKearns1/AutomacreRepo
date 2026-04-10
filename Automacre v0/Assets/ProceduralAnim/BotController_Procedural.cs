@@ -30,6 +30,8 @@ public class BotController_Procedural : BotController
 
         Debug.Log(AttachmentPoints.Count);
 
+        Debug.LogWarning("ahah"+ AssembleData.Components.Count);
+
         List<BotComponent_Walker> walkers = new();
 
         foreach (var key in Design_AttachPoints.Keys)
@@ -47,7 +49,9 @@ public class BotController_Procedural : BotController
             AttachmentPoints[key].AttachNewComponent(NewCompScript);
             NewCompScript.Initialise(Design_AttachPoints[key].botComponent.GetDesignInfo(), this);
 
-            if(!(NewCompScript is BotComponent_Walker walker))return;
+            Debug.LogWarning("this "+AttachmentPoints[key].botComponent);
+
+            if(!(NewCompScript is BotComponent_Walker walker))continue;
            // if(walker.GetComponentInChildren<ProceduralWalker>() == null)return;
             walkers.Add(walker);
 

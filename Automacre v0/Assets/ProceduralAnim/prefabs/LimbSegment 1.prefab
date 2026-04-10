@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 329591185070759592}
   - component: {fileID: 5071198590010769512}
   - component: {fileID: 9174366840924202181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3702696177006233166}
   - component: {fileID: 6683375033897539362}
   - component: {fileID: 6869547781161362851}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5026491896861021955}
   - component: {fileID: 5838863182188574426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LimbSegment 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7165364424188571447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,8 +286,8 @@ Transform:
   m_GameObject: {fileID: 9211311528088900182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 5.625}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 11.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3353759601716709259}

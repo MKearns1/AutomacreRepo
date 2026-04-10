@@ -29,9 +29,11 @@ public class DeploymentScript : MonoBehaviour
 
         foreach (var ap in WorkshopBot.DesignData.AttachPoints.Keys)
         {
-            Debug.Log(ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
+            Debug.LogWarning("THIS " + ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
 
         }
+
+        Debug.LogWarning("POOOO" + WorkshopBot.DesignData.poo());
 
         Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
 
@@ -39,11 +41,16 @@ public class DeploymentScript : MonoBehaviour
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
         //GameObject.FindGameObjectWithTag("PlayerDeploy").transform.GetChild(0).GetComponent<Camera>().enabled = true;
         Instantiate(DeployPlayerPrefab, GameObject.Find("DeploySpawnPos").transform.position,Quaternion.identity);
-        Destroy(FindFirstObjectByType<CanvasManager>().gameObject);
+        // Destroy(FindFirstObjectByType<CanvasManager>().gameObject);
+        // FindFirstObjectByType<CanvasManager>().transform.Find("WorkshopUI").gameObject.SetActive(false);
+        // FindFirstObjectByType<CanvasManager>().transform.Find("DeployUI").gameObject.SetActive(false);
+
+        Destroy(WorkshopGeneral.instance.CurTransformGizmo);
+
         LevelEventsManager.instance.BotDeployed();
 
-        GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController_Procedural>());
-        Destroy(GameObject.Find("Canvas"));
+        // GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController_Procedural>());
+        //Destroy(GameObject.Find("Canvas"));
 
     }
 

@@ -82,7 +82,8 @@ public class WorkshopGeneral : MonoBehaviour
 
     public void SelectBotsComponent(BotComponent SelectedComponent)
     {
-        ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+        ComponentOptionsPopUp OptionsCanvas =
+            GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
 
         SelectedComponentOnBot = SelectedComponent;
 
@@ -123,7 +124,7 @@ public class WorkshopGeneral : MonoBehaviour
             GetMirroredAttachPoint(RemovedComponent.GetComponentInParent<AttatchPoint>(),null, RemovedComponent.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints).botComponent.RemoveFromBot();
         }
         RemovedComponent.RemoveFromBot();
-        ComponentOptionsPopUp OptionsCanvas = GameObject.Find("Canvas").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+        ComponentOptionsPopUp OptionsCanvas = GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
         if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
         OptionsCanvas.LeaveOptions();
     }

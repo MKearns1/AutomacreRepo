@@ -183,6 +183,7 @@ MonoBehaviour:
   fabrik: {fileID: 0}
   Foot: {fileID: 0}
   proceduralWalker: {fileID: 0}
+  MovementGroup: 0
 --- !u!114 &8804396597799793325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +315,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 128
-  moving: 0
+  IsMoving: 0
   MovementAllowed: 0
   StepSpeed: 2
   StepSpeedMultiplier: 2
@@ -369,7 +370,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   SurfaceNormal: {x: 0, y: 0, z: 0}
+  DistBetweenStartAndEnd: 0
+  ExtensionRatio: 0
   HasStepToken: 0
+  WantsToStep: 0
   StepMotion:
     duration: 0.5
     animCurve:

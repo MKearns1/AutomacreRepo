@@ -92,6 +92,8 @@ public class BotComponent_Walker : BotComponent_LimbType
         {
             Foot.SetParent(botParent,true);
         }
+
+        LimbCreator.Length = Mathf.Clamp(Mathf.Round(Vector3.Distance(transform.position, footpos) * 1.5f),1,8);
         
         fabrik.TargetTransform = newFoot.transform.Find("Joint");
         proceduralWalker.enabled = false;
@@ -112,9 +114,20 @@ public class BotComponent_Walker : BotComponent_LimbType
 
         if (DesignInfo is WalkerDesignInfo info)
         {
-            Debug.LogWarning("POOOOOOOOOOOOOOOOOP33333333");
+            Transform pp;
+            if (body != null)
+            {
+                pp = body.transform;
+
+            }
+            else
+            {
+                pp = transform.parent.parent.transform;
+                
+            }
+                Debug.LogWarning("POOOOOOOOOOOOOOOOOP33333333");
             //RaystartPos = transform.parent.parent.transform.TransformPoint(info.FootOffset);
-            RaystartPos = body.transform.TransformPoint(info.FootOffset);
+            RaystartPos = pp.TransformPoint(info.FootOffset);
             Debug.LogWarning("rayinfo " + RaystartPos);
         }
 

@@ -24,6 +24,8 @@ public class Bot_Workshop : MonoBehaviour
         float Offset = Vector3.Distance(hit.point, transform.Find("BotBody").GetComponent<WorkshopBot_Body>().LowestPoint.transform.position);
 
         DesignData.OffsetFromGround = Offset;
+
+        DesignData.Components = DesignData.poo();
         //Debug.Log(Offset);
     }
 

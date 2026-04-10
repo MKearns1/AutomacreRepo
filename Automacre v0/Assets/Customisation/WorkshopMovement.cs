@@ -78,7 +78,7 @@ public class WorkshopMovement : MonoBehaviour
             if(newHover != null) newHover.SetHover(true);
             currentHoverHighlight = newHover;
         }
-        Debug.Log(hits[0].collider.transform);
+       // Debug.Log(hits[0].collider.transform);
     }
 
     public void ClickAttachPoint(RaycastHit rayhit)
@@ -172,7 +172,7 @@ public class WorkshopMovement : MonoBehaviour
         TransformGizmo gizmo = rayhit.collider.gameObject.GetComponentInParent<TransformGizmo>();
         SelectionHighlight newSelected = rayhit.collider.GetComponentInParent<SelectionHighlight>();
 
-        Debug.Log(rayhit.collider.gameObject);
+        Debug.Log(rayhit.collider.gameObject == null);
 
         if (rayhit.collider.gameObject.tag == "AttatchPoint")
         {

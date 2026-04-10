@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2327417094130798666}
   - component: {fileID: 2824845214020608651}
   - component: {fileID: 8495926832573822084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,6 +76,8 @@ MonoBehaviour:
   hasX: 1
   hasY: 0
   hasZ: 1
+  Bounds: {x: 0, y: 0, z: 0}
+  Origin: {fileID: 0}
 --- !u!1 &2820143409966143888
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1876536579716142295}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttatchPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +121,7 @@ GameObject:
   - component: {fileID: 6105346003442511461}
   - component: {fileID: 3289618358274247529}
   - component: {fileID: 4184747198796201787}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +231,7 @@ GameObject:
   - component: {fileID: 2683586620011770088}
   - component: {fileID: 2793833972155249217}
   - component: {fileID: 3084630281846335204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +339,7 @@ GameObject:
   - component: {fileID: 2107759536178685840}
   - component: {fileID: 8773862039293231621}
   - component: {fileID: 7987151498683229353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +450,7 @@ GameObject:
   - component: {fileID: 1006034613192426826}
   - component: {fileID: 8473290126145389839}
   - component: {fileID: 5960230789158386918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,6 +613,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: tire
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 72d88b743c53e9d468d5280ae6f3a3d5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 72d88b743c53e9d468d5280ae6f3a3d5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -684,6 +694,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 72d88b743c53e9d468d5280ae6f3a3d5, type: 3}
       propertyPath: m_Name
       value: tire
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 72d88b743c53e9d468d5280ae6f3a3d5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 72d88b743c53e9d468d5280ae6f3a3d5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

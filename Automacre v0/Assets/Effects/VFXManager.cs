@@ -4,6 +4,7 @@ public class VFXManager : MonoBehaviour
 {
     public static VFXManager instance;
     public ParticleSystem StepParticleVFX;
+    public ParticleSystem CollectableParticleVFX;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

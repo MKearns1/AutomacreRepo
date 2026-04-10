@@ -35,21 +35,25 @@ public class ProceduralWheel : ProceduralPart
         RaycastHit FloorHit;
         Vector3 FloorDir =  Vector3.up*-1;
         Ray FloorRay = new Ray(DefaultWheelPos, FloorDir);
-        bool HitFloor = Physics.Raycast(FloorRay, out FloorHit, 5, LayerMask.GetMask("Ground"));
+        bool HitFloor = Physics.Raycast(FloorRay, out FloorHit, GetComponent<LimbCreator>().Length*1.5f, LayerMask.GetMask("Ground"));
         Debug.DrawLine(FloorRay.origin, FloorRay.origin + FloorDir);
+
+        Vector3 DesiredPos = transform.position;
 
         if (DefaultPosBlocked)
         {
-            WheelPart.transform.position = DefaultPosBlockedHit.point;
+            DesiredPos = DefaultPosBlockedHit.point;
         }
         else if(HitFloor)
         {
-            WheelPart.transform.position = FloorHit.point;
+            DesiredPos = FloorHit.point;
         }
         else
         {
-            WheelPart.transform.position = DefaultWheelPos;
+            DesiredPos = DefaultWheelPos + Vector3.down* GetComponent<LimbCreator>().Length/1.1f;
         }
+
+        WheelPart.transform.position = Vector3.Lerp(WheelPart.transform.position, DesiredPos, Time.deltaTime *10);
     }
 
     private void OnDrawGizmos()

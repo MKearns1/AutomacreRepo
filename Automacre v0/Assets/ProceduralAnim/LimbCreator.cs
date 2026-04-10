@@ -81,6 +81,7 @@ public class LimbCreator : MonoBehaviour
         newJoint.transform.SetParent(Parent, true);
         newJoint.name = name;
         Joints.Add(newJoint.transform);
+        newJoint.layer = LayerMask.NameToLayer("Bot");
 
     }
 
@@ -112,6 +113,8 @@ public class LimbCreator : MonoBehaviour
         newSegment.transform.SetParent(Parent, true);
         newSegment.name = name;
         Segments.Add(newSegment.transform);
+        newSegment.layer = LayerMask.NameToLayer("Bot");
+
     }
 
     public void DestroyOldJoints()
