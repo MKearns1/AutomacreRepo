@@ -100,3 +100,10 @@ MonoBehaviour:
   - {fileID: 2915661194853589136, guid: 0274b4ee88e995e419a8d56233d39291, type: 3}
   - {fileID: 2915661194853589136, guid: fb46c5b7feba68b4b8e20ca5c6e174ef, type: 3}
   - {fileID: 2915661194853589136, guid: 8b60f5aff1eae02418156b6341ab3159, type: 3}
+  - {fileID: 2915661194853589136, guid: 1c94be415d6ecd144a55da2b589342b6, type: 3}
+  Mirror: 1
+  PrebuiltBotPrefab:
+  - {fileID: 0}
+  curPrebuilt: {fileID: 0}
+  PrebuiltMode: 0
+  BotWorkshopBase: {fileID: 0}

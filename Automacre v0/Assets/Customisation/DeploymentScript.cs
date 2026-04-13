@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class DeploymentScript : MonoBehaviour
 {
@@ -21,13 +22,16 @@ public class DeploymentScript : MonoBehaviour
 
     public void Deploy()
     {
+        GameObject Bot = null;
+
         if (WorkshopGeneral.instance.PrebuiltMode)
         {
-           // WorkshopGeneral.instance.DeployPrebuilt("Boxy1");
+            // WorkshopGeneral.instance.DeployPrebuilt("Boxy1");
+            Bot = WorkshopGeneral.instance.curPrebuilt;
         }
         else
         {
-            GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), WorkshopBot.transform.position, Quaternion.identity);
+            Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), WorkshopBot.transform.position, Quaternion.identity);
             WorkshopBot.gameObject.SetActive(false);
 
             // BotRuntimeData BotData = new BotRuntimeData();
@@ -48,7 +52,8 @@ public class DeploymentScript : MonoBehaviour
         Camera WorkshopCam = GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>();WorkshopCam.enabled = false;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
         //GameObject.FindGameObjectWithTag("PlayerDeploy").transform.GetChild(0).GetComponent<Camera>().enabled = true;
-        Instantiate(DeployPlayerPrefab, GameObject.Find("DeploySpawnPos").transform.position,Quaternion.identity);
+        PlayerScript deployplayer = Instantiate(DeployPlayerPrefab, GameObject.Find("DeploySpawnPos").transform.position,Quaternion.identity).GetComponent<PlayerScript>();
+        deployplayer.CurrentSelectedBots.Add(Bot.GetComponent<BotController_Procedural>());
         // Destroy(FindFirstObjectByType<CanvasManager>().gameObject);
         // FindFirstObjectByType<CanvasManager>().transform.Find("WorkshopUI").gameObject.SetActive(false);
         // FindFirstObjectByType<CanvasManager>().transform.Find("DeployUI").gameObject.SetActive(false);
@@ -76,8 +81,19 @@ public class DeploymentScript : MonoBehaviour
         PreviewScript preview = GameObject.Find("PreviewArea").GetComponent<PreviewScript>();
         Vector3 Spawnpos = GameObject.Find("PreviewArea").transform.Find("SpawnPos").transform.position;
 
-        GameObject Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), Spawnpos, Quaternion.identity);
-        Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
+        GameObject Bot = null;
+
+        if (WorkshopGeneral.instance.PrebuiltMode)
+        {
+            // WorkshopGeneral.instance.DeployPrebuilt("Boxy1");
+            //Bot = WorkshopGeneral.instance.curPrebuilt;
+            Bot = Instantiate(WorkshopGeneral.instance.curPrebuilt, Spawnpos, Quaternion.identity);
+        }
+        else
+        {
+            Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), Spawnpos, Quaternion.identity);
+            Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
+        }
 
         preview.StartPreview(Bot.GetComponent<BotController_Procedural>());
 

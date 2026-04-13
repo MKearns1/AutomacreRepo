@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dd4c59fb01f7d47b50760533ebafbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyType: 
+  BodyType: Boxy
   Ai: {fileID: 1298590325560662435}
   Prebuilt: 0
   supportManager: {fileID: 0}

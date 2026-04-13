@@ -179,6 +179,7 @@ public class WorkshopMovement : MonoBehaviour
             Debug.Log("Attempt Attach");
             if (WorkshopGeneral.instance.CurrentSelectedComponentToPlace == null) return;
             ClickAttachPoint(rayhit);
+            return;
         }
 
         if (botComponent != null)

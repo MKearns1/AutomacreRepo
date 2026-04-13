@@ -30,7 +30,7 @@ public class WorkshopGeneral : MonoBehaviour
     public List<GameObject> BodyTypes = new List<GameObject>();
     public bool Mirror;
 
-    public GameObject PrebuiltBotPrefab;
+    public List<GameObject> PrebuiltBotPrefab;
     public GameObject curPrebuilt;
     public bool PrebuiltMode;
 
@@ -131,7 +131,7 @@ public class WorkshopGeneral : MonoBehaviour
             GetMirroredAttachPoint(RemovedComponent.GetComponentInParent<AttatchPoint>(),null, RemovedComponent.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints).botComponent.RemoveFromBot();
         }
         RemovedComponent.RemoveFromBot();
-        ComponentOptionsPopUp OptionsCanvas = GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
+        ComponentOptionsPopUp OptionsCanvas = GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("Custom").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
         if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
         OptionsCanvas.LeaveOptions();
     }
@@ -242,13 +242,25 @@ public class WorkshopGeneral : MonoBehaviour
         Mirror = mirror;
     }
 
+    GameObject getPrebuiltByName(string name)
+    {
+        GameObject bot = null;
+
+        foreach(var b in PrebuiltBotPrefab)
+        {
+            if(b.GetComponent<BotController_Keyframe>().BodyType == name) {bot= b;break; }
+            
+        }
+        return bot;
+    }
+
     public void DeployPrebuilt(string name)
     {
         switch (name)
         {
 
             case "Boxy1":
-                Instantiate(PrebuiltBotPrefab, BodySpawnPos.position, Quaternion.identity);
+                //Instantiate(PrebuiltBotPrefab, BodySpawnPos.position, Quaternion.identity);
                 GameObject.FindFirstObjectByType<DeploymentScript>().Deploy();
                 break;
         }
@@ -256,12 +268,20 @@ public class WorkshopGeneral : MonoBehaviour
 
     public void SelectPrebuiltType(string name)
     {
+        if(curPrebuilt != null) Destroy(curPrebuilt);
+
+
+        curPrebuilt = Instantiate(getPrebuiltByName(name), BodySpawnPos.position, Quaternion.identity);
+
+
+/*
         switch (name)
         {
             case "Boxy1":
-                Instantiate(null);
-                    break;
+                curPrebuilt = Instantiate(PrebuiltBotPrefab, BodySpawnPos.position, Quaternion.identity);
+                //GameObject.FindFirstObjectByType<DeploymentScript>().Deploy(); 
+                break;
 
-        }
+        }*/
     }
 }

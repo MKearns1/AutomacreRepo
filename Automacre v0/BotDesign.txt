@@ -1,0 +1,1 @@
+{"runtimeData":{"Components":[],"OffsetFromGround":123.0},"Bodytype":"poo","ComponentDesignInfo":{"rid":-2},"poo":{"x":0.0,"y":0.0,"z":0.0},"www":0.0,"references":{"version":2,"RefIds":[{"rid":-2,"type":{"class":"","ns":"","asm":""},"data":{}}]}}

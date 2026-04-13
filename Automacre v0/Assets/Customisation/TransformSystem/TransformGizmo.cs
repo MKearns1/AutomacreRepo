@@ -21,7 +21,7 @@ public class TransformGizmo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(LinkedTransform == null)Destroy(gameObject);
+        if (LinkedTransform == null) { Destroy(gameObject); return; }
         LinkedTransform.position = transform.position;
     }
 

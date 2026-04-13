@@ -158,7 +158,6 @@ public class FABRIK : IKSolver
 
             Vector3 relativePos = Joints[j + 1].Joint.position - Joints[j].Joint.position;
 
-           // Joints[j].Joint.transform.GetChild(1).rotation = Quaternion.LookRotation(relativePos, transform.up);
             Transform segment = GetChildSegment(Joints[j].Joint.transform);
             if(segment == null) continue;
             segment.rotation = Quaternion.LookRotation(relativePos, transform.up);

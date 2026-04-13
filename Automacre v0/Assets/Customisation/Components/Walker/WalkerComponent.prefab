@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7695810819077795449
 Transform:
   m_ObjectHideFlags: 0
@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 3126576563263263070}
   - component: {fileID: -6689400603016825658}
   - component: {fileID: 8804396597799793325}
+  - component: {fileID: 8921367179239226231}
   m_Layer: 0
   m_Name: WalkerComponent
   m_TagString: Untagged
@@ -199,6 +200,25 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 0, b: 0, a: 1}
   SelectColor: {r: 0, g: 0.6, b: 0.06802598, a: 1}
   HoverColor: {r: 0, g: 0.46232617, b: 0.6, a: 1}
+--- !u!114 &8921367179239226231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250535285414371746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee28fa8ca6859a1478b30f07a7137525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gizmo: {fileID: 0}
+  TargetTransform: {fileID: 2803333583803315007}
+  hasX: 1
+  hasY: 1
+  hasZ: 1
+  Bounds: {x: 0, y: 0, z: 0}
+  Origin: {fileID: 0}
 --- !u!1 &3591573992850114956
 GameObject:
   m_ObjectHideFlags: 0
