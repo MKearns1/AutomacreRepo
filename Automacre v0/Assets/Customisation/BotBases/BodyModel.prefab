@@ -157,6 +157,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookInterval: 1
   LookTimer: 0
+  BlinkInterval: 1
+  BlinkTimer: 0
+  BlinkLength: 0
+  BlinkProgress: 0
+  numOfBlinks: 1
   coneAngle: 15
   lookSpeed: 6
   curve:

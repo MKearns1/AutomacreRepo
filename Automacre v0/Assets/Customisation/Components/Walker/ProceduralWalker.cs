@@ -482,7 +482,6 @@ public class ProceduralWalker : ProceduralPart
     {
         Vector3 a = EndPoint.position;
         Vector3 b = DefaultFootPos;
-        //Vector3 b = NextStepPos;
         a.y = 0;
         b.y = 0;
 
@@ -493,16 +492,13 @@ public class ProceduralWalker : ProceduralPart
         c.y = StartPoint.position.y;
 
         float FootAngleError = Vector3.Angle(StartPoint.forward, (c - StartPoint.position).normalized);
-        //Debug.Log(FootAngleError);
         bool BodyRotatedTooMuch = FootAngleError > 30;
         float DistToNextPos = Vector3.Distance(EndPoint.position, NextStepPos);
 
 
-        // return  BodyRotatedTooMuch;
         return (FootFarAway || BodyRotatedTooMuch)
             && DistToNextPos >.5f
             ;
-        return FootFarAway;
     }
 
     public Vector3 GetFootPlacementPos()

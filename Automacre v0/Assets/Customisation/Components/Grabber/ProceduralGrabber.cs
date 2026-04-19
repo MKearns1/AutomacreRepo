@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System;
 
 public class ProceduralGrabber : ProceduralPart
 {
@@ -26,6 +27,8 @@ public class ProceduralGrabber : ProceduralPart
 
     [SerializeField] Collider[] colliders = new Collider[100];
     GameObject CurTargetGameObj;
+    Transform Body;
+    float randOffset;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,6 +39,8 @@ public class ProceduralGrabber : ProceduralPart
         localGrabTarget = new GameObject("localGrabTarget").transform;
        // localGrabTarget.SetParent(transform);
         localGrabTarget.position = RestingPosition2;
+        Body = transform.parent.parent.parent.transform;
+        randOffset = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
     }
 
     // Update is called once per frame
@@ -44,7 +49,11 @@ public class ProceduralGrabber : ProceduralPart
         base.Update();
         motionPlayer.update2(EndPoint);
 
-        RestingPosition2 = transform.parent.parent.parent.transform.TransformPoint(HandRestPosOffset);
+        RestingPosition2 = Body.TransformPoint(HandRestPosOffset);
+        float swingAmount = Body.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude / 3;
+           // Mathf.Clamp(Body.parent.GetComponentInChildren<BotAI>().NavAgent.velocity.magnitude * 2, 0, 5);
+        Vector3 botForward = Body.transform.forward;
+        Vector3 swingOffset = botForward * (Mathf.Sin(Time.time * 5 + randOffset) * swingAmount);
         //transform.position + transform.forward;
 
         if (!motionPlayer.isPlaying && Actions.Count >0)
@@ -88,7 +97,7 @@ public class ProceduralGrabber : ProceduralPart
 
         if(Actions.Count == 0)
         {
-            EndPoint.position = RestingPosition2;
+            EndPoint.position = Vector3.Lerp(EndPoint.position,RestingPosition2 + swingOffset, Time.deltaTime * 5);
         }
 /*        if (moving)
         {
@@ -246,7 +255,7 @@ public class ProceduralGrabber : ProceduralPart
     }
     public BotComponent_Basket GetBestBasket(List<BotComponent_Basket> baskets)
     {
-        BotComponent_Basket curbest = baskets[Random.Range(0,baskets.Count-1)];
+        BotComponent_Basket curbest = baskets[UnityEngine.Random.Range(0,baskets.Count-1)];
         foreach (BotComponent bc in baskets)
         {
             float dist = Vector3.Distance(transform.position, bc.transform.position);

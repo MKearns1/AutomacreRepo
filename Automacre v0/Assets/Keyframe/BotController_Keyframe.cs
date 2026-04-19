@@ -24,19 +24,9 @@ public class BotController_Keyframe : BotController
     {
         Vector3 forward = Ai.transform.forward;
 
-        Vector3 desiredDir =
-            Ai.NavAgent.desiredVelocity.normalized;
+        Vector3 desiredDir = Ai.NavAgent.desiredVelocity.normalized;
 
-        float turnAmount =
-            Vector3.SignedAngle(
-                forward,
-                desiredDir,
-                Vector3.up
-            );
-
-
-        Body.transform.position = Ai.transform.position;
-        Body.transform.rotation = Ai.transform.rotation;
+        float turnAmount = Vector3.SignedAngle(forward, desiredDir, Vector3.up);  
 
         Body.GetChild(0).GetComponent<Animator>().SetFloat("Velocity", Ai.NavAgent.velocity.magnitude);
         Body.GetChild(0).GetComponent<Animator>().SetFloat("Angle", turnAmount);
@@ -51,8 +41,9 @@ public class BotController_Keyframe : BotController
             Body.GetChild(0).GetComponent<Animator>().speed = 1;
         }
 
-       
 
+        Body.transform.position = Ai.transform.position;
+        Body.transform.rotation = Ai.transform.rotation;
 
     }
 

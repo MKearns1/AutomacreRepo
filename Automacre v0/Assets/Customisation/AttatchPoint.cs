@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class AttatchPoint : MonoBehaviour
 {
-    public Transform AttachedComponent;
     public BotComponent botComponent;
     public string Name;
     public List<ComponentType> UnacceptedTypes = new List<ComponentType>();
@@ -41,7 +40,6 @@ public class AttatchPoint : MonoBehaviour
 
     public void AttachNewComponent(BotComponent NewComp, BotController_Procedural BC = null)
     {
-        AttachedComponent = NewComp.transform;
         botComponent = NewComp;
         NewComp.transform.SetParent(transform, true);
         NewComp.OnAttached();
