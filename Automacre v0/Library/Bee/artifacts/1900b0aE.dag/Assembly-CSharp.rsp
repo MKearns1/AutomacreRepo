@@ -495,6 +495,7 @@
 "Assets/misc/childtest.cs"
 "Assets/misc/FaceCalculationTest.cs"
 "Assets/misc/parenttest.cs"
+"Assets/PerformanceMeasure.cs"
 "Assets/PreviewMode/PreviewScript.cs"
 "Assets/ProceduralAnim/BotBodyBase.cs"
 "Assets/ProceduralAnim/BotController_Procedural.cs"

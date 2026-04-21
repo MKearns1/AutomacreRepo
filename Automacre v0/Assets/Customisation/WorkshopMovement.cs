@@ -106,13 +106,12 @@ public class WorkshopMovement : MonoBehaviour
             }
             if(AttachPoint.botComponent != null) { AttachPoint.botComponent.RemoveFromBot(); }
 
-            GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, AttachPoint.transform.position, AttachPoint.transform.rotation);
+            GameObject newComp = Instantiate(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab, 
+                AttachPoint.transform.position, AttachPoint.transform.rotation);
 
             AttachPoint.AttachNewComponent(newComp.GetComponent<BotComponent>());
         }
 
-
-        //Debug.LogWarning(WorkshopGeneral.instance.CurrentSelectedComponentToPlace.ComponentDefaultData.DefaultPrefab == null);
 
        // WorkshopGeneral.instance.SelectMenuComponent(newComp.GetComponent<BotComponent>().CompName);
     }

@@ -62,4 +62,10 @@ public class SaveBotDesign : MonoBehaviour
         public float www;
 
     }
+
+    public class comp
+    {
+        string APName;
+
+    }
 }
