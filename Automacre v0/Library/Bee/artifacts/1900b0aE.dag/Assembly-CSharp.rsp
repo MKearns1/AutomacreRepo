@@ -489,7 +489,7 @@
 "Assets/InventoryManager.cs"
 "Assets/Keyframe/BotController.cs"
 "Assets/Keyframe/BotController_Keyframe.cs"
-"Assets/LevelScripting/Collectable.cs"
+"Assets/LevelScripting/Collectables/Collectable.cs"
 "Assets/LevelScripting/LevelEventsManager.cs"
 "Assets/MainMenu/MainMenu.cs"
 "Assets/misc/childtest.cs"
@@ -512,10 +512,13 @@
 "Assets/Resources/ParticleEffectScript.cs"
 "Assets/Resources/ResourceScript.cs"
 "Assets/Resources/Wood/Resource_Wood.cs"
+"Assets/Sounds/SoundInstance.cs"
+"Assets/Sounds/SoundManager.cs"
 "Assets/Splitscreen/SplitscreenManager.cs"
 "Assets/Storage/StorageScript.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 "Assets/UI/CanvasManager.cs"
+"Assets/UI/Fade.cs"
 "Assets/UI/HUDBase.cs"
 -langversion:9.0
 /deterministic

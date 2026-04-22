@@ -8,6 +8,8 @@ public class AttatchPoint : MonoBehaviour
     public BotComponent botComponent;
     public string Name;
     public List<ComponentType> UnacceptedTypes = new List<ComponentType>();
+    public AudioClip AttachSound;
+    public AudioClip RemoveSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +45,7 @@ public class AttatchPoint : MonoBehaviour
         botComponent = NewComp;
         NewComp.transform.SetParent(transform, true);
         NewComp.OnAttached();
+        SoundManager.instance.PlaySound(AttachSound);
 
         //NewComp.DesignInfo = NewComp.GetDesignInfo();
 
@@ -66,5 +69,10 @@ public class AttatchPoint : MonoBehaviour
                 break;
 
         }
+    }
+    public void RemoveComponent()
+    {
+        SoundManager.instance.PlaySound(RemoveSound);
+        botComponent.RemoveFromBot();
     }
 }

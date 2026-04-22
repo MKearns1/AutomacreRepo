@@ -177,10 +177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9077f529b15724893412aecf78e137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttachedComponent: {fileID: 0}
   botComponent: {fileID: 0}
   Name: 
   UnacceptedTypes: 
+  AttachSound: {fileID: 8300000, guid: a10ffaa5a1ba58b4c97ace1f1f56a340, type: 3}
+  RemoveSound: {fileID: 8300000, guid: 3c391d2f45a446f46b146b1710bfa322, type: 3}
 --- !u!1 &5944968671665811027
 GameObject:
   m_ObjectHideFlags: 0

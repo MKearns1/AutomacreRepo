@@ -12,6 +12,8 @@ public class TransformGizmo : MonoBehaviour
     Vector3 MaxBound;
     Vector3 MinBound;
 
+    public AudioClip clickSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,6 +66,7 @@ public class TransformGizmo : MonoBehaviour
         }
 
         transform.position += MoveAmount;
+        SoundManager.instance.PlaySound(clickSound);
     }
 
     public bool validMove(Vector3 Dir, float MinDist = 0)

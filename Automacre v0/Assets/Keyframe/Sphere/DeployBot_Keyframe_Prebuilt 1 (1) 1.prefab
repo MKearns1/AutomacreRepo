@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5776565100966365129}
-  - component: {fileID: 4576401471232773716}
   - component: {fileID: 2996249353906643101}
   m_Layer: 6
   m_Name: DeployBot_Keyframe_Prebuilt 1 (1) 1
@@ -36,22 +35,6 @@ Transform:
   - {fileID: 4339351132497366329}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4576401471232773716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118514627579487501}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe1ed8a00705f646a222f72b38dde27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyType: 
-  Ai: {fileID: 5121656546809046695}
-  body: {fileID: 1227757862193052873}
-  supportManager: {fileID: 4243569195674483491}
 --- !u!114 &2996249353906643101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97dd4c59fb01f7d47b50760533ebafbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyType: Insect
+  BodyType: Sphere
   Ai: {fileID: 5121656546809046695}
   Prebuilt: 0
   supportManager: {fileID: 0}
@@ -1502,15 +1485,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 30
+      value: 22.1511
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 30
+      value: 22.1511
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 30
+      value: 22.1511
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1518,7 +1501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5899999
+      value: -0.111
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d1e8cc70a307d14f963b1dd5343c91a, type: 3}
       propertyPath: m_LocalPosition.z

@@ -421,6 +421,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     arcHeight: 1
+  StepLandSound: {fileID: 8300000, guid: ab2aba7caa6577643a9dc3a193a389b3, type: 3}
 --- !u!1 &5798334751311151215
 GameObject:
   m_ObjectHideFlags: 0

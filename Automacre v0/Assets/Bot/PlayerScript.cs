@@ -17,7 +17,14 @@ public class PlayerScript : MonoBehaviour
     float rotY;
     public float RotationSpeed=20;
 
-    Camera cam;
+    Camera cam { get 
+        { if (transform.GetChild(0).transform.GetComponent<Camera>().enabled)
+                return transform.GetChild(0).transform.GetComponent<Camera>();
+            else if (transform.GetChild(1).transform.GetComponent<Camera>().enabled)
+            { return transform.GetChild(1).transform.GetComponent<Camera>(); }
+            else return null;
+        } set { }
+    }
 
     Vector3 CamDesiredPos;
     Quaternion CamDesiredRot;
@@ -26,7 +33,7 @@ public class PlayerScript : MonoBehaviour
     float AgentStopDistance=10;
 
     public List<BotScript> CurrentSelectedBots1;
-    public List<BotController_Procedural> CurrentSelectedBots;
+    public List<BotController> CurrentSelectedBots;
     HUDBase HudBase;
     RaycastHit CurrentHoveredObj;
 
@@ -62,28 +69,9 @@ public class PlayerScript : MonoBehaviour
         Vector3 forwardRelative = InputAxisY * camForward;
         Vector3 rightRelative = InputAxisX * camRight;
 
-
-       // Vector3 MoveDirection = new Vector3(InputAxisX, 0, InputAxisY) * Time.deltaTime * CamMoveSpeed;
         Vector3 MoveDirection = (forwardRelative+rightRelative) * Time.deltaTime * CamMoveSpeed;
 
-        //transform.forward = camForward;
         CamDesiredPos += MoveDirection;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         if (Input.GetKey(KeyCode.E))
@@ -97,7 +85,7 @@ public class PlayerScript : MonoBehaviour
         else
         { rotY = 0;        }
 
-            Vector3 Rotation = new Vector3(0, transform.rotation.eulerAngles.y + rotY*10, 0);
+            Vector3 Rotation = new Vector3(0, transform.rotation.eulerAngles.y + rotY*RotationSpeed * Time.deltaTime, 0);
 
         //transform.rotation = Quaternion.Euler(Rotation);
         
@@ -164,8 +152,6 @@ public class PlayerScript : MonoBehaviour
             HudBase.Hover(i);
         }*/
 
-        
-
         //GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>().BuildNavMesh();
 
     }
@@ -178,10 +164,10 @@ public class PlayerScript : MonoBehaviour
         if (hit.collider != null)
         {
 
-            if (hit.collider.GetComponentInParent<BotController_Procedural>() != null)
-            CurrentSelectedBots.Add(hit.collider.GetComponentInParent<BotController_Procedural>());
+            if (hit.collider.GetComponentInParent<BotController>() != null)
+            CurrentSelectedBots.Add(hit.collider.GetComponentInParent<BotController>());
 
-            foreach (BotController_Procedural bot in CurrentSelectedBots)
+            foreach (BotController bot in CurrentSelectedBots)
             {
                 bot.Ai.MoveTo(hit.point);
             }
@@ -193,7 +179,6 @@ public class PlayerScript : MonoBehaviour
             {
 
                 clickable.OnClick(hit.point, CurrentSelectedBots1);
-                //Debug.Log("2222222222222222222222222222");
             }
             else
             {
@@ -202,28 +187,8 @@ public class PlayerScript : MonoBehaviour
                 {
                     bot.GiveDirection(MoveTodirection);
                 }
-                //Debug.Log("GGGGGGGGGGGGGG");
             }
-        //    BotDirection direction = new BotDirection(DirectType.Move, hit.point, hit.collider.gameObject);
 
-        //    if (hit.collider.GetComponentInParent<ResourceScript>() != null)
-        //    {
-
-        //        ResourceScript resource = hit.collider.gameObject.GetComponent<ResourceScript>();
-        //        direction.Type = DirectType.Harvest;
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //    //Debug.Log(hit.collider.gameObject.ToString());
-        //    foreach (var bot in GameObject.FindGameObjectsWithTag("Bot"))
-        //    {
-        //        if (bot != null)
-        //        {
-        //            bot.GetComponent<BotScript>().GiveDirection(direction);
-        //        }
-        //    }
         }
         ClickLocation = hit.point;
         DrawDebugCircle(ClickLocation, AgentStopDistance, 16, Color.red, 10);
@@ -232,7 +197,6 @@ public class PlayerScript : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(RotationOrigin, 1);
-        //Gizmos.DrawSphere(ClickLocation, AgentStopDistance);
     }
 
 

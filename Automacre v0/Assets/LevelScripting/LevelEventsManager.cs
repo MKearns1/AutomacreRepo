@@ -8,6 +8,7 @@ public class LevelEventsManager : MonoBehaviour
     public int collectedCollectables=0;
     public int CompletionCollectables=10;
 
+
     private void Awake()
     {
         if (instance == null)
@@ -21,7 +22,9 @@ public class LevelEventsManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Fade f = Instantiate(VFXManager.instance.Fade, GameObject.FindFirstObjectByType<CanvasManager>().transform).GetComponent<Fade>();
+        f.SetDirection(-1, Color.black);
+        Destroy(f.gameObject,f.FadeLength);
     }
 
     // Update is called once per frame

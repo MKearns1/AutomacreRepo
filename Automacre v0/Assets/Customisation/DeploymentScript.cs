@@ -34,16 +34,10 @@ public class DeploymentScript : MonoBehaviour
             Bot = Instantiate(GetBodyTypeByName(WorkshopBot.BodyType), WorkshopBot.transform.position, Quaternion.identity);
             WorkshopBot.gameObject.SetActive(false);
 
-            // BotRuntimeData BotData = new BotRuntimeData();
-            // BotData.AttachPoints = WorkshopBot.DesignData.AttachPoints;
-
             foreach (var ap in WorkshopBot.DesignData.AttachPoints.Keys)
             {
                 Debug.LogWarning("THIS " + ap + WorkshopBot.DesignData.AttachPoints[ap].botComponent);
-
             }
-
-            Debug.LogWarning("POOOO" + WorkshopBot.DesignData.poo());
 
             Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
         }
@@ -51,19 +45,12 @@ public class DeploymentScript : MonoBehaviour
 
         Camera WorkshopCam = GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>();WorkshopCam.enabled = false;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetComponent<WorkshopMovement>().enabled = false;
-        //GameObject.FindGameObjectWithTag("PlayerDeploy").transform.GetChild(0).GetComponent<Camera>().enabled = true;
         PlayerScript deployplayer = Instantiate(DeployPlayerPrefab, GameObject.Find("DeploySpawnPos").transform.position,Quaternion.identity).GetComponent<PlayerScript>();
-        deployplayer.CurrentSelectedBots.Add(Bot.GetComponent<BotController_Procedural>());
-        // Destroy(FindFirstObjectByType<CanvasManager>().gameObject);
-        // FindFirstObjectByType<CanvasManager>().transform.Find("WorkshopUI").gameObject.SetActive(false);
-        // FindFirstObjectByType<CanvasManager>().transform.Find("DeployUI").gameObject.SetActive(false);
+        deployplayer.CurrentSelectedBots.Add(Bot.GetComponent<BotController>());
 
         Destroy(WorkshopGeneral.instance.CurTransformGizmo);
 
         LevelEventsManager.instance.BotDeployed();
-
-        // GameObject.FindFirstObjectByType<SplitscreenManager>().CopyBot(Bot.GetComponent<BotController_Procedural>());
-        //Destroy(GameObject.Find("Canvas"));
 
     }
 

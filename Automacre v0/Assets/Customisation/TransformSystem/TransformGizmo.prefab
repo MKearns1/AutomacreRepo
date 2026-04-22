@@ -120,6 +120,7 @@ MonoBehaviour:
   Y: {fileID: 422831913188537305}
   Z: {fileID: 105886975201648916}
   Bounds: {x: 4, y: 5, z: 4}
+  clickSound: {fileID: 8300000, guid: 49ed99ad060f0074992138ed7865f151, type: 3}
 --- !u!1 &4685108688277321317
 GameObject:
   m_ObjectHideFlags: 0

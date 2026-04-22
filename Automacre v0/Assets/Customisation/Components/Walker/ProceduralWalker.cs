@@ -47,6 +47,8 @@ public class ProceduralWalker : ProceduralPart
 
     public MovementMotion StepMotion = new();
 
+    public AudioClip StepLandSound;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -325,7 +327,7 @@ public class ProceduralWalker : ProceduralPart
 
     void StepAnimationTick()
     {
-        MoveTransition(PrevPos, MoveToPos, moveProgress, MovementCurve);
+        MoveTransition(PrevPos, MoveToPos, MovementCurve);
         moveProgress += Time.deltaTime * StepSpeed;
 
         if(Vector3.Distance(EndPoint.position, MoveToPos) < 0.1f)
@@ -357,6 +359,7 @@ public class ProceduralWalker : ProceduralPart
         IsMoving = false;
 
         Destroy(Instantiate(VFXManager.instance.StepParticleVFX.gameObject, EndPoint.position, Quaternion.identity), 1);
+        SoundManager.instance.PlaySound(StepLandSound);
 
         Coordinator.NotifyStepFinished(this);
     }
@@ -402,18 +405,14 @@ public class ProceduralWalker : ProceduralPart
         );
     }
 
-    public void MoveTransition(Vector3 startPos, Vector3 EndPos, float amount, AnimationCurve movementCurve)
+    public void MoveTransition(Vector3 startPos, Vector3 EndPos, AnimationCurve movementCurve)
     {
-       // moveProgress += Time.deltaTime * StepSpeed;
         float t = Mathf.Clamp01(moveProgress);
         t = Mathf.SmoothStep(0, 1, t);
         if (movementCurve.length > 0)
             t = movementCurve.Evaluate(t);
 
         Vector3 flatPos = Vector3.Lerp(startPos, EndPos, t);
-
-        float Fulldist = Vector3.Distance(PrevPos, EndPos);
-        float curdist = Vector3.Distance(EndPoint.position, EndPos);
 
         float maxJumpHeight = maxLimbLength/2;
         float height = 4 * maxJumpHeight * t * (1 - t);

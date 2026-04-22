@@ -36,6 +36,8 @@ public class WorkshopGeneral : MonoBehaviour
 
     public Bot_Workshop BotWorkshopBase;
 
+    public AudioClip AttachSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -128,9 +130,9 @@ public class WorkshopGeneral : MonoBehaviour
     {
         if (Mirror)
         {
-            GetMirroredAttachPoint(RemovedComponent.GetComponentInParent<AttatchPoint>(),null, RemovedComponent.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints).botComponent.RemoveFromBot();
+            GetMirroredAttachPoint(RemovedComponent.GetComponentInParent<AttatchPoint>(),null, RemovedComponent.GetComponentInParent<Bot_Workshop>().DesignData.AttachPoints).RemoveComponent();
         }
-        RemovedComponent.RemoveFromBot();
+        RemovedComponent.GetComponentInParent<AttatchPoint>().RemoveComponent();
         ComponentOptionsPopUp OptionsCanvas = GameObject.FindFirstObjectByType<CanvasManager>().WorkshopUI.transform.Find("Custom").transform.Find("ComponentOptions").GetComponent<ComponentOptionsPopUp>();
         if (GameObject.FindGameObjectWithTag("SelectionArrow") != null) Destroy(GameObject.FindGameObjectWithTag("SelectionArrow"));
         OptionsCanvas.LeaveOptions();
@@ -242,7 +244,7 @@ public class WorkshopGeneral : MonoBehaviour
         Mirror = mirror;
     }
 
-    GameObject getPrebuiltByName(string name)
+    public GameObject getPrebuiltByName(string name)
     {
         GameObject bot = null;
 

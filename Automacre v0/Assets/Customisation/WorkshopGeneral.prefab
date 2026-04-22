@@ -103,7 +103,13 @@ MonoBehaviour:
   - {fileID: 2915661194853589136, guid: 1c94be415d6ecd144a55da2b589342b6, type: 3}
   Mirror: 1
   PrebuiltBotPrefab:
-  - {fileID: 0}
+  - {fileID: 4578962270908916788, guid: d78693f28d15a4147a24552a78a92159, type: 3}
+  - {fileID: 2118514627579487501, guid: 077bb1451e3cb4640bcdbd389af71a8a, type: 3}
+  - {fileID: 4578962270908916788, guid: b92b45132b45afd47a88efdfd5a306c2, type: 3}
+  - {fileID: 2118514627579487501, guid: d15931a64e610bb498a755efd9b43086, type: 3}
+  - {fileID: 2118514627579487501, guid: 1f9187226569f5c4baaab6c14aa406dc, type: 3}
+  - {fileID: 4578962270908916788, guid: ed9475131dc8d5b4a9285d37fd1f680e, type: 3}
+  - {fileID: 2118514627579487501, guid: c0c0b6f05c1134e45b22ef0a1db17fe8, type: 3}
   curPrebuilt: {fileID: 0}
   PrebuiltMode: 0
   BotWorkshopBase: {fileID: 0}

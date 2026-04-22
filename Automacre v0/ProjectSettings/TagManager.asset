@@ -11,6 +11,7 @@ TagManager:
   - SelectionArrow
   - TransformGizmo
   - PreviewBotCamera
+  - SplitScreenCam
   layers:
   - Default
   - TransparentFX
