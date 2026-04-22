@@ -4,9 +4,7 @@ using UnityEngine;
 public class BotComponent : MonoBehaviour
 {
     public string CompName;
-   // [SerializeField] public ComponentType Type;
     [SerializeField] public BotBodyBase body;
-   // [SerializeField] public GameObject DefaultComponentPrefab;
     [SerializeField] public ComponentDefinition ComponentDefaultData;
     public ComponentDesignInfo DesignInfo;
 

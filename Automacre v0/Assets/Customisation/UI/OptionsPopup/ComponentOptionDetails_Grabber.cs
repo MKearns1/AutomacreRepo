@@ -143,33 +143,7 @@ public class ComponentOptionDetails_Grabber : ComponentOptionDetails_LimbType
         UpdateUI();
         return;
 
-        /*int newJoints;
-        float newLength;
-        float newFootSize;
 
-        if (comp == null && Options == null)
-        {
-            Debug.LogWarning("Set CompOptionsDetails Failed - No Data");
-            return;
-        }
-
-        if (Options != null)
-        {
-            Joints = Options.Joints;
-            Length = Options.Length;
-            FootSize = Options.FootSize;
-            JointSize = Options.JointSize;
-        }
-        else
-        {
-            Joints = comp.GetComponentInChildren<LimbCreator>().NumberOfJoints;
-            Length = comp.GetComponentInChildren<LimbCreator>().Length;
-            FootSize = comp.Foot.localScale.y;
-            JointSize = comp.GetComponentInChildren<LimbCreator>().JointSize;
-        }
-
-        UpdateUI();
-       */
     }
 
     public override void SetComponentValues(BotComponent CopyComponent = null, ComponentOptionDetails CopyOptions = null)

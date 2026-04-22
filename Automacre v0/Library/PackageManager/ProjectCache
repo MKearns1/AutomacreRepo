@@ -556,11 +556,13 @@ m_ResolvedPackages:
     - 3.0.37
     - 3.0.38
     - 3.0.39
+    - 3.0.40
     compatible:
     - 3.0.37
     - 3.0.38
     - 3.0.39
-    recommended: 3.0.39
+    - 3.0.40
+    recommended: 3.0.40
     deprecated:
     - 3.0.37
   dependencies:
@@ -6147,12 +6149,14 @@ m_ResolvedPackages:
     - 3.2.1
     - 3.3.0
     - 3.4.0
+    - 3.4.1
     compatible:
     - 3.1.0
     - 3.2.0
     - 3.2.1
     - 3.3.0
     - 3.4.0
+    - 3.4.1
     recommended: 3.1.0
     deprecated: []
   dependencies:

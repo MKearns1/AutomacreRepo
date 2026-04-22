@@ -40,18 +40,6 @@ public class LimbCreator : MonoBehaviour
         //Joints.Add(end.transform);
         CreateBone(transform.position + transform.forward * Length, Joints[Joints.Count - 1], "End");
         Joints[Joints.Count - 1].transform.GetChild(0).gameObject.SetActive(false); //removes visual of last joint
-/*        if(Pole != null)
-        DestroyImmediate(Pole.gameObject);
-*/
-/*        if (Pole != null)
-        {
-            GameObject pole = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Vector3 MidWayPoint = Vector3.Lerp(Joints[Joints.Count - 1].position, Joints[0].position, 0.5f);
-            pole.transform.position = transform.up * 6 + MidWayPoint;
-            pole.transform.SetParent(transform, true);
-            Pole = pole.transform;
-            Pole.name = "Pole";
-        }*/
 
         CreateSegments();
         if (Application.isPlaying)

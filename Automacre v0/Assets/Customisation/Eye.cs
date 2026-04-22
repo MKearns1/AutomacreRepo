@@ -74,12 +74,9 @@ public class Eye : MonoBehaviour
             if (BlinkProgress <= -DefaultEyeSize.y * numOfBlinks)
             {
                 BlinkTimer = 0;
-                //BlinkInterval = Random.Range(1,4);
                 BlinkInterval = 2;
                 BlinkProgress = DefaultEyeSize.y;
                 numOfBlinks = randomOddNum(1,5);
-                //numOfBlinks = 3;
-                //BlinkSpeed = 2/(float)numOfBlinks;
                 BlinkSpeed = Random.Range(2,3);
                 transform.Find("Pupil").transform.localScale = DefaultEyeSize;
                 Debug.LogWarning("BLINK");

@@ -27,12 +27,8 @@ public class CanvasManager : MonoBehaviour
     void Start()
     {
 
-        //DeployUI = transform.Find("DeployUI").gameObject;
-       // WorkshopUI = transform.Find("WorkshopUI").gameObject;
-
         EnterMode("Workshop");
 
-       // cursor = transform.Find("Cursor").GetComponent<RectTransform>();
         SetWorkshopBotType("Custom");
     }
 
@@ -184,12 +180,20 @@ public class CanvasManager : MonoBehaviour
         playButtonSound();
     }
 
+    public void PreviewBot()
+    {
+        FindFirstObjectByType<DeploymentScript>().PreviewBot();
+        
+    }
+
     void playButtonSound()
     {
         SoundManager.instance.PlaySound(Button1Sound);
     }
     public void Quit()
     {
+        SceneManager.LoadScene("MainMenu");
+
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else

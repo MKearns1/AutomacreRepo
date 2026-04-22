@@ -45,59 +45,6 @@ public class ComponentOptionDetails_Walker : ComponentOptionDetails_LimbType
         UpdateUI();
 
     }
-    /*    public void ChangeDetail(DetailChange change)
-        {
-            switch (change.name)
-            {
-                case "Joints":
-
-                    BotComponent_Walker walker = WorkshopGeneral.instance.CurrentSelectedComponentToPlace as BotComponent_Walker;
-
-                    //Joints += amount;
-                    walker.GetComponent<LimbCreator>().NumberOfJoints = Joints;
-                    walker.GetComponent<LimbCreator>().CreateJoints();
-                    walker.GetComponent<LimbCreator>().CreateJoints();
-
-                    break;
-
-            }
-        }*/
-
-
-    /*    public void ChangeJoints(int amount)
-        {
-            BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
-
-            int nextAmount = walker.GetComponentInChildren<LimbCreator>().NumberOfJoints + amount;
-
-            if(nextAmount == 0 ||  nextAmount == 20) return;
-
-            walker.GetComponentInChildren<LimbCreator>().NumberOfJoints = nextAmount;
-            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
-            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
-
-            // transform.Find("Joints").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
-            Joints = nextAmount;
-            UpdateUI();
-        }*/
-
-    /*    public void ChangeLength(float amount)
-        {
-            BotComponent_Walker walker = WorkshopGeneral.instance.SelectedComponentOnBot as BotComponent_Walker;
-
-            float nextAmount = walker.GetComponentInChildren<LimbCreator>().Length + amount;
-
-            if (nextAmount < 2 || nextAmount > 8) return;
-
-            walker.GetComponentInChildren<LimbCreator>().Length = nextAmount;
-            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
-            walker.GetComponentInChildren<LimbCreator>().CreateJoints();
-
-            // transform.Find("Length").GetChild(0).Find("ValueText").GetComponent<TextMeshProUGUI>().text = nextAmount.ToString();
-            Length = nextAmount;
-            UpdateUI();
-
-        }*/
 
     public void ChangeFootSize(int amount)
     {

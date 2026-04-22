@@ -9,6 +9,7 @@ public class IKSolver : MonoBehaviour
     public List<IKJoint> Joints = new List<IKJoint>();
     public List<IKJoint> DefaultJoints = new List<IKJoint>();
     protected Vector3 TargetPoint;
+    public Transform TargetTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()

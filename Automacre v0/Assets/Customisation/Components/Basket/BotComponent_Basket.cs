@@ -6,7 +6,6 @@ public class BotComponent_Basket : BotComponent
 {
     public Transform Basket;
     public Transform PlacePoint;
-    //public ProceduralWalker proceduralWalker;
 
     public override void Awake()
     {
@@ -44,29 +43,6 @@ public class BotComponent_Basket : BotComponent
             Basket.rotation = GetComponentInParent<Bot_Workshop>().transform.rotation;
         }
 
-        /* proceduralWalker = GetComponentInChildren<ProceduralWalker>();
-         LimbCreator = GetComponentInChildren<LimbCreator>();
-         fabrik = GetComponentInChildren<FABRIK>();
-         proceduralWalker.enabled = false;
-         base.OnAttached();
-
-
-         Vector3 footpos = FootPlacementPosition().point;
-         GameObject newFoot = Instantiate((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab, footpos, transform.rotation);
-         Debug.LogWarning((ComponentDefaultData as WalkerDefinition).DefaultFootPrefab == null);
-
-         Foot = newFoot.transform;
-         Transform botParent = WorkshopGeneral.GetTopParent(transform);
-         if (botParent != transform)
-         {
-             Foot.SetParent(botParent,true);
-         }
-
-         fabrik.TargetTransform = newFoot.transform;
-         proceduralWalker.enabled = false;
-         LimbCreator.CreateJoints();
-         LimbCreator.CreateJoints();
-         DesignInfo = GetDesignInfo();*/
 
         Debug.LogWarning("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }

@@ -82,7 +82,7 @@ public class DeploymentScript : MonoBehaviour
             Bot.GetComponent<BotController_Procedural>().AssembleBot(WorkshopBot.DesignData);
         }
 
-        preview.StartPreview(Bot.GetComponent<BotController_Procedural>());
+        preview.StartPreview(Bot.GetComponent<BotController>());
 
         GameObject.Find("PreviewCam").GetComponent<Camera>().enabled = true;
         GameObject.FindGameObjectWithTag("PlayerWorkshop").transform.GetChild(0).GetChild(0).GetComponent<Camera>().enabled = false;

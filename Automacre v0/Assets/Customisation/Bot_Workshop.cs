@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class Bot_Workshop : MonoBehaviour
 {
-    //public Dictionary<string, AttatchPoint> AttatchPoints = new Dictionary<string, AttatchPoint>();
     public BotRuntimeData DesignData = new BotRuntimeData();
     public string BodyType;
-   // public Transform LowestPoint  { get {return transform.Find("BotBody"). } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +17,6 @@ public class Bot_Workshop : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        //Physics.Raycast(LowestPoint.transform.position, Vector3.down, out hit, 100, LayerMask.GetMask("Ground"));
         Physics.Raycast(transform.Find("BotBody").GetComponent<WorkshopBot_Body>().LowestPoint.transform.position, Vector3.down, out hit, 100, LayerMask.GetMask("Ground"));
         float Offset = Vector3.Distance(hit.point, transform.Find("BotBody").GetComponent<WorkshopBot_Body>().LowestPoint.transform.position);
 

@@ -62,17 +62,6 @@ public class MovementCoordinator : MonoBehaviour
             group.Tick(GaitClock, this);
         }
 
-        
-
-        return;
-      QueueCopy.Clear();
-        actualmovementallowednum = 0;
-        foreach(var proceduralComponent in StepQueue)
-        {
-            QueueCopy.Add(proceduralComponent);
-            if(proceduralComponent.MovementAllowed) actualmovementallowednum++;
-        }
-
 
     }
 

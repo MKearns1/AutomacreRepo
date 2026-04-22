@@ -23,23 +23,6 @@ public class AttatchPoint : MonoBehaviour
         
     }
 
-   /* public RaycastHit FootPlacementPosition()
-    {
-        int layernum = LayerMask.GetMask("Ground");
-        int layermask = 1 << layernum;  
-
-        Ray floorray = new Ray(transform.position+transform.forward, Vector3.down);
-        RaycastHit hit;
-
-        bool h = Physics.Raycast(floorray, out hit, 100, layernum);
-        if (h)
-        {
-            Debug.Log(hit.collider.name);
-        }
-
-        return hit;
-    }*/
-
     public void AttachNewComponent(BotComponent NewComp, BotController_Procedural BC = null)
     {
         botComponent = NewComp;

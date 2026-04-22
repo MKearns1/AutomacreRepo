@@ -37,28 +37,7 @@ public class BotComponent_LimbType : BotComponent
         //LimbCreator.PoleOffset = LimbDesigninfo.PoleOffset;
         LimbCreator.CreatePole(transform.TransformPoint(LimbDesigninfo.PoleOffset));Debug.Log(LimbDesigninfo.PoleOffset);
         //LimbCreator.Pole.position = LimbCreator.transform.position + LimbCreator.PoleOffset;
-/*
 
-
-        body = BC.body;
-        //  GameObject Foot = Instantiate(WorkshopGeneral.instance.FootPrefab, transform.position + Vector3.down + transform.forward, Quaternion.identity);
-        //GetComponentInChildren<ProceduralGrabber>().EndPoint = Hand.transform;
-        //GetComponentInChildren<ProceduralGrabber>().BotBody = body;
-        //GetComponentInChildren<FABRIK>().TargetTransform = Hand.transform;
-
-        Debug.Log(WalkerConfiguration == null);
-        GetComponentInChildren<LimbCreator>().NumberOfJoints = WalkerConfiguration.NumberofJoints;
-      //  GetComponentInChildren<LimbCreator>().Length = WalkerConfiguration.LimbLength;
-        //Hand.localScale = WalkerConfiguration.HandSize;
-        GetComponentInChildren<LimbCreator>().JointSize = WalkerConfiguration.JointSize;
-
-        GetComponentInChildren<LimbCreator>().CreateJoints();
-        GetComponentInChildren<LimbCreator>().CreateJoints();
-
-        //transform.GetComponentInChildren<ProceduralGrabber>().enabled = true;
-
-        Debug.Log("Initialise Component : " + gameObject.name);
-        //body.GetAllProceduralComponents();*/
     }
 
 

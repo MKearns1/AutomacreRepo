@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class FABRIK : IKSolver
 {
     public int iterations = 10;
-    public Transform TargetTransform;
     public Transform Pole;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
