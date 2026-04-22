@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class CanvasManager : MonoBehaviour
 {
-    RectTransform cursor;
+    public RectTransform cursor;
 
     [SerializeField]public List<CompIcon> compIcons = new List<CompIcon>();
 
@@ -32,7 +32,7 @@ public class CanvasManager : MonoBehaviour
 
         EnterMode("Workshop");
 
-        cursor = transform.Find("Cursor").GetComponent<RectTransform>();
+       // cursor = transform.Find("Cursor").GetComponent<RectTransform>();
         SetWorkshopBotType("Custom");
     }
 
